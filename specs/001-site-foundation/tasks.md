@@ -104,7 +104,7 @@ further task is needed for AC-1.1/AC-1.2.
   - touch: `frontend/src/features/profile/*`, `frontend/src/features/contact/*`, `frontend/src/components/profile-photo/*`
   - done when: component tests render from test fixtures and assert name (h1), photo with content alt text and fixed aspect ratio, all bio paragraphs, every topic, a "WellD" link to `https://www.welld.ch`; Contact shows the email as a `mailto:` link with the address as text and one text link per profile; the photo `onError` fallback shows the monogram.
 
-- [ ] T7: [frontend] Talks catalogue and talk detail — refs: AC-4.1, AC-4.2, AC-4.3, AC-8.1 — deps: T3, T4
+- [x] T7: [frontend] Talks catalogue and talk detail — refs: AC-4.1, AC-4.2, AC-4.3, AC-8.1 — deps: T3, T4
   - touch: `frontend/src/features/talks/*`
   - done when: component tests show every content talk with title (link), summary, duration written out ("45 minutes"), level, format and language badge(s); the detail of a talk with appearances on both sides of a fixed `now` shows full abstract, an upcoming group and a past group; "Also given as" lists each alternative title with its language badge (absent when there are none); a talk with no appearances shows neither group heading and "Not given in public yet."; zero talks shows the empty message with a Contact link.
 
