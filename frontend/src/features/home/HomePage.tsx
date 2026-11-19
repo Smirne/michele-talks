@@ -31,7 +31,7 @@ export const HomeView = ({ now = new Date(), content = defaultContent }: Props) 
 
   return (
     <>
-      <PageHeader title={t('common.nav.home')} />
+      <PageHeader title={t('home.headline')} documentTitle={t('common.siteName')} />
       <div className={styles.board}>
         <section className={styles.slot}>
           <p className={styles.label}>{t('home.intro.label')}</p>

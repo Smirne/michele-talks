@@ -116,7 +116,7 @@ further task is needed for AC-1.1/AC-1.2.
   - touch: `frontend/e2e/*`, `frontend/playwright.config.ts`, `frontend/mise.toml`, `frontend/tsconfig.node.json`, `frontend/eslint.config.js`
   - done when: `mise run frontend:e2e` (Playwright against `vite preview`, Chromium) passes and checks, for every route plus a 404, one talk detail and the address of a hidden talk (must render Not found, AC-4.4): axe WCAG 2.1 A/AA has zero violations (incl. colour contrast); at 375×812 `document.documentElement.scrollWidth <= 375` and all five nav links are visible; at 1280×800 the Talks CTA and the Contact path on Home have `boundingBox().y + height <= 800`; with `reducedMotion: 'reduce'` no element has a running CSS animation (`document.getAnimations()` is empty).
 
-- [ ] T11: [frontend] Separate the page headline from the document title; Home headline per design — refs: AC-1.5, AC-2.3 — deps: T5, T6
+- [x] T11: [frontend] Separate the page headline from the document title; Home headline per design — refs: AC-1.5, AC-2.3 — deps: T5, T6
   - touch: `frontend/src/components/layout/PageHeader*`, `frontend/src/features/home/*`, `frontend/src/features/profile/*`, `frontend/src/app/App.test.tsx`
   - `PageHeader` takes an optional `documentTitle` (defaults to the h1 text). Home's h1 is the Programme Board headline "On the programme" (design.md, sketch 03) with document title "Michele Talks"; Profile keeps the speaker's name as h1 with document title "Profile | Michele Talks".
   - done when: tests assert Home h1 text "On the programme" and `document.title === "Michele Talks"`, Profile h1 is the speaker's name and `document.title === "Profile | Michele Talks"`; every other route's title stays `"<Page> | Michele Talks"`; focus-to-h1 tests still pass.

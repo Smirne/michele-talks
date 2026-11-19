@@ -63,6 +63,12 @@ const renderHome = (props: { now?: Date; content?: Content } = {}) =>
 const nextRegion = () => screen.getByRole('region', { name: /^(Next|Recently)$/ })
 
 describe('Home', () => {
+  it('has the h1 "On the programme" and the bare site name as document title', async () => {
+    await renderHome()
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('On the programme')
+    expect(document.title).toBe('Michele Talks')
+  })
+
   it('shows the intro: speaker name and short bio', async () => {
     await renderHome()
     expect(screen.getByRole('heading', { level: 2, name: 'Ada Lovelace' })).toBeTruthy()

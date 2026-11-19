@@ -1,4 +1,5 @@
 export const homeStrings = {
+  headline: 'On the programme',
   intro: {
     label: 'Speaker',
     where: 'Talks in English and Italian',

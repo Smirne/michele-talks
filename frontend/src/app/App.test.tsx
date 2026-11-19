@@ -33,8 +33,8 @@ const firstTalk = content.talks[0]
 if (!firstTalk) throw new Error('the real content has no talks')
 
 const ROUTES: [string, string][] = [
-  ['Home', '/'],
-  ['Profile', '/profile'],
+  ['On the programme', '/'],
+  [content.profile.name, '/profile'],
   ['Talks', '/talks'],
   [firstTalk.title, `/talks/${firstTalk.slug}`],
   ['History', '/history'],
@@ -110,7 +110,7 @@ describe('app shell', () => {
 
   it('moves focus to the new h1 and sets the title when a nav link is activated', async () => {
     await renderAt('/')
-    expect(document.title).toBe('Home | Michele Talks')
+    expect(document.title).toBe('Michele Talks')
     fireEvent.click(
       within(screen.getByRole('navigation', { name: 'Main' })).getByRole('link', {
         name: 'History',
@@ -121,6 +121,22 @@ describe('app shell', () => {
     })
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('History')
     expect(document.title).toBe('History | Michele Talks')
+  })
+
+  it('gives Home the headline "On the programme" and Profile the speaker name, with their own titles', async () => {
+    const { router } = await renderAt('/')
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('On the programme')
+    expect(document.title).toBe('Michele Talks')
+    await act(async () => {
+      await router.navigate({ to: '/profile' })
+    })
+    await waitFor(() => {
+      expect(document.title).toBe('Profile | Michele Talks')
+    })
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe(content.profile.name)
+    await waitFor(() => {
+      expect(document.activeElement).toBe(screen.getByRole('heading', { level: 1 }))
+    })
   })
 
   it('sets the title on Not found', async () => {
@@ -141,7 +157,7 @@ describe('app shell', () => {
       await Promise.resolve()
     })
     await waitFor(() => {
-      expect(document.title).toBe('Home | Michele Talks')
+      expect(document.title).toBe('Michele Talks')
       expect(document.activeElement).toBe(screen.getByRole('heading', { level: 1 }))
     })
   })

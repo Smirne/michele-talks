@@ -9,7 +9,13 @@ import styles from './ProfilePage.module.css'
 
 export const ProfileView = ({ profile }: { profile: Profile }) => (
   <>
-    <PageHeader title={profile.name} />
+    <PageHeader
+      title={profile.name}
+      documentTitle={t('common.documentTitle', {
+        page: t('common.nav.profile'),
+        site: t('common.siteName'),
+      })}
+    />
     <div className={styles.layout}>
       <div className={styles.photo}>
         <ProfilePhoto src={profile.photo} alt={profile.photoAlt} name={profile.name} />

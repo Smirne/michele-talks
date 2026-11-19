@@ -24,6 +24,7 @@ describe('Profile', () => {
   it('shows the name as the h1', async () => {
     await renderWithRouter(<ProfileView profile={profile} />)
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Ada Lovelace')
+    expect(document.title).toBe('Profile | Michele Talks')
   })
 
   it('shows the photo with the content alt text and a reserved aspect ratio', async () => {
