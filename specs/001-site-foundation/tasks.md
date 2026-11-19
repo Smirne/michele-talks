@@ -116,7 +116,12 @@ further task is needed for AC-1.1/AC-1.2.
   - touch: `frontend/e2e/*`, `frontend/playwright.config.ts`, `frontend/mise.toml`, `frontend/tsconfig.node.json`, `frontend/eslint.config.js`
   - done when: `mise run frontend:e2e` (Playwright against `vite preview`, Chromium) passes and checks, for every route plus a 404, one talk detail and the address of a hidden talk (must render Not found, AC-4.4): axe WCAG 2.1 A/AA has zero violations (incl. colour contrast); at 375×812 `document.documentElement.scrollWidth <= 375` and all five nav links are visible; at 1280×800 the Talks CTA and the Contact path on Home have `boundingBox().y + height <= 800`; with `reducedMotion: 'reduce'` no element has a running CSS animation (`document.getAnimations()` is empty).
 
-- [ ] T10: Owner review and close — refs: AC-1.5 — deps: T9
+- [ ] T11: [frontend] Separate the page headline from the document title; Home headline per design — refs: AC-1.5, AC-2.3 — deps: T5, T6
+  - touch: `frontend/src/components/layout/PageHeader*`, `frontend/src/features/home/*`, `frontend/src/features/profile/*`, `frontend/src/app/App.test.tsx`
+  - `PageHeader` takes an optional `documentTitle` (defaults to the h1 text). Home's h1 is the Programme Board headline "On the programme" (design.md, sketch 03) with document title "Michele Talks"; Profile keeps the speaker's name as h1 with document title "Profile | Michele Talks".
+  - done when: tests assert Home h1 text "On the programme" and `document.title === "Michele Talks"`, Profile h1 is the speaker's name and `document.title === "Profile | Michele Talks"`; every other route's title stays `"<Page> | Michele Talks"`; focus-to-h1 tests still pass.
+
+- [ ] T10: Owner review and close — refs: AC-1.5 — deps: T9, T11
   - touch: `specs/001-site-foundation/*`
   - done when: the owner has reviewed the running site against design.md "Chosen direction" and their confirmation is recorded in design.md (or the iteration requested is turned into tasks); `mise run build`, `mise run test`, `mise run lint`, `mise run frontend:e2e` all pass and CI is green on the PR; QE-light verdict PASS; spec status → done via `/wellforge:done`.
 
@@ -127,7 +132,7 @@ further task is needed for AC-1.1/AC-1.2.
 | AC-1.1, AC-1.2 | design stage (done) |
 | AC-1.3 | T5 |
 | AC-1.4 | design.md (recorded) + T1 |
-| AC-1.5 | T10 |
+| AC-1.5 | T10, T11 |
 | AC-2.1 | T3, T9 |
 | AC-2.2 | T3 |
 | AC-2.3 | T5, T9 |
