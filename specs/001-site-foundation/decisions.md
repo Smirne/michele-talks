@@ -38,3 +38,14 @@ It is drift: amend the spec/plan and re-sync tasks — do not quietly edit the c
 - default: the Profile page has a closing WellD sentence in addition to the footer one, plus "Browse the talks" and "Get in touch" CTAs — why: AC-3.2 and the design's closing-links note — where: `features/profile/strings.en.ts`
 - assumption: the Contact page has a short intro line ("Write to invite the speaker…") and the email set large in the display font — why: the design only lists elements, and a lone email read as empty — where: `features/contact/`
 - scope: the Profile h1 is the speaker's name rather than "Profile", which changes its document title — why: T6's done-when says name (h1) and `PageHeader` is outside its `touch:` list — where: `features/profile/ProfilePage.tsx` (resolved by T11)
+
+## T7, T8, T11 · frontend-dev · 2026-11-20
+- scope: edited `frontend/src/app/TalkDetailRoute.tsx` (outside T7's touch list) to pass `slug` rather than `title` — why: the detail view needs the whole talk and its appearances, and `title` alone could not identify a talk — where: `app/TalkDetailRoute.tsx`
+- default: `TalksView`, `TalkDetailView` and `HistoryView` take content as props with an optional `now`, and `*Page` wraps them over `virtual:content` — why: same pattern as T5/T6, makes fixtures and a fixed `now` possible — where: `features/talks`, `features/history`
+- default: talk detail shows meta (duration, level, format, badges), "Abstract", optional "Also given as", then "Upcoming" and "Past" h2 groups (only those with entries), then "Not given in public yet." or a "All talks" back link — why: design.md and AC-4.2/4.3 — where: `features/talks/TalkDetailPage.tsx`
+- default: "Also given as" items put the title in `lang` of its own language, next to a `LanguageBadge` — why: AC-4.3 and the Italian `lang` rule — where: `TalkDetailPage.tsx`
+- default: talk-detail appearance rows reuse `AppearanceRow` unchanged, so each shows a link to the same talk — why: `components/content` is out of scope — where: `TalkDetailPage.tsx`
+- default: the empty Talks message reads "No talks listed yet. Check back soon, or get in touch." with "get in touch" as the Contact link — why: design.md wording, with the link on the phrase — where: `features/talks/strings.en.ts`
+- default: History and the talk detail use the Home board's heavy rules and mono h2 headings, with `AppearanceRow` as the board row — why: the "reuse the board's row grid" brief — where: `*.module.css`
+- reinterpretation: `PageHeader.documentTitle` is the full title (not the page part), and the focus-to-h1 tracker keys on it — why: Home's title is the bare site name, and the h1 is no longer unique per route — where: `components/layout/PageHeader.tsx`
+- assumption: Home headline text is a new `home.headline` string rather than reusing a `common` key — why: it is page copy from design.md/sketch 03 — where: `features/home/strings.en.ts`
