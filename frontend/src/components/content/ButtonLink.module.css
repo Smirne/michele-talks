@@ -1,0 +1,33 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  border: 3px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.primary {
+  background: var(--ink);
+  color: var(--mint);
+}
+
+.primary:hover {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--ink);
+}
+
+.secondary:hover {
+  background: var(--white);
+}
