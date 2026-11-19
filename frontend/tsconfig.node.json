@@ -11,5 +11,5 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["vite.config.ts", "vitest.config.ts"]
+  "include": ["vite.config.ts", "vitest.config.ts", "vite-plugins", "src/content/schema.ts"]
 }
