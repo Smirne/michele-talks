@@ -9,9 +9,13 @@
 // Splitting the files removes the conflict without touching the pins — bumping vitest to
 // ^3 is specs/003-ts-stack-migration, not a side effect of a formatting fix.
 import path from 'node:path'
-import { defineConfig } from 'vitest/config'
+import { defineConfig, type Plugin } from 'vitest/config'
+import { contentPlugin } from './vite-plugins/content'
 
 export default defineConfig({
+  // Cast at the boundary: vitest 2 types plugins against its own vite 5, our plugin is a
+  // vite 6 Plugin (see the note above). The runtime shape is identical.
+  plugins: [contentPlugin({ dir: path.resolve(__dirname, './content') }) as unknown as Plugin],
   test: {
     globals: true,
     environment: 'jsdom',

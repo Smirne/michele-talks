@@ -36,7 +36,10 @@ export default tseslint.config(
     ignores: ['src/**/*.test.tsx'],
     plugins: { react },
     rules: {
-      'react/jsx-no-literals': ['error', { noStrings: true, allowedStrings: [] }],
+      'react/jsx-no-literals': [
+        'error',
+        { noStrings: true, allowedStrings: [], ignoreProps: true },
+      ],
     },
   }
 )

@@ -1,11 +1,6 @@
-import { config } from '@/config'
+import { PageHeader } from '@/components/layout'
 import { t } from '@/i18n/t'
 
 export const HomePage = () => {
-  return (
-    <main>
-      <h1>{config.appName}</h1>
-      <p>{t('home.scaffold', { url: config.apiBaseUrl })}</p>
-    </main>
-  )
+  return <PageHeader title={t('common.nav.home')} />
 }
