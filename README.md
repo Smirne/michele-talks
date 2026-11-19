@@ -43,3 +43,24 @@ Run a single service's task with the service prefix, e.g. `mise run backend:test
 
 See [AGENTS.md](./AGENTS.md) for the full stack reference, conventions, and the
 spec-driven development workflow.
+
+## Connections
+
+| Tool | Status | Verified by |
+|---|---|---|
+| GitHub repo (`Smirne/michele-talks`, public, default `main`) | connected | `gh repo view Smirne/michele-talks --json name,visibility,defaultBranchRef` |
+| Merge strategy (squash + rebase only, linear history) | connected | `gh api repos/Smirne/michele-talks --jq '{merge: .allow_merge_commit}'` → `false` |
+| Branch protection on `main` (PRs, 5 required checks, linear history, no force push, 0 approvals: solo maintainer) | connected | `gh api repos/Smirne/michele-talks/branches/main/protection` |
+| CI quality gates (rigor `mvp`) | connected | first runs green on `main` |
+| CI secrets / variables | none needed yet | `gh secret list` (empty) |
+| MCP servers (playwright, context-hub) | connected (plugin-provided, no project `.mcp.json`) | `/mcp` in a session |
+| Environments | connected (no DB; public `VITE_*` defaults in `mise.toml`) | `mise env \| grep VITE_` |
+| Architecture map (groma.md 0.6.6) | connected: first scan, not yet curated | `npx -y --package=groma.md@0.6.6 --package=groma.md-darwin-arm64@0.6.6 groma view --plain` |
+
+Local setup per clone: `git config merge.ff only && git config pull.rebase true`.
+
+## Pending setup
+
+- **Hosting / deploy**: not decided. Suggested: Cloudflare Pages (frontend) + Workers (Hono API), or GCP Cloud Run. The template ships no Dockerfile or deploy config yet; to be specified as a feature.
+- **Contact form email provider** (e.g. Resend): its API key goes in the machine-local mise file locally and in a GitHub secret for CI/deploy, once the contact feature is built.
+- **groma CI action** (`MrLesk/groma.md-action`): optional, not added.
