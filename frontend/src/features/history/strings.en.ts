@@ -1,1 +1,5 @@
-export const historyStrings = {} as const
+export const historyStrings = {
+  upcoming: 'Upcoming',
+  past: 'Past',
+  none: 'No appearances yet.',
+} as const

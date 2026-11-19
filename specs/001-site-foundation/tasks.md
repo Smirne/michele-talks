@@ -108,7 +108,7 @@ further task is needed for AC-1.1/AC-1.2.
   - touch: `frontend/src/features/talks/*`
   - done when: component tests show every content talk with title (link), summary, duration written out ("45 minutes"), level, format and language badge(s); the detail of a talk with appearances on both sides of a fixed `now` shows full abstract, an upcoming group and a past group; "Also given as" lists each alternative title with its language badge (absent when there are none); a talk with no appearances shows neither group heading and "Not given in public yet."; zero talks shows the empty message with a Contact link.
 
-- [ ] T8: [frontend] History page — refs: AC-5.1, AC-5.2, AC-5.2b, AC-5.3, AC-5.4, AC-5.5, AC-5.6, AC-5.7, AC-8.1 — deps: T3, T4
+- [x] T8: [frontend] History page — refs: AC-5.1, AC-5.2, AC-5.2b, AC-5.3, AC-5.4, AC-5.5, AC-5.6, AC-5.7, AC-8.1 — deps: T3, T4
   - touch: `frontend/src/features/history/*`
   - done when: component tests with a fixed `now` show every appearance with event, `<time datetime>` date, "City, Country" or "Online", and one language badge; "Upcoming" (h2) above "Past" (h2), past newest first; no "Upcoming" heading when nothing is upcoming; resource links labelled with type and language; an appearance with `talk` links to its detail; no appearances shows "No appearances yet."
 
