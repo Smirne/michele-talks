@@ -1,0 +1,53 @@
+name: Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ── Tier-independent gates ──────────────────────────────────────────────────────────
+  # These three run at EVERY rigor tier, and the reason is the same for all of them: none
+  # can be repaired after the fact. A merge commit and a non-conventional message can only
+  # be fixed by rewriting published history; a leaked credential can only be rotated, never
+  # unpublished. Tiers trade off how much ceremony a CHANGE carries, never whether the
+  # repository stays recoverable.
+  #
+  # They used to sit inside the rigor branch, which made them each other's blind spot:
+  # security-floor ran only at `spike`, commit-lint only at `mvp`/`production`. An mvp
+  # project — the default — had no secret scan in CI at all.
+  linear-history:
+    name: linear history (no merge commits)
+    uses: matteocodogno/wellforge/.github/workflows/linear-history.yml@gates-v12
+
+  commits:
+    name: commit messages (Conventional Commits)
+    uses: matteocodogno/wellforge/.github/workflows/commit-lint.yml@gates-v12
+    with:
+      gates-repo: matteocodogno/wellforge
+      gates-ref: gates-v12
+
+  security-floor:
+    name: security floor (secrets)
+    uses: matteocodogno/wellforge/.github/workflows/security-floor.yml@gates-v12
+    with:
+      gates-repo: matteocodogno/wellforge
+      gates-ref: gates-v12
+  backend:
+    name: Backend quality
+    uses: matteocodogno/wellforge/.github/workflows/quality-node.yml@gates-v12
+    with:
+      gates-repo: matteocodogno/wellforge
+      gates-ref: gates-v12
+      working-directory: backend
+      rigor: mvp
+
+  frontend:
+    name: Frontend quality
+    uses: matteocodogno/wellforge/.github/workflows/quality-node.yml@gates-v12
+    with:
+      gates-repo: matteocodogno/wellforge
+      gates-ref: gates-v12
+      working-directory: frontend
+      rigor: mvp

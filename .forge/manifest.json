@@ -1,0 +1,22 @@
+{
+  "template": "hono-react",
+  "version": "0.12.0",
+  "answers": {
+    "project_name": "Michele Talks",
+    "project_slug": "michele-talks",
+    "description": "Personal speaker website: profile, available talks, talk history, a creative talks graph and a contact form.",
+    "ci": "github",
+    "rigor": "mvp",
+    "gates_repo": "matteocodogno/wellforge",
+    "gates_ref": "gates-v12",
+    "heartbeat": true,
+    "heartbeat_cron": "0 6 * * 1",
+    "db": "none"
+  },
+  "plugin": {
+    "version": "2.61.0",
+    "set_by": "new",
+    "at": "2026-11-19",
+    "marketplace": "wellforge@wellforge"
+  }
+}

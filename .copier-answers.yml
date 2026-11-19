@@ -1,0 +1,16 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v0.12.0
+_src_path: /Users/michele.giacobazzi/.ai/wellforge
+ci: github
+db: none
+description: 'Personal speaker website: profile, available talks, talk history, a
+    creative talks graph and a contact form.'
+gates_ref: gates-v12
+gates_repo: matteocodogno/wellforge
+heartbeat: true
+heartbeat_cron: 0 6 * * 1
+preset: hono-react
+project_name: Michele Talks
+project_slug: michele-talks
+rigor: mvp
+

@@ -1,0 +1,160 @@
+# mise.toml — project root
+# This stack has no JVM: only node + pnpm are pinned here.
+
+[tools]
+node = "22"
+pnpm = "10"
+
+[env]
+# Project-level non-sensitive env vars only — secrets go in .mise.local.toml
+# Do NOT add `_.file` pointing at a dotenv file: this project deliberately has none. See the
+# frontend block below and the connections skill.
+
+# ── Frontend build-time configuration (Vite) ────────────────────────────────────────
+# These live here, not in a committed frontend dotenv file. Vite reads VITE_-prefixed vars
+# from the PROCESS ENVIRONMENT and prefers them over a dotenv file, so `mise run frontend:*`
+# — which is how every documented workflow starts the frontend — sees exactly these values.
+#
+# The file they replaced was `frontend/.env`, committed. It made the scaffold contradict its
+# own rules twice over: the connections skill puts non-sensitive defaults in mise [env] and
+# secrets in .mise.local.toml, "not a dotenv file"; and the plugin's own guards refuse to
+# read or write anything named `.env`, so the agent could not maintain the file the project
+# told it to keep in step with src/vite-env.d.ts.
+#
+# Override locally in .mise.local.toml (gitignored), never by re-creating a dotenv file.
+# Every var here is PUBLIC: Vite inlines VITE_* into the browser bundle. Secrets never.
+VITE_API_BASE_URL = "http://localhost:3000"
+VITE_APP_NAME     = "Michele Talks"
+
+# ── Worktree isolation — see docs/adr/0002-per-worktree-databases.md (wellforge repo) ──
+# A git worktree isolates the CHECKOUT and nothing else. Without this block two worktrees
+# resolve the same database name, the same host port and the same compose project, and one
+# drops or migrates what the other is mid-test against. It does not look like a collision;
+# it looks like your code broke.
+#
+# .wellforge/worktree-id.sh turns this checkout's absolute path into a stable identity.
+# The PRIMARY tree keeps the plain database name and port 5432 on purpose, so adopting
+# this never orphans a dev database you already have data in — only linked worktrees are
+# suffixed. Both values are derived from the path, never a timestamp, so re-running in the
+# same worktree always resolves to the SAME database (otherwise cleanup leaks).
+#
+# Machine-local overrides belong in .mise.local.toml, which wins over everything here:
+#   WF_DB_BASE_PORT — if 5432 is already taken on your machine
+#   WF_DB_NAME      — to deliberately share a database; `mise run db:guard` then agrees
+WF_WT_SUFFIX = "{{ exec(command='sh ' ~ config_root ~ '/.wellforge/worktree-id.sh suffix') }}"
+
+
+[tasks.install]
+description = "Install all dependencies (backend + frontend)"
+depends     = ["backend:install", "frontend:install"]
+
+[tasks.build]
+description = "Build all services"
+depends     = ["backend:build", "frontend:build"]
+
+[tasks.test]
+description = "Test all services"
+depends     = ["db:guard", "backend:test", "frontend:test"]
+
+[tasks.lint]
+description = "Lint all services"
+depends     = ["backend:lint", "frontend:lint"]
+
+[tasks.dev]
+description = "Start all services in development mode"
+depends     = ["db:guard", "backend:dev", "frontend:dev"]
+
+[tasks."db:guard"]
+description = "Refuse to act on a database that is not this checkout's (worktree isolation)"
+run         = "sh .wellforge/db-guard.sh"
+
+[tasks."wt:info"]
+description = "Show this checkout's derived isolation identity (database, port, compose project)"
+run = """
+echo "checkout      $(git rev-parse --show-toplevel)"
+echo "worktree id   $(sh .wellforge/worktree-id.sh id)   (linked worktree: $(sh .wellforge/worktree-id.sh linked))"
+echo "database      ${WF_DB_NAME:-<none — db=none>}"
+echo "db port       ${WF_DB_PORT:-<none — db=none>}"
+echo "compose proj  ${COMPOSE_PROJECT_NAME:-<none — db=none>}"
+"""
+
+[tasks.release]
+description = "Cut a release — version + CHANGELOG from Conventional Commits, tag, GitHub release (release-it)"
+run = "pnpm --package=release-it@^17 --package=@release-it/conventional-changelog@^8 --package=@release-it/bumper@^6 dlx release-it"
+
+[tasks.git-policy]
+description = "Apply the WellForge git policy to this clone — linear history (run once after cloning)"
+run = """
+git config merge.ff only          # git merge fast-forwards or fails — never a merge commit
+git config pull.rebase true       # git pull rebases instead of merging origin back in
+git config rebase.autoStash true  # rebasing with a dirty tree stashes/restores
+echo 'git policy applied: linear history (no merge commits). CI enforces it on every PR.'
+"""
+
+# ── Per-service delegation ─────────────────────────────────────────────────────
+# Why these exist: mise merges config walking UP from the cwd, so the ROOT config does not
+# see `backend/mise.toml`'s tasks. `depends = ["backend:install"]` alone fails with
+# `task not found: backend:install` — verified on mise 2026.9.0, and it was every generated
+# project's `mise run install/build/test/lint/dev`.
+# `//backend:install` addressing and an `experimental_monorepo_root` setting do NOT exist in
+# this mise (the latter warns "unknown field"), so the portable fix is a root task that sets
+# `dir` and re-enters mise there: with cwd inside the service, that service's own mise.toml
+# shadows the root's same-named task, so there is exactly ONE definition of each task — in
+# the service file — and no recursion.
+
+[tasks."backend:install"]
+description = "install (backend)"
+dir         = "backend"
+run         = "mise run install"
+
+[tasks."frontend:install"]
+description = "install (frontend)"
+dir         = "frontend"
+run         = "mise run install"
+
+[tasks."backend:build"]
+description = "build (backend)"
+dir         = "backend"
+run         = "mise run build"
+
+[tasks."frontend:build"]
+description = "build (frontend)"
+dir         = "frontend"
+run         = "mise run build"
+
+[tasks."backend:test"]
+description = "test (backend)"
+dir         = "backend"
+run         = "mise run test"
+
+# The integration lane needs its own root pointer for the same reason as every task above:
+# a root task cannot depend on a subdirectory task by name.
+[tasks."backend:test:integration"]
+description = "integration tests (backend) — throwaway Testcontainers database, needs Docker"
+dir         = "backend"
+run         = "mise run test:integration"
+
+[tasks."frontend:test"]
+description = "test (frontend)"
+dir         = "frontend"
+run         = "mise run test"
+
+[tasks."backend:lint"]
+description = "lint (backend)"
+dir         = "backend"
+run         = "mise run lint"
+
+[tasks."frontend:lint"]
+description = "lint (frontend)"
+dir         = "frontend"
+run         = "mise run lint"
+
+[tasks."backend:dev"]
+description = "dev (backend)"
+dir         = "backend"
+run         = "mise run dev"
+
+[tasks."frontend:dev"]
+description = "dev (frontend)"
+dir         = "frontend"
+run         = "mise run dev"

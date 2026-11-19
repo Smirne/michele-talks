@@ -1,0 +1,146 @@
+# Michele Talks — Project Context
+
+Personal speaker website: profile, available talks, talk history, a creative talks graph and a contact form.
+
+Full-stack TypeScript monorepo: a **Hono** backend and a **React + TypeScript + Vite**
+frontend, managed with **mise** + **pnpm**.
+
+## Stack & pinned versions
+
+| Layer | Tech | Version |
+|---|---|---|
+| Runtime | Node | 22 |
+| Package manager | pnpm | 10 |
+| Backend framework | Hono | ^4.6.15 |
+| API schema/docs | @hono/zod-openapi | ^0.18.4 |
+| Validation | zod | ^3.24.1 |
+| Error handling | effect | ^3.12.5 |
+| Backend lint/format | @biomejs/biome | ^1.9.4 |
+| Backend tests | vitest | ^2.1.8 |
+| Frontend framework | React | ^19.0.0 |
+| Bundler | Vite | ^6.0.0 |
+| Frontend lint | eslint (typescript-eslint) | ^9.x |
+| Frontend format | prettier | ^3.x |
+| TypeScript | typescript | ^5.7.2 |
+
+## mise commands
+
+| Command | What it does |
+|---|---|
+| `mise install` | Install pinned tools (node, pnpm) |
+| `mise run install` | Install backend + frontend dependencies |
+| `mise run dev` | Start backend + frontend in dev mode |
+| `mise run build` | Build all services |
+| `mise run test` | Test all services |
+| `mise run lint` | Lint all services |
+| `mise run backend:<task>` | Run a backend-only task (install/dev/build/test/lint/typecheck) |
+| `mise run frontend:<task>` | Run a frontend-only task (install/dev/build/test/lint/typecheck) |
+| `mise run git-policy` | Apply the linear-history git config to this clone (run once) |
+
+## Integration tests and backing services
+
+`docker-compose.yml` is the single source of truth for backing services — locally **and** in
+CI. The quality gate starts it with `docker compose up -d --wait` before running tests, so an
+integration test meets the same Postgres you develop against.
+
+- **Adding a service** (mailhog, redis, minio): add it to `docker-compose.yml` with a
+  `healthcheck:`. CI picks it up with no workflow change — the gate starts *your* file.
+  Without a healthcheck, `--wait` only proves the container is running, and a slow starter
+  becomes a flaky test.
+- **Env**: `.github/workflows/quality.yml` exports `backend/.env.example` into the job, which
+  is why `DATABASE_URL` is set in CI. Keep that file in step with `docker-compose.yml`.
+- **Migrations**: once the project has some, uncomment `pretest-command: pnpm db:migrate` in
+  `.github/workflows/quality.yml` so integration tests run against a real schema.
+
+## Git policy — linear history + Conventional Commits
+
+- **No merge commits, ever.** Rebase onto `main` and integrate fast-forward
+  (`git rebase main`, then `git merge --ff-only`); PRs merge as **squash or rebase**.
+  CI (`linear history`) fails on any merge commit in the PR range, and branch protection
+  has `required_linear_history`. `git log --oneline` is the changelog; `git bisect` stays honest.
+- **Conventional Commits** (`type(scope)!: description`) — CI (`commit messages`) lints every
+  commit in a PR, and `mise run release` derives the version + CHANGELOG from them.
+- Run **`mise run git-policy`** once per clone: sets `merge.ff=only` and `pull.rebase=true`
+  locally, so `git merge` / `git pull` cannot create a merge commit in the first place.
+
+## Monorepo layout
+
+```
+michele-talks/
+├── mise.toml              # root tool pins + aggregate tasks
+├── backend/               # Hono API service
+│   ├── src/
+│   │   ├── index.ts       # entry point (serve)
+│   │   ├── app.ts         # Hono app factory + middleware wiring
+│   │   ├── config/        # env validation, logger
+│   │   ├── routes/        # one OpenAPIHono router per resource (health example)
+│   │   ├── middleware/    # error-handler, request logger
+│   │   ├── lib/           # error types
+│   │   └── test/          # vitest setup + example test
+│   └── mise.toml          # backend tasks (pnpm scripts)
+└── frontend/              # React + TS + Vite SPA
+    ├── src/
+    │   ├── main.tsx        # entry point
+    │   ├── App.tsx         # root component
+    │   ├── config.ts       # typed env access (import.meta.env)
+    │   ├── components/      # shared UI
+    │   ├── hooks/          # shared hooks
+    │   ├── features/       # feature modules (vertical slices)
+    │   └── lib/            # query client / router config
+    └── mise.toml          # frontend tasks (pnpm scripts)
+```
+
+## Backend conventions
+
+- **App factory.** `createApp()` in `src/app.ts` builds an `OpenAPIHono` instance,
+  wires global middleware (request logger) and `app.onError(errorHandler)`, mounts
+  routers, and exposes the OpenAPI doc at `/openapi.json`.
+- **Routing.** One `OpenAPIHono` router per resource under `src/routes/`. Always use
+  `createRoute` (never raw `.get()/.post()`) so every endpoint is type-safe and
+  contributes to the OpenAPI spec. See `src/routes/health.ts` for the canonical shape.
+- **Validation.** Define request/response schemas with **zod**, co-located with the
+  route. Access validated input via `c.req.valid('param' | 'query' | 'json')`.
+- **Error shape.** `src/middleware/error-handler.ts` is the global handler. Zod
+  validation failures return `400 { error: "Validation failed", issues }`; everything
+  else returns `500 { error: "Internal server error", message? }` (message only in
+  development). Domain errors live in `src/lib/errors.ts`.
+- **Effect.** Async/business logic uses **Effect** for typed error handling; resolve at
+  the route edge with `.pipe(Effect.runPromise)`.
+- **Database.** None configured. Add Drizzle ORM + PostgreSQL (see the hono-ts-backend
+  skill) under `src/db/` and `src/config/database.ts` when persistence is needed.
+- **Lint/format.** Biome (`pnpm lint` / `pnpm lint:fix`). **Tests.** Vitest, globals
+  enabled, `node` environment; see `src/test/`.
+
+## Frontend conventions
+
+- **Feature-sliced architecture.** Code lives in `src/features/<name>/` vertical slices.
+  Promote a component/hook/context/type to `src/` only when it is used by **2+** features.
+- **Imports.** Always use the `@/` alias (configured in `vite.config.ts` + `tsconfig`)
+  instead of deep relative paths.
+- **Env vars.** Browser-exposed vars must be prefixed `VITE_`, typed in
+  `src/vite-env.d.ts`, and read **only** through `src/config.ts` — never scatter
+  `import.meta.env` across the codebase, never use `process.env`. Their **values live in the
+  root `mise.toml` `[env]` block**, not in a dotenv file — this project has none. Vite reads
+  `VITE_`-prefixed vars from the process environment and `mise run frontend:*` puts them
+  there, so adding a var means editing both `vite-env.d.ts` (the type) and `mise.toml` (the
+  value). Local overrides: `.mise.local.toml`. Everything `VITE_` is inlined into the bundle
+  and is therefore public.
+- **Strictness.** `tsconfig` is strict (`noUncheckedIndexedAccess`,
+  `exactOptionalPropertyTypes`). ESLint uses `strictTypeChecked`; CI runs with
+  `--max-warnings 0`. Prettier (no semicolons, single quotes) handles formatting.
+
+## Spec-driven workflow
+
+Feature work follows the WellForge spec-driven workflow. Artifacts live in `specs/`.
+Drive it with the wellforge plugin commands:
+
+- `/wellforge:spec` — capture the feature specification
+- `/wellforge:plan` — turn the spec into a technical plan
+- `/wellforge:tasks` — break the plan into actionable tasks
+- `/wellforge:orchestrate` — execute the tasks
+
+See `specs/README.md` for the short version.
+
+**Project rigor tier: `mvp`** (recorded in `.forge/manifest.json`). It sets the default
+ceremony for new work — see the wellforge `rigor-tiers` skill.
+MVP: coverage is advisory in CI (SAST + security floor still block); features may use `--mode mvp`.
