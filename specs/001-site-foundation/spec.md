@@ -1,7 +1,7 @@
 ---
 id: 001
 slug: site-foundation
-status: approved
+status: in-progress
 rigor: mvp
 created: 2026-11-19
 approved: 2026-11-19
