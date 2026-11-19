@@ -64,12 +64,17 @@ my event.
 ### US-4: Browse the talks catalogue
 As an event organizer, I want to see the talks on offer, so that I can pick one for my event.
 **Acceptance criteria:**
-- AC-4.1: Given the Talks page, when it is viewed, then every talk in the content files is
-  listed, and each shows its title, a short abstract, duration, audience level, format and the
+- AC-4.1: Given the Talks page, when it is viewed, then every talk in the content files that
+  is not marked hidden is listed, and each shows its title, a short abstract, duration, audience level, format and the
   language(s) it can be given in.
 - AC-4.2: Given a talk in the list, when the visitor opens it, then a detail view shows the
   full abstract, its upcoming appearances, and the past appearances where that talk was
   given (each group shown only if it has entries).
+
+- AC-4.3: Given a talk that has been given under other titles, when its detail view is
+  opened, then those titles are listed as "Also given as", each with its language.
+- AC-4.4: Given a talk marked hidden in the content files, when the visitor browses the site,
+  then it appears nowhere: not in Talks, not on Home, and its address shows "not found".
 
 ### US-5: Browse the talk history
 As an attendee or organizer, I want to see where the speaker has spoken, with slides and
@@ -87,6 +92,12 @@ recordings, so that I can catch up on a talk or check the speaker's track record
   resource is shown as a link labelled with its type and language.
 - AC-5.4: Given an appearance linked to a talk in the catalogue, when the visitor follows the
   link, then the matching talk detail opens.
+- AC-5.5: Given an appearance where the talk ran under a different title, when it is shown,
+  then the title used at that event is shown alongside the link to the catalogue talk.
+- AC-5.6: Given an appearance with a public note in the content files (e.g. "Video selection,
+  virtual stage", "Facilitator, working table"), when it is shown, then the note is visible.
+- AC-5.7: Given an appearance with an event or session page link, when it is shown, then the
+  link is visible and opens that page.
 
 ### US-6: Find contact details
 As an event organizer, I want to know how to reach the speaker, so that I can send an invitation.
@@ -132,6 +143,10 @@ that I'm not excluded.
   current date (AC-5.2, AC-5.2b); a talk's detail lists upcoming appearances too (AC-4.2);
   an appearance has exactly one language (AC-5.1, a wording fix). Empty-state behaviour
   follows design.md.
+- 2026-11-19 (owner, on delivering the real content): talks not yet delivered are hidden
+  (AC-4.1, AC-4.4); appearances without a catalogue talk are listed with their role as a note;
+  other titles are shown on the talk and on the appearance (AC-4.3, AC-5.5); appearances can
+  show a public note and an event page link (AC-5.6, AC-5.7).
 
 ## Non-goals
 - The creative talks graph itself: this feature only reserves its place (AC-2.4).
@@ -160,9 +175,9 @@ Recorded as the owner stated them:
   and other WellD visual elements.
 
 ## Open questions
-- [ ] Real content (bio, photo, topics, talks, appearances with slide/video links, contact
-  links) is being gathered; the site uses placeholder content until it arrives. — owner:
-  Michele
+- [x] Real content delivered on 2026-11-19 (export with bio, photo, topics, talks,
+  appearances, contacts). Still pending from the owner: the Cloud Day video link (Improove
+  Play, not published yet). — owner: Michele
 
 Accepted as risk at approval (2026-11-19): the open content question. The site is built and
 verified on placeholder content until the real content is delivered.

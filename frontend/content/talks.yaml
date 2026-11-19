@@ -1,0 +1,211 @@
+# Talks catalogue. Every talk can be given in English or Italian.
+# hidden: true keeps a talk out of the site entirely (not yet delivered).
+
+- slug: from-kubernetes-to-kilowatts
+  title: 'From Kubernetes to Kilowatts: Shipping a Platform for Energy Communities'
+  summary: >-
+    How four companies took a Renewable Energy Community platform from an EU-funded pilot to
+    production on Kubernetes, and what every optimisation actually cost.
+  abstract:
+    - >-
+      Renewable Energy Communities let neighbours share the output of a local solar plant,
+      and flexibility markets pay homes and businesses to shift consumption when the grid is
+      under strain. SPARklE is the cloud-native platform behind both: built by four partner
+      companies under EU research funding, and now running in production.
+    - >-
+      This talk covers the three engineering choices that made it work. Multitenancy with
+      PostgreSQL Row-Level Security and a Keycloak realm per tenant, including the
+      cross-tenant leak we caused ourselves and the rule that now prevents it. GitOps with
+      FluxCD across partners who each own pieces of the system you don't control. And a
+      container diet for Spring Boot services: jlink, AppCDS and the JDK 25 AOT cache took
+      startup from 34 to 23 seconds on one CPU, and we measured what that bought and what it
+      cost in image size and memory per replica.
+    - Real production numbers, the mistakes included, and a live demo.
+  durationMinutes: 35
+  level: intermediate
+  format: talk
+  languages: [en, it]
+  topics:
+    [
+      Kubernetes,
+      GitOps / FluxCD,
+      PostgreSQL multitenancy,
+      Java / JVM performance,
+      Energy transition,
+    ]
+  alsoGivenAs:
+    - {
+        title: 'Da Kubernetes al Kilowatt: GitOps e PostgreSQL RLS per le Comunità Energetiche Rinnovabili',
+        language: it,
+      }
+    - { title: 'Da Kubernetes al kilowatt: architettura cloud-native per le CER', language: it }
+    - {
+        title: 'Scaling smart energy: building a cloud-native platform for renewable communities',
+        language: it,
+      }
+    - { title: 'From Grid Saturation to GitOps', language: en }
+    - { title: 'From Kubernetes to Kilowatts: GitOps and JVM Tuning', language: en }
+    - { title: 'The Pilot Worked. Then We Had to Run It.', language: en }
+
+- slug: flex-your-energy
+  title: 'Flex your Energy: Building a Cloud-Native Platform for Renewable Energy Communities'
+  summary: >-
+    What it takes in software to turn neighbours, rooftop solar and a strained grid into a
+    working energy community and a flexibility market.
+  abstract:
+    - >-
+      The grid was built for one-way traffic. Rooftop solar, heat pumps and electric cars are
+      changing that faster than the cables can be replaced, and much of the gap can be closed
+      with coordination instead of copper.
+    - >-
+      This talk follows SPARklE, a platform for Renewable Energy Communities and energy
+      flexibility markets for distribution system operators, from the domain problem down to
+      the architecture: reading every meter, forecasting sun and demand, settling incentives
+      correctly every day, and taking part in flexibility markets. On the technical side it
+      touches multitenancy with PostgreSQL Row-Level Security, time-series ingestion with
+      TimescaleDB and GitOps deployments with FluxCD, at the level a mixed audience needs.
+    - >-
+      Includes a live demo. Length and depth adapt to the room, from energy-sector managers
+      to developers.
+  durationMinutes: 35
+  level: beginner
+  format: talk
+  languages: [en, it]
+  topics: [Energy communities, Flexibility markets, Energy transition, Cloud-native architecture]
+  alsoGivenAs:
+    - {
+        title: 'Flex your Energy: come il software sta ridisegnando le Comunità Energetiche Rinnovabili',
+        language: it,
+      }
+    - { title: "SPARklE – Gestione intelligente dell'energia", language: it }
+
+- slug: clean-code-for-clean-energy
+  title: Clean Code for Clean Energy
+  summary: >-
+    Software for the energy transition should not waste energy itself: a production
+    platform, measured, and the resources it reserved but never used.
+  abstract:
+    - >-
+      Data centres, electric cars and heat pumps push electricity demand up, while rooftop
+      solar pushes power back into a grid designed for the opposite. Software that coordinates
+      producers and consumers is one of the cheapest ways to close the gap — so it had better
+      not be wasteful itself.
+    - >-
+      Starting from the domain, this talk shows how SPARklE, a platform for Renewable Energy
+      Communities, runs in production, then turns the measuring tape on our own platform:
+      services that reserved far more CPU than they ever used at rest, images where the
+      application code was under 1% of the bytes shipped, and what changing that did and did
+      not save. Reservation versus use, explained without Kubernetes jargon.
+    - With a full live demo.
+  durationMinutes: 35
+  level: beginner
+  format: talk
+  languages: [en, it]
+  topics: [Green software, Energy transition, Resource efficiency, Energy communities]
+  alsoGivenAs:
+    - {
+        title: 'Clean Code, Clean Energy: costruire software sostenibile per la transizione energetica',
+        language: it,
+      }
+
+- slug: before-delegating-to-agents
+  title: 'Before Delegating to Agents: ADRs and Spec-Driven Development as the Foundation for AI in the Team'
+  summary: >-
+    Before handing work to AI agents, a team needs written decisions and refined specs. How
+    we built that foundation on a platform where mistakes cost real money.
+  abstract:
+    - >-
+      SPARklE handles real users' energy data, and that data ends up on bills, so human
+      control is not optional. Moving the platform from EU-funded research to a product also
+      left us with a different backlog and the marks of four companies on the architecture.
+    - >-
+      This talk shows the two practices we put in place before letting agents do real work. A
+      formal Architectural Decision Record system: decisions discussed with AI, alternatives
+      and trade-offs made explicit, and an adversarial review by the team. And Spec-Driven
+      Development: requirements refined before any code, work delegated to agents with human
+      approval gates and verification. Every example is a real file from our repository,
+      including the ones that went wrong.
+    - It is not a multi-agent system yet. It is the infrastructure one needs.
+  durationMinutes: 35
+  level: beginner
+  format: talk
+  languages: [en, it]
+  topics:
+    [
+      AI-assisted development,
+      Architecture decision records,
+      Spec-driven development,
+      Engineering practices,
+    ]
+
+- slug: agents-built-the-graphics
+  title: The Agents Built the Graphics. I Had to Build the Fun.
+  summary: >-
+    I built a 3D puzzle game for Devoxx where AI agents wrote every line of code. They nailed
+    the graphics. The fun was still my job.
+  abstract:
+    - >-
+      Devoxx After Dark won the Devoxx Belgium 2026 Robot Games: a puzzle game with three
+      robots, each with its own physics, built in a few weeks. Every line of code was written
+      by AI agents; every decision was mine.
+    - >-
+      This talk shows how. A dozen cheap prototypes to find the game before building it. A
+      'gauntlet loop' for graphics: a lead agent splits the goal, a builder and a blind critic
+      per piece, and screenshots judged against a concrete reference instead of 'make it look
+      professional'. Why that loop took the game from 2.5D to convincing 3D, and why it did
+      almost nothing for gameplay, bugs and puzzle design, where a human had to step in with
+      tools such as an interactive map editor.
+    - Short format with the game played live.
+  durationMinutes: 20
+  level: beginner
+  format: talk
+  languages: [en, it]
+  topics: [AI-assisted development, Agentic coding, Game development]
+  alsoGivenAs:
+    - {
+        title: "Il mio gioco l'hanno scritto gli agenti, ma le decisioni le ho prese io",
+        language: it,
+      }
+    - { title: 'Devoxx After Dark', language: en }
+
+- slug: what-the-aot-cache-actually-costs
+  hidden: true
+  title: What the AOT Cache Actually Costs
+  summary: >-
+    Startup −32% is what everyone reports. The bill — image size, memory per replica,
+    scheduler headroom — is what nobody does. Here it is, measured.
+  abstract:
+    - >-
+      Every JVM startup optimisation is paid for in a different currency, and the exchange
+      rate is never published. On a production Spring Boot platform on GKE we stacked JDK 25,
+      AppCDS and the Leyden AOT cache and cut startup by about a third. Then we measured the
+      bill: the last few seconds cost a 96 MB larger image and about 86 MiB more resident
+      memory per replica, memory that turned out to be dirty and unreclaimable, and a third of
+      the process invisible to the JVM's own metrics.
+    - >-
+      This talk walks through the measurements, the method mistakes we made on the way
+      (confounded memory arms, two baselines that disagreed, a cache that can be silently
+      ignored), and a decision rule with the arithmetic: when the cache pays off, as in
+      scaling from zero to fifty pods, and when it does not, as with three fixed replicas
+      restarting weekly.
+  durationMinutes: 50
+  level: advanced
+  format: talk
+  languages: [en, it]
+  topics: [Java / JVM performance, Containers, Kubernetes resource management, Benchmarking]
+
+- slug: rls-on-timescaledb-hypertables
+  hidden: true
+  title: Row-Level Security on TimescaleDB Hypertables
+  summary: >-
+    Tenant isolation with PostgreSQL RLS on time-series data, and why connection pooling
+    forced PgBouncer into session mode.
+  abstract:
+    - >-
+      Tenant isolation with PostgreSQL RLS on time-series data, and why connection pooling
+      forced PgBouncer into session mode. Full abstract to come.
+  durationMinutes: 45
+  level: advanced
+  format: talk
+  languages: [en, it]
+  topics: [PostgreSQL, Multitenancy, TimescaleDB, Security]
