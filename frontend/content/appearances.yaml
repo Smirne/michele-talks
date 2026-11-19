@@ -88,7 +88,7 @@
   sessionTitle: 'Da Kubernetes al Kilowatt: GitOps e PostgreSQL RLS per le Comunità Energetiche Rinnovabili'
   eventUrl: 'https://www.containerday.it/talk/da-kubernetes-al-kilowatt-gitops-e-postgresql-rls-per-le-comunita-energetiche-rinnovabili/'
   resources:
-    - { type: slides, language: it, url: 'https://speakerdeck.com/smirne/sparkle-cloudday-2026' }
+    - { type: slides, language: it, url: 'https://speakerdeck.com/michelegiacobazzi/sparkle-containerdays-2026-2-d2b5ce04-a059-4ec3-a8c1-027551984312' }
 
 - id: green-software-italia-sustainability-month-2026
   event: 'Sustainability Month: Green Software Italia meetup'
