@@ -100,7 +100,7 @@ further task is needed for AC-1.1/AC-1.2.
   - touch: `frontend/src/features/home/*`, `frontend/src/components/graph-placeholder/*`, `frontend/src/assets/mascot/*`
   - done when: component test asserts the intro, a link to `/talks`, a Contact path (link to `/contact` and the `mailto:`), the "Next" list (≤3 upcoming, or "Recently" fallback with a fixed `now`), a labelled reserved graph region, and a D card image with alt text whose caption links to `https://www.welld.ch`; the scaffold `HomePage.test.tsx` is updated, not deleted.
 
-- [ ] T6: [frontend] Profile and Contact pages — refs: AC-3.1, AC-3.2, AC-6.1 — deps: T3, T4
+- [x] T6: [frontend] Profile and Contact pages — refs: AC-3.1, AC-3.2, AC-6.1 — deps: T3, T4
   - touch: `frontend/src/features/profile/*`, `frontend/src/features/contact/*`, `frontend/src/components/profile-photo/*`
   - done when: component tests render from test fixtures and assert name (h1), photo with content alt text and fixed aspect ratio, all bio paragraphs, every topic, a "WellD" link to `https://www.welld.ch`; Contact shows the email as a `mailto:` link with the address as text and one text link per profile; the photo `onError` fallback shows the monogram.
 
