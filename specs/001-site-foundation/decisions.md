@@ -49,3 +49,11 @@ It is drift: amend the spec/plan and re-sync tasks — do not quietly edit the c
 - default: History and the talk detail use the Home board's heavy rules and mono h2 headings, with `AppearanceRow` as the board row — why: the "reuse the board's row grid" brief — where: `*.module.css`
 - reinterpretation: `PageHeader.documentTitle` is the full title (not the page part), and the focus-to-h1 tracker keys on it — why: Home's title is the bare site name, and the h1 is no longer unique per route — where: `components/layout/PageHeader.tsx`
 - assumption: Home headline text is a new `home.headline` string rather than reusing a `common` key — why: it is page copy from design.md/sketch 03 — where: `features/home/strings.en.ts`
+
+## T9 · frontend-dev · 2026-11-20
+- scope: added a `frontend:e2e` task to the ROOT `mise.toml`, outside the touch list — why: the done-when command `mise run frontend:e2e` does not resolve without it, because root mise only sees subdirectory tasks through delegation entries — where: `mise.toml`
+- default: e2e files are named `*.e2e.ts`, and the Playwright `testMatch` is `**/*.e2e.ts` — why: keeps them out of Vitest's default include without editing `vitest.config.ts` — where: `frontend/playwright.config.ts`
+- default: preview port 4179 with `--strictPort` and `reuseExistingServer: false` — why: avoids clashing with dev (5173) and vite's default preview port (4173), and guarantees the tests hit the fresh build — where: `frontend/playwright.config.ts`
+- assumption: the 404 path is `/no-such-page`, and the 404, hidden-talk and talk-detail routes get the same axe, reflow and motion checks as the main routes — why: the brief asked for every route plus a 404 — where: `frontend/e2e/site.e2e.ts`
+- default: added `"DOM"` to `lib` in `tsconfig.node.json` so `document` typechecks inside `page.evaluate` — why: the node config only had ES2023 — where: `frontend/tsconfig.node.json`
+- assumption: the "Contact path" on Home is the first link in `<main>` whose name matches /contact/i — why: no more specific hook was inspected — where: `frontend/e2e/site.e2e.ts`
