@@ -48,3 +48,12 @@ description = "Run Vitest unit tests"
 depends     = ["install"]
 run         = "pnpm test --run"
 sources     = ["src/**/*.{ts,tsx}"]
+
+[tasks.e2e]
+description = "Playwright browser checks (a11y, reflow, motion, fold) against vite preview"
+depends     = ["install"]
+run = [
+  "pnpm build",
+  "pnpm exec playwright install chromium",
+  "pnpm exec playwright test",
+]

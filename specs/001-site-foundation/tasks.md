@@ -112,7 +112,7 @@ further task is needed for AC-1.1/AC-1.2.
   - touch: `frontend/src/features/history/*`
   - done when: component tests with a fixed `now` show every appearance with event, `<time datetime>` date, "City, Country" or "Online", and one language badge; "Upcoming" (h2) above "Past" (h2), past newest first; no "Upcoming" heading when nothing is upcoming; resource links labelled with type and language; an appearance with `talk` links to its detail; no appearances shows "No appearances yet."
 
-- [ ] T9: [frontend] Browser checks: accessibility, reflow, motion, above the fold — refs: AC-2.1, AC-2.3, AC-4.4, AC-9.1, AC-9.2, AC-9.3 — deps: T5, T6, T7, T8
+- [x] T9: [frontend] Browser checks: accessibility, reflow, motion, above the fold — refs: AC-2.1, AC-2.3, AC-4.4, AC-9.1, AC-9.2, AC-9.3 — deps: T5, T6, T7, T8
   - touch: `frontend/e2e/*`, `frontend/playwright.config.ts`, `frontend/mise.toml`, `frontend/tsconfig.node.json`, `frontend/eslint.config.js`
   - done when: `mise run frontend:e2e` (Playwright against `vite preview`, Chromium) passes and checks, for every route plus a 404, one talk detail and the address of a hidden talk (must render Not found, AC-4.4): axe WCAG 2.1 A/AA has zero violations (incl. colour contrast); at 375×812 `document.documentElement.scrollWidth <= 375` and all five nav links are visible; at 1280×800 the Talks CTA and the Contact path on Home have `boundingBox().y + height <= 800`; with `reducedMotion: 'reduce'` no element has a running CSS animation (`document.getAnimations()` is empty).
 

@@ -158,3 +158,8 @@ run         = "mise run dev"
 description = "dev (frontend)"
 dir         = "frontend"
 run         = "mise run dev"
+
+[tasks."frontend:e2e"]
+description = "e2e browser checks (frontend)"
+dir         = "frontend"
+run         = "mise run e2e"
