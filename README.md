@@ -61,6 +61,5 @@ Local setup per clone: `git config merge.ff only && git config pull.rebase true`
 
 ## Pending setup
 
-- **Hosting / deploy**: not decided. Suggested: Cloudflare Pages (frontend) + Workers (Hono API), or GCP Cloud Run. The template ships no Dockerfile or deploy config yet; to be specified as a feature.
-- **Contact form email provider** (e.g. Resend): its API key goes in the machine-local mise file locally and in a GitHub secret for CI/deploy, once the contact feature is built.
+- **Hosting / deploy**: not decided. The site is planned as static pages with no runtime backend (no contact form, no CMS), so any static host fits: Cloudflare Pages, GitHub Pages or Netlify. To be specified as a feature.
 - **groma CI action** (`MrLesk/groma.md-action`): optional, not added.
