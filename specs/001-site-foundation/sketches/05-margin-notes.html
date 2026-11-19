@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketch 5 - Margin Notes | Michele Talks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* DESIGN SKETCH, not production code. Direction 5: Margin Notes (a manuscript under review). */
+:root{--bg:#DCE3EA;--paper:#F4F7FA;--ink:#0F1A24;--berry:#A3124F;--muted:#3E4C5A}
+*{box-sizing:border-box;margin:0}
+html{background:var(--bg)}
+body{font:400 18px/1.6 "Source Sans 3",system-ui,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--berry);outline-offset:3px}
+.page{max-width:1160px;margin:28px auto;background:var(--paper);box-shadow:0 1px 0 #b9c4cf,0 18px 40px -22px rgba(15,26,36,.35);padding:30px 56px 44px;position:relative}
+.page::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:var(--berry)}
+header{display:flex;justify-content:space-between;gap:20px;align-items:baseline;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.brand{font:700 22px/1 Fraunces,serif;text-decoration:none;font-variation-settings:"opsz" 72}
+.brand i{font-weight:500}
+nav ul{list-style:none;padding:0;display:flex;gap:26px;flex-wrap:wrap}
+nav a{font:500 13px/1 "IBM Plex Mono",monospace;text-decoration:none;text-transform:lowercase;padding:6px 0;border-bottom:2px solid transparent}
+nav a:hover{border-color:var(--ink)}
+nav a[aria-current]{border-color:var(--berry);color:var(--berry)}
+.cols{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,3.6fr);gap:48px;margin-top:40px}
+h1{font:500 clamp(36px,5vw,66px)/1.06 Fraunces,serif;letter-spacing:-.02em;font-variation-settings:"opsz" 144}
+h1 em{font-style:italic}
+h1 mark{background:transparent;color:inherit;box-shadow:inset 0 -.32em 0 rgba(163,18,79,.22);padding:0 .04em}
+.lede{margin-top:26px;max-width:54ch;font-size:19px}
+.actions{margin-top:30px;display:flex;gap:28px;flex-wrap:wrap;align-items:center}
+.go{font:700 22px/1.1 Fraunces,serif;text-decoration:none;border-bottom:3px solid var(--berry);padding-bottom:4px}
+.go:hover{background:var(--berry);color:#fff}
+.mail{font:500 15px/1.3 "IBM Plex Mono",monospace;color:var(--ink)}
+/* margin notes = signature */
+.notes{display:flex;flex-direction:column;gap:22px;padding-top:6px}
+.note{font:400 13.5px/1.5 "IBM Plex Mono",monospace;color:var(--berry);border-left:2px solid var(--berry);padding-left:14px;position:relative}
+.note::before{content:"";position:absolute;left:-52px;top:.8em;width:50px;border-top:1.5px dashed var(--berry)}
+.note b{font-weight:500;display:block;margin-bottom:4px}
+.note.d{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center}
+.note.d img{width:96px;height:62px;object-fit:cover;border-radius:8px;display:block}
+.note .lang{color:var(--ink);border:1px solid var(--ink);border-radius:3px;padding:1px 4px;font-size:11px}
+/* reserved figure */
+figure.reserved{margin-top:46px;border:1.5px dashed var(--muted);padding:30px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:repeating-linear-gradient(0deg,transparent 0 31px,rgba(62,76,90,.14) 31px 32px)}
+figure.reserved strong{font:700 20px/1.2 Fraunces,serif}
+figure.reserved figcaption{font:400 13.5px/1.4 "IBM Plex Mono",monospace;color:var(--muted)}
+footer{max-width:1160px;margin:0 auto 32px;padding:0 56px;display:flex;gap:14px;align-items:center;font-size:15px;color:var(--muted);flex-wrap:wrap}
+footer img{height:20px}
+.underline-draw mark{animation:draw 1.2s ease-out both}
+@keyframes draw{from{box-shadow:inset 0 0 0 rgba(163,18,79,.22)}}
+@media (max-width:900px){
+  .page{margin:0;padding:22px 20px 32px}
+  .cols{grid-template-columns:1fr;gap:28px}
+  .note::before{display:none}
+  footer{padding:16px 20px}
+  nav ul{gap:18px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <a class="brand" href="#">Michele <i>Talks</i></a>
+    <nav aria-label="Main"><ul>
+      <li><a href="#" aria-current="page">home</a></li>
+      <li><a href="#">profile</a></li>
+      <li><a href="#">talks</a></li>
+      <li><a href="#">history</a></li>
+      <li><a href="#">contact</a></li>
+    </ul></nav>
+  </header>
+  <main>
+  <div class="cols">
+    <section class="underline-draw">
+      <h1>Good software is <mark>mostly conversation</mark>, so I give <em>talks</em> about <mark>the conversation</mark>.</h1>
+      <p class="lede">Michele Giacobazzi speaks about domain modelling, engineering with AI in the loop and teams that deliver calmly. Talks run in English or Italian, from lightning sessions to workshops.</p>
+      <div class="actions">
+        <a class="go" href="#">Read the talks &rarr;</a>
+        <a class="mail" href="mailto:hello@example.com">or write: hello@example.com</a>
+      </div>
+    </section>
+    <aside class="notes" aria-label="Margin notes">
+      <p class="note"><b>on "conversation"</b>Between developers, domain experts and, lately, language models.</p>
+      <p class="note"><b>on "talks"</b>Eight to choose from. Most are available in <span class="lang">EN</span> and <span class="lang">IT</span>.</p>
+      <div class="note d"><img src="welld-assets/mascot/problem-identification-1.png" alt="D, the WellD mascot, wearing round glasses"><span><b>reviewer</b>D, from WellD, checks my arguments.</span></div>
+    </aside>
+  </div>
+  <figure class="reserved" role="img" aria-label="Reserved area for the future talks graph">
+    <strong>Reserved: the talks graph</strong>
+    <figcaption>Future feature. Links between talks, events and topics will be drawn here.</figcaption>
+  </figure>
+  </main>
+</div>
+<footer><img src="welld-assets/logo/welld_logo_primary_fullcolor_rgb.svg" alt="WellD"><span>The speaker co-owns <a href="https://www.welld.ch">WellD</a>.</span></footer>
+</body>
+</html>

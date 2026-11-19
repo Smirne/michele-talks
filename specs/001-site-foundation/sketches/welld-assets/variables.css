@@ -1,0 +1,18 @@
+:root {
+  /* Surfaces & Text */
+  --welld-bg: #141218;
+  --welld-surface: #23242A;
+  --welld-on-surface: #F8F9FA;
+  --welld-outline: #464957;
+
+  /* Accents */
+  --welld-primary: #E50339;
+  --welld-secondary: #7F3BED;
+  --welld-tertiary: #03A59A;
+  --welld-error: #F22;
+
+  /* Gradients */
+  --welld-grad-primary: linear-gradient(180deg, rgba(19, 18, 23, 0.20) 0%, rgba(210, 46, 64, 0.20) 100%);
+  --welld-grad-secondary: linear-gradient(180deg, rgba(20, 18, 24, 0.20) 0%, rgba(138, 56, 245, 0.20) 100%);
+  --welld-grad-tertiary: linear-gradient(180deg, rgba(20, 18, 24, 0.20) 0%, rgba(3, 165, 154, 0.20) 100%);
+}

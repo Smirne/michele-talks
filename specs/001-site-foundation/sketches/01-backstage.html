@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketch 1 - Backstage | Michele Talks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500;700&family=Noto+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+/* DESIGN SKETCH, not production code. Direction 1: Backstage (close to WellD brand). */
+:root{
+  --bg:#141218; --surface:#23242A; --text:#F8F9FA; --muted:#B5B8C4;
+  --red:#E50339; --red-soft:#FF5C7F; --teal:#03A59A; --line:#464957;
+}
+*{box-sizing:border-box;margin:0}
+html{background:var(--bg)}
+body{color:var(--text);font:400 17px/1.6 "Noto Serif",Georgia,serif;min-height:100vh;
+  background-image:radial-gradient(#2c2b33 1.2px,transparent 1.3px);background-size:24px 24px;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+/* floating pill nav */
+.nav{margin-top:20px;background:rgba(35,36,42,.92);border:1px solid var(--line);border-radius:24px;
+  display:flex;align-items:center;gap:16px;padding:10px 12px 10px 22px;flex-wrap:wrap}
+.brand{font:700 20px/1 Ubuntu,sans-serif;text-decoration:none;letter-spacing:-.01em}
+.brand b{color:var(--red-soft)}
+.nav ul{list-style:none;padding:0;display:flex;gap:4px;flex-wrap:wrap;margin:0 auto}
+.nav li a{display:block;padding:8px 14px;border-radius:999px;font:500 13px/1 Ubuntu,sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--muted)}
+.nav li a:hover,.nav li a[aria-current]{color:var(--text);background:#2f3038}
+.pill{display:inline-block;background:var(--red);color:#fff;border-radius:999px;padding:12px 26px;font:500 13px/1 Ubuntu,sans-serif;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.pill.ghost{background:transparent;border:1.5px solid var(--red-soft);color:var(--text)}
+.pill:hover{filter:brightness(1.12)}
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:56px 0 40px}
+.kicker{font:300 15px/1 Ubuntu,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
+.kicker i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--teal);margin-right:10px;animation:onair 2.4s ease-in-out infinite}
+@keyframes onair{50%{opacity:.35}}
+h1{font:300 clamp(38px,5.2vw,64px)/1.08 Ubuntu,sans-serif;letter-spacing:-.02em;margin-bottom:24px}
+h1 strong{font-weight:500;color:var(--text)}
+h1 span{color:#9a9eae}
+.lede{color:var(--muted);max-width:52ch;margin-bottom:32px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+/* stage = signature */
+.stage{position:relative;aspect-ratio:360/200;border-radius:28px;overflow:hidden;border:1px solid var(--line);box-shadow:0 0 0 8px rgba(229,3,57,.08)}
+.stage img{width:100%;height:100%;object-fit:cover;display:block}
+.stage::after{content:"";position:absolute;inset:0;background:conic-gradient(from 160deg at 50% -10%,rgba(255,255,255,.22),transparent 20deg,transparent 340deg,rgba(255,255,255,.22) 360deg);mix-blend-mode:soft-light;pointer-events:none}
+.stage figcaption{position:absolute;left:14px;bottom:12px;background:rgba(20,18,24,.88);color:var(--text);border-radius:999px;padding:6px 14px;font:500 11px/1 Ubuntu,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.curtain{height:6px;background:repeating-linear-gradient(90deg,var(--red) 0 36px,#b00229 36px 72px);border-radius:3px;margin:0 28px 14px}
+/* lower */
+.lower{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;padding-bottom:56px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px}
+.panel h2{font:500 14px/1 Ubuntu,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.row{display:flex;gap:14px;align-items:baseline;padding:12px 0;border-top:1px solid var(--line)}
+.row time{font:500 13px/1 Ubuntu,sans-serif;color:var(--red-soft);min-width:84px}
+.row a{font:500 16px/1.3 Ubuntu,sans-serif;text-decoration:none}
+.row small{color:var(--muted);display:block;font:400 13px/1.4 "Noto Serif",serif}
+.lang{margin-left:auto;font:700 11px/1 Ubuntu,sans-serif;border:1.5px solid var(--teal);color:var(--teal);border-radius:6px;padding:4px 6px;letter-spacing:.08em}
+.reserved{border:2px dashed var(--teal);background:transparent;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:210px;gap:6px}
+.reserved b{font:500 14px/1 Ubuntu,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.reserved span{color:var(--muted);font-size:14px}
+footer{border-top:1px solid var(--line);padding:22px 0 36px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+footer img{height:22px}
+@media (max-width:860px){.hero,.lower{grid-template-columns:1fr}.hero{padding-top:36px}.nav ul{margin:0}}
+@media (max-width:480px){.wrap{padding:0 16px}.nav{padding:12px 14px;border-radius:20px}.nav li a{padding:8px 10px;font-size:12px}.row{flex-wrap:wrap}.row time{min-width:100%}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="#">Michele<b>Talks</b></a>
+    <ul>
+      <li><a href="#" aria-current="page">Home</a></li>
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">Talks</a></li>
+      <li><a href="#">History</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+  <section class="hero">
+    <div>
+      <p class="kicker"><i></i>Speaker &middot; Software engineering</p>
+      <h1><span>Talks on building software</span> <strong>that outlives the hype.</strong></h1>
+      <p class="lede">Michele Giacobazzi speaks about domain modelling, engineering with AI in the loop, and teams that ship calmly. Talks come in English and Italian, from 20-minute lightning sessions to half-day workshops.</p>
+      <div class="cta">
+        <a class="pill" href="#">Browse the talks</a>
+        <a class="pill ghost" href="mailto:hello@example.com">Invite the speaker</a>
+      </div>
+    </div>
+    <div>
+      <figure class="stage">
+        <img src="welld-assets/mascot/training.png" alt="D, the WellD mascot, wearing a graduation cap">
+        <figcaption>D is on stage</figcaption>
+      </figure>
+      <div class="curtain" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="lower">
+    <div class="panel">
+      <h2>Next on the running order</h2>
+      <div class="row"><time>12 Mar 2027</time><div><a href="#">Domain Modelling for the Impatient</a><small>Ticino Dev Days &middot; Lugano, Switzerland</small></div><span class="lang">EN</span></div>
+      <div class="row"><time>08 Apr 2027</time><div><a href="#">Pair Programming con l'IA, senza perdere il filo</a><small>Milano Craft Night &middot; Milan, Italy</small></div><span class="lang">IT</span></div>
+      <div class="row"><time>21 May 2027</time><div><a href="#">Small Teams, Calm Releases</a><small>Remote Systems Summit &middot; Online</small></div><span class="lang">EN</span></div>
+    </div>
+    <div class="panel reserved" role="img" aria-label="Reserved area for the future talks graph">
+      <b>Reserved</b>
+      <span>Talks graph goes here (future feature)</span>
+    </div>
+  </section>
+  </main>
+</div>
+<footer><div class="wrap"><img src="welld-assets/logo/welld_logo_primary_white_rgb.svg" alt="WellD"><span>Speaker at Michele Talks. Co-owner at <a href="https://www.welld.ch">WellD</a>.</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketch 3 - Programme Board | Michele Talks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Public+Sans:wght@400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* DESIGN SKETCH, not production code. Direction 3: Programme Board (home page as a conference timetable). */
+:root{--mint:#E3F1E7;--ink:#10281F;--orange:#B43A08;--white:#fff;--muted:#3F5A4C}
+*{box-sizing:border-box;margin:0}
+html{background:var(--mint)}
+body{font:400 17px/1.5 "Public Sans",system-ui,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+header{border-bottom:4px solid var(--ink)}
+header .wrap{display:flex;justify-content:space-between;align-items:stretch;gap:12px;flex-wrap:wrap}
+.brand{font:900 28px/1 "Big Shoulders Display",sans-serif;text-transform:uppercase;letter-spacing:.02em;text-decoration:none;padding:16px 0;display:flex;align-items:center;gap:10px}
+.brand span{background:var(--ink);color:var(--mint);padding:2px 8px}
+nav ul{list-style:none;padding:0;display:flex;align-items:flex-end;gap:0;height:100%}
+nav li a{display:block;padding:14px 20px 12px;border:3px solid var(--ink);border-bottom:0;margin-left:-3px;font:700 14px/1 "Space Mono",monospace;text-transform:uppercase;text-decoration:none;background:transparent;border-radius:10px 10px 0 0}
+nav li a:hover{background:var(--white)}
+nav li a[aria-current]{background:var(--ink);color:var(--mint)}
+h1{font:900 clamp(56px,11vw,150px)/.86 "Big Shoulders Display",sans-serif;text-transform:uppercase;letter-spacing:-.005em;padding:28px 0 18px;display:flex;gap:.25em;flex-wrap:wrap;align-items:baseline}
+h1 em{font-style:normal;color:var(--orange)}
+h1 small{font:700 15px/1.4 "Space Mono",monospace;letter-spacing:0;text-transform:none;color:var(--muted);align-self:flex-end;max-width:32ch;padding-bottom:10px}
+/* board */
+.board{border-top:4px solid var(--ink)}
+.slot{display:grid;grid-template-columns:130px 1fr 220px;gap:0 24px;padding:18px 0;border-bottom:2px solid var(--ink);align-items:center}
+.slot .t{font:700 22px/1 "Space Mono",monospace}
+.slot h2{font:900 clamp(26px,3vw,38px)/1 "Big Shoulders Display",sans-serif;text-transform:uppercase;margin-bottom:6px}
+.slot p{max-width:60ch}
+.slot .where{font:400 14px/1.4 "Space Mono",monospace;color:var(--muted)}
+.slot.now{background:var(--orange);color:var(--white);margin:0 -28px;padding-left:28px;padding-right:28px;border-bottom-color:var(--ink)}
+.slot.now .where{color:#fff}
+.btn{display:inline-block;margin-top:12px;padding:12px 20px;font:700 14px/1 "Space Mono",monospace;text-transform:uppercase;text-decoration:none;background:var(--ink);color:var(--mint);border-radius:2px}
+.btn:hover{background:var(--white);color:var(--ink)}
+.now .btn{background:var(--white);color:var(--ink)}
+.reserved{background:repeating-linear-gradient(135deg,transparent 0 12px,rgba(16,40,31,.09) 12px 24px);border:3px dashed var(--ink);margin:18px 0;padding:34px 24px;display:grid;grid-template-columns:130px 1fr;gap:24px}
+.reserved b{font:900 28px/1 "Big Shoulders Display",sans-serif;text-transform:uppercase}
+.lang{display:inline-block;font:700 12px/1 "Space Mono",monospace;background:var(--ink);color:var(--mint);padding:4px 6px;margin-right:6px}
+footer{background:var(--ink);color:var(--mint);margin-top:28px}
+footer .wrap{display:flex;gap:16px;align-items:center;padding-top:18px;padding-bottom:18px;font:400 14px/1.4 "Space Mono",monospace;flex-wrap:wrap}
+footer img{height:30px}
+.blink{animation:blink 1.6s steps(2) infinite}
+@keyframes blink{50%{opacity:.25}}
+@media (max-width:820px){
+  .slot{grid-template-columns:1fr;gap:6px}
+  .slot.now{margin:0 -16px;padding-left:16px;padding-right:16px}
+  .reserved{grid-template-columns:1fr;gap:6px}
+  nav ul{flex-wrap:wrap;gap:6px;padding-bottom:12px}
+  nav li a{border:2px solid var(--ink);border-radius:6px;margin:0;padding:10px 12px}
+}
+@media (max-width:480px){.wrap{padding:0 16px}h1{font-size:64px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="#"><span>MT</span> Michele Talks</a>
+  <nav aria-label="Main"><ul>
+    <li><a href="#" aria-current="page">Home</a></li>
+    <li><a href="#">Profile</a></li>
+    <li><a href="#">Talks</a></li>
+    <li><a href="#">History</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul></nav>
+</div></header>
+<main class="wrap">
+  <h1>On the <em>programme</em> <small>Michele Giacobazzi, speaker. Domain modelling, engineering with AI, calm delivery.</small></h1>
+  <div class="board">
+    <section class="slot">
+      <div class="t">09:00</div>
+      <div><h2>Opening: who is speaking</h2><p>Talks in English and Italian for conferences, meetups and company events. Short on slides, long on examples from real systems.</p></div>
+      <div class="where"><span class="lang">EN</span><span class="lang">IT</span> Lugano, CH / online</div>
+    </section>
+    <section class="slot now">
+      <div class="t"><span class="blink" aria-hidden="true">&#9679;</span> NOW</div>
+      <div><h2>Browse the talks catalogue</h2><p>Eight talks, from 20-minute lightning sessions to half-day workshops.</p><a class="btn" href="#">Open the talks</a></div>
+      <div class="where">Track A / all levels</div>
+    </section>
+    <section class="slot">
+      <div class="t">10:30</div>
+      <div><h2>Invite the speaker</h2><p>Write to <a href="mailto:hello@example.com"><strong>hello@example.com</strong></a> with the date, audience and format.</p><a class="btn" href="#">Contact details</a></div>
+      <div class="where">Reply within 3 days</div>
+    </section>
+  </div>
+  <section class="reserved" role="img" aria-label="Reserved area for the future talks graph">
+    <div class="t" style="font:700 22px/1 'Space Mono',monospace">11:00</div>
+    <div><b>Reserved</b><p>Talks graph goes here (future feature).</p></div>
+  </section>
+</main>
+<footer><div class="wrap"><img src="welld-assets/logo/welld_logo_icon_white_rgb.svg" alt="WellD"><span>The speaker is a co-owner of <a href="https://www.welld.ch">WellD</a>.</span></div></footer>
+</body>
+</html>

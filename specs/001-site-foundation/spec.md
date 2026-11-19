@@ -68,7 +68,8 @@ As an event organizer, I want to see the talks on offer, so that I can pick one 
   listed, and each shows its title, a short abstract, duration, audience level, format and the
   language(s) it can be given in.
 - AC-4.2: Given a talk in the list, when the visitor opens it, then a detail view shows the
-  full abstract and the past appearances where that talk was given (if any).
+  full abstract, its upcoming appearances, and the past appearances where that talk was
+  given (each group shown only if it has entries).
 
 ### US-5: Browse the talk history
 As an attendee or organizer, I want to see where the speaker has spoken, with slides and
@@ -76,9 +77,12 @@ recordings, so that I can catch up on a talk or check the speaker's track record
 **Acceptance criteria:**
 - AC-5.1: Given the History page, when it is viewed, then every appearance in the content
   files is listed with event name, date, location (city and country, or "online"), and
-  language(s) it can be given in.
-- AC-5.2: Given the History page, when it is viewed, then appearances dated after today are
+  the language it was (or will be) given in. Every appearance has exactly one language.
+- AC-5.2: Given the History page, when it is viewed, then appearances dated after the
+  visitor's current date (checked when the page is viewed, not when the site was built) are
   shown in a separate "Upcoming" group above past ones; past ones are ordered newest first.
+- AC-5.2b: Given no appearance is dated after the visitor's current date, when the History
+  page is viewed, then no "Upcoming" group is shown.
 - AC-5.3: Given an appearance with slides and/or a video link, when it is viewed, then each
   resource is shown as a link labelled with its type and language.
 - AC-5.4: Given an appearance linked to a talk in the catalogue, when the visitor follows the
@@ -122,6 +126,12 @@ that I'm not excluded.
   are no WCAG 2.1 AA violations, including colour contrast.
 - AC-9.3: Given a visitor with "reduce motion" enabled, when they browse the site, then no
   decorative animation plays.
+
+## Amendments
+- 2026-11-19 (after approval, during design, by the owner): "upcoming" uses the visitor's
+  current date (AC-5.2, AC-5.2b); a talk's detail lists upcoming appearances too (AC-4.2);
+  an appearance has exactly one language (AC-5.1, a wording fix). Empty-state behaviour
+  follows design.md.
 
 ## Non-goals
 - The creative talks graph itself: this feature only reserves its place (AC-2.4).
