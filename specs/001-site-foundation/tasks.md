@@ -96,7 +96,7 @@ further task is needed for AC-1.1/AC-1.2.
   - `LanguageBadge`, `ButtonLink` (primary/secondary), `TalkCard`, `AppearanceRow`, `ResourceLink` ("Slides (IT)"), `isUpcoming`, `splitAppearances(appearances, now)` → `{ upcoming (soonest first), past (newest first) }`.
   - done when: unit tests for `isUpcoming`/`splitAppearances` with a fixed `now` cover today (not upcoming), tomorrow (upcoming), ordering of both groups and the empty-upcoming case; component tests show every badge renders "EN"/"IT" text, Italian items carry `lang="it"`, a resource renders as a link labelled with type and language, an appearance with `talk` links to `/talks/<slug>`; `AppearanceRow` shows `sessionTitle` when present (next to the catalogue talk link), the `note` text, and `eventUrl` as a link; none of the three renders when absent.
 
-- [ ] T5: [frontend] Home page with Programme Board layout, D card and graph placeholder — refs: AC-2.3, AC-2.4, AC-1.3 — deps: T3, T4
+- [x] T5: [frontend] Home page with Programme Board layout, D card and graph placeholder — refs: AC-2.3, AC-2.4, AC-1.3 — deps: T3, T4
   - touch: `frontend/src/features/home/*`, `frontend/src/components/graph-placeholder/*`, `frontend/src/assets/mascot/*`
   - done when: component test asserts the intro, a link to `/talks`, a Contact path (link to `/contact` and the `mailto:`), the "Next" list (≤3 upcoming, or "Recently" fallback with a fixed `now`), a labelled reserved graph region, and a D card image with alt text whose caption links to `https://www.welld.ch`; the scaffold `HomePage.test.tsx` is updated, not deleted.
 
