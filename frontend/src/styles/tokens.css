@@ -1,0 +1,27 @@
+/* Design tokens: Programme Board direction (specs/001-site-foundation/design.md).
+   Components reference these custom properties; no hex literals outside this file. */
+:root {
+  --mint: #e3f1e7;
+  --ink: #10281f;
+  --signal: #b43a08;
+  --muted: #3f5a4c;
+  --white: #ffffff;
+
+  --font-display: 'Big Shoulders Display', 'Arial Narrow', Impact, sans-serif;
+  --font-body: 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* 8px spacing scale */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-10: 80px;
+
+  --radius: 0;
+  --focus-ring: 3px solid var(--signal);
+  --focus-offset: 2px;
+}

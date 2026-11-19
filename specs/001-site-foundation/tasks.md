@@ -77,7 +77,7 @@ AC-1.1 and AC-1.2 were delivered and checked at the design stage (`sketches/`, d
 "Comparison"); AC-1.4 is recorded in design.md and is implemented by T1 (tokens). No
 further task is needed for AC-1.1/AC-1.2.
 
-- [ ] T1: [frontend] Add dependencies, design tokens, self-hosted fonts and the i18n set — refs: AC-1.4, AC-8.2, AC-8.3, AC-9.3 — deps: none
+- [x] T1: [frontend] Add dependencies, design tokens, self-hosted fonts and the i18n set — refs: AC-1.4, AC-8.2, AC-8.3, AC-9.3 — deps: none
   - touch: `frontend/package.json`, `frontend/pnpm-lock.yaml`, `frontend/eslint.config.js`, `frontend/src/styles/*`, `frontend/src/i18n/*`, `frontend/src/components/content/strings.en.ts`, `frontend/src/features/*/strings.en.ts`, `frontend/src/main.tsx`, `frontend/index.html`
   - adds: `@tanstack/react-router`, `zod`, `yaml`, `@fontsource/big-shoulders-display`, `@fontsource/public-sans`, `@fontsource/space-mono`; dev: `eslint-plugin-react`, `vitest-axe`, `@playwright/test`, `@axe-core/playwright`
   - done when: `tokens.css` defines exactly the design.md palette/fonts/spacing; a global rule disables animation and transitions under `prefers-reduced-motion: reduce`; `t()` has a unit test (key lookup, variable interpolation, unknown key is a type error); a unit test runs ESLint's Node API with the project config on a `.tsx` snippet containing a JSX string literal and gets a `react/jsx-no-literals` error; `<html lang="en">`; `mise run frontend:build`, `frontend:lint`, `frontend:test` pass; `pnpm audit --prod` clean.
