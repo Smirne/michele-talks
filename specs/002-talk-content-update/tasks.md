@@ -97,10 +97,10 @@ synced: 2026-11-20
     Voxxed Days Ticino rows and the 2015 one links to the "Repetition is Bad" page, which says
     "No longer offered"; `mise run frontend:e2e` passes in full.
 
-- [ ] T4: Close — refs: all — deps: T3
+- [x] T4: Close — refs: all — deps: T3
   - touch: `specs/002-talk-content-update/*`
   - done when: `mise run frontend:lint`, `frontend:test`, `frontend:build`, `frontend:e2e`
-    pass, CI is green on PR #2, QE-light verdict PASS, owner checks the preview, status → done
+    pass, CI is green on PR #3, QE-light verdict PASS, owner checks the preview, status → done
     via `/wellforge:done`.
 
 ## Coverage

@@ -1,10 +1,11 @@
 ---
 id: 002
 slug: talk-content-update
-status: in-progress
+status: done
 rigor: mvp
 created: 2026-11-20
 approved: 2026-11-20
+done: 2026-11-20
 ---
 
 # Talk content update: merged talks, workshops and the archive
