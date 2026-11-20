@@ -9,5 +9,6 @@ One term per concept. Use these words in specs, plans, code and UI text.
 | **Resource** | Slides or a video attached to an Appearance, with its own type and language. | — |
 | **Co-host** | Someone who presents a Talk or an Appearance together with the speaker. Shown by name. | A speaker of a different session at the same event. |
 | **No longer offered** | A Talk kept for History (its page and Appearances stay) but not listed among the talks on offer. | A hidden Talk, which is not published at all. |
+| **Featured recording** | The video a Talk's page links to: the one named in the Talk's content, else the most recent Appearance video of that Talk. | Any other video Resource of the Talk. |
 
-Source: specs/001-site-foundation (approved 2026-11-19), specs/002-talk-content-update (approved 2026-11-20).
+Source: specs/001-site-foundation (approved 2026-11-19), specs/002-talk-content-update (approved 2026-11-20), specs/003-organiser-feedback (approved 2026-11-20).
