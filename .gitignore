@@ -37,3 +37,7 @@ coverage/
 
 # WellForge visual-companion mockups (design evidence; transient, referenced from design.md)
 .forge/design/
+
+# Playwright output
+frontend/test-results/
+frontend/playwright-report/

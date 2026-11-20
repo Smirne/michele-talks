@@ -1,5 +1,8 @@
-import { HomePage } from '@/features/home/HomePage'
+import { RouterProvider } from '@tanstack/react-router'
+import { createAppRouter } from '@/app/router'
+
+const router = createAppRouter()
 
 export const App = () => {
-  return <HomePage />
+  return <RouterProvider router={router} />
 }

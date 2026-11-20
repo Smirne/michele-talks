@@ -1,6 +1,11 @@
 # Michele Talks — Project Context
 
-Personal speaker website: profile, available talks, talk history, a creative talks graph and a contact form.
+Personal speaker website: profile, available talks, talk history and a creative talks graph.
+
+**The product is a static site with no runtime backend.** A contact form and an admin UI/CMS
+are out of the product's scope (specs/001-site-foundation). Content lives as typed files in
+the repo and is bundled into the site at build time. The `backend/` service below is template
+scaffolding: keep it building and tested, but don't put product features in it or deploy it.
 
 Full-stack TypeScript monorepo: a **Hono** backend and a **React + TypeScript + Vite**
 frontend, managed with **mise** + **pnpm**.
@@ -11,9 +16,9 @@ frontend, managed with **mise** + **pnpm**.
 |---|---|---|
 | Runtime | Node | 22 |
 | Package manager | pnpm | 10 |
-| Backend framework | Hono | ^4.6.15 |
-| API schema/docs | @hono/zod-openapi | ^0.18.4 |
-| Validation | zod | ^3.24.1 |
+| Backend framework | Hono | ^4.13.19 |
+| API schema/docs | @hono/zod-openapi | ^1.6.3 |
+| Validation | zod | ^4.6.7 |
 | Error handling | effect | ^3.12.5 |
 | Backend lint/format | @biomejs/biome | ^1.9.4 |
 | Backend tests | vitest | ^2.1.8 |

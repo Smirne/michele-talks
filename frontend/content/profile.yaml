@@ -1,0 +1,48 @@
+# Speaker profile. Edited by hand; validated at build (specs/001-site-foundation).
+name: Michele Giacobazzi
+photo: media/michele-giacobazzi.jpg
+photoAlt: Portrait of Michele Giacobazzi
+
+bioShort: >-
+  Michele Giacobazzi is CTO and co-founder of WellD, a software company in Italy and
+  Switzerland that builds cloud-native solutions for the energy sector. He is tech lead of
+  SPARklE, a production platform for Renewable Energy Communities and energy flexibility
+  markets.
+
+bio:
+  - >-
+    Michele Giacobazzi is CTO and co-founder of WellD, a software company based in Italy and
+    Switzerland that builds cloud-native solutions for the energy sector. He is tech lead of
+    SPARklE, a microservice platform for Renewable Energy Communities and energy flexibility
+    markets, built with four partner companies under EU research funding and now running in
+    production.
+  - >-
+    His work sits where the grid meets the cluster: multitenant PostgreSQL, GitOps on
+    Kubernetes, and measuring what JVM optimisations really cost in containers. Lately he
+    focuses on how engineering teams can bring AI agents into their work without losing
+    control, through architecture decision records and spec-driven development, a topic WellD
+    also teaches in its AI4Dev course.
+  - >-
+    He speaks at developer conferences in Italy and abroad, including DevFest Milano,
+    ContainerDay and Cloud Day, and his AI-built game Devoxx After Dark won the Devoxx Belgium
+    2026 Robot Games. He sits on the Voxxed Days Ticino programme committee.
+
+topics:
+  - 'Software for the energy transition: energy communities, flexibility markets, grid data'
+  - 'Cloud-native platforms: Kubernetes, GitOps with FluxCD, delivery across partner companies'
+  - 'PostgreSQL: multitenancy with Row-Level Security, TimescaleDB time series'
+  - 'Java and the JVM in containers: startup, AOT cache, image size, memory'
+  - 'AI-assisted development: agents, ADRs, spec-driven development, human control'
+  - 'Green software: reservation versus use, resource efficiency'
+
+email: michele.giacobazzi@welld.ch
+
+profiles:
+  - { label: LinkedIn, url: 'https://www.linkedin.com/in/michelegiacobazzi/' }
+  - { label: X, url: 'https://x.com/smirne' }
+  - { label: GitHub, url: 'https://github.com/Smirne' }
+  - { label: Speakerdeck, url: 'https://speakerdeck.com/smirne' }
+  - { label: Sessionize, url: 'https://sessionize.com/michele-giacobazzi' }
+  - { label: WeAreDevelopers, url: 'https://www.wearedevelopers.com/@michele-giacobazzi' }
+  - { label: WellD, url: 'https://www.welld.ch' }
+  - { label: AI4Dev, url: 'https://ai4dev.dev' }

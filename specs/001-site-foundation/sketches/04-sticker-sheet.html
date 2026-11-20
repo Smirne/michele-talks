@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketch 4 - Sticker Sheet | Michele Talks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Figtree:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* DESIGN SKETCH, not production code. Direction 4: Sticker Sheet (collage, tilted pieces, die-cut edges). */
+:root{--yellow:#FFD93B;--ink:#16110F;--pink:#FF5C93;--teal:#0B7A72;--white:#fff;--brown:#4A3F00}
+*{box-sizing:border-box;margin:0}
+html{background:var(--yellow)}
+body{font:400 17px/1.5 Figtree,system-ui,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden;
+  background-image:radial-gradient(rgba(22,17,15,.14) 1.5px,transparent 1.6px);background-size:22px 22px}
+a{color:inherit}
+:focus-visible{outline:4px solid var(--ink);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:22px 28px 56px}
+.sticker{background:var(--white);border:3px solid var(--ink);border-radius:18px;box-shadow:5px 5px 0 var(--ink)}
+/* nav */
+.top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font:400 24px/1 "Dela Gothic One",sans-serif;text-decoration:none;background:var(--ink);color:var(--yellow);padding:10px 16px;border-radius:12px;transform:rotate(-2deg);display:inline-block}
+nav ul{list-style:none;padding:0;display:flex;gap:10px;flex-wrap:wrap}
+nav li:nth-child(odd) a{transform:rotate(1.5deg)}
+nav li:nth-child(even) a{transform:rotate(-1.5deg)}
+nav li a{display:block;padding:9px 16px;font:800 15px/1 Figtree,sans-serif;text-decoration:none;background:var(--white);border:3px solid var(--ink);border-radius:999px;box-shadow:3px 3px 0 var(--ink);transition:transform .15s}
+nav li a:hover{transform:rotate(0) translateY(-2px)}
+nav li a[aria-current]{background:var(--pink)}
+/* collage */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;margin-top:34px;align-items:start}
+.hello{grid-column:1/8;padding:34px 36px;transform:rotate(-1deg)}
+.hello h1{font:400 clamp(40px,5.6vw,76px)/1.1 "Dela Gothic One",sans-serif;letter-spacing:-.02em}
+.hello h1 mark{background:linear-gradient(transparent 52%,var(--pink) 52% 92%,transparent 92%);color:var(--ink);padding:0 .06em}
+.hello p{margin:20px 0 0;max-width:52ch;font-size:18px}
+.mascot{grid-column:8/13;grid-row:1;background:var(--teal);border-radius:50% 50% 24px 24px/38% 38% 24px 24px;padding:0;overflow:hidden;transform:rotate(2.5deg);border:6px solid var(--white);outline:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink)}
+.mascot img{width:100%;display:block;aspect-ratio:360/200;object-fit:cover}
+.mascot .cap{background:var(--white);padding:10px 16px;font:800 14px/1.3 Figtree,sans-serif;border-top:3px solid var(--ink)}
+.cta-talks{grid-column:1/5;text-decoration:none;background:var(--pink);padding:22px 26px;transform:rotate(1.2deg);display:block;transition:transform .15s}
+.cta-talks:hover{transform:rotate(0) scale(1.02)}
+.cta-talks b{display:block;font:400 34px/1 "Dela Gothic One",sans-serif}
+.cta-talks span{font-weight:600}
+.cta-mail{grid-column:5/8;text-decoration:none;background:var(--ink);color:var(--yellow);padding:22px 26px;transform:rotate(-1.4deg);display:block;border-color:var(--ink);box-shadow:5px 5px 0 var(--white)}
+.cta-mail b{display:block;font:400 26px/1.05 "Dela Gothic One",sans-serif}
+.cta-mail span{color:var(--white);font-weight:600;word-break:break-all}
+.cta-mail:hover{background:#2a211d}
+.cut{grid-column:1/8;border:3px dashed var(--ink);border-radius:18px;padding:22px;position:relative;min-height:150px;display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.35)}
+.cut::before{content:"cut here";position:absolute;top:-13px;left:22px;background:var(--yellow);padding:0 8px;font:800 12px/1 Figtree,sans-serif;text-transform:uppercase;letter-spacing:.1em}
+.cut b{font:400 22px/1.1 "Dela Gothic One",sans-serif}
+.lang{display:inline-block;background:var(--ink);color:var(--yellow);font:800 12px/1 Figtree,sans-serif;padding:4px 7px;border-radius:6px;margin-left:4px}
+.next{grid-column:8/13;grid-row:2/4;padding:18px 22px;transform:rotate(-.8deg)}
+.next h2{font:400 18px/1 "Dela Gothic One",sans-serif;margin-bottom:10px}
+.next li{list-style:none;padding:9px 0;border-top:2px solid var(--ink);font-weight:600}
+.next small{display:block;font-weight:400;color:var(--brown)}
+.wiggle{animation:wig 5s ease-in-out infinite}
+@keyframes wig{0%,92%,100%{transform:rotate(2.5deg)}95%{transform:rotate(4.5deg)}}
+footer{background:var(--ink);color:var(--yellow);font-weight:600}
+footer div{max-width:1200px;margin:0 auto;padding:18px 28px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+footer img{height:22px}
+footer a{color:var(--white)}
+@media (max-width:860px){
+  .grid>*{grid-column:1/-1!important;grid-row:auto!important}
+  .mascot{max-width:360px;margin:0 auto}
+  .hello{padding:24px}
+}
+@media (max-width:480px){.wrap{padding:16px 16px 40px}nav li a{padding:8px 12px;font-size:14px}.cta-talks b{font-size:28px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="#">Michele Talks</a>
+    <nav aria-label="Main"><ul>
+      <li><a href="#" aria-current="page">Home</a></li>
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">Talks</a></li>
+      <li><a href="#">History</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul></nav>
+  </div>
+  <main class="grid">
+    <section class="sticker hello">
+      <h1>Hi, I give <mark>talks</mark> about software.</h1>
+      <p>I'm Michele Giacobazzi. I speak at conferences and meetups about domain modelling, building with AI in the loop, and shipping without drama. English or Italian, your pick.</p>
+    </section>
+    <figure class="mascot wiggle">
+      <img src="welld-assets/mascot/ui-1.png" alt="D, the WellD mascot, drawing with a pen">
+      <figcaption class="cap">D, my colleague at WellD, supervises the sketches.</figcaption>
+    </figure>
+    <a class="sticker cta-talks" href="#"><b>See the talks</b><span>8 talks, pick one for your event</span></a>
+    <a class="sticker cta-mail" href="mailto:hello@example.com"><b>Say hi</b><span>hello@example.com</span></a>
+    <section class="cut" role="img" aria-label="Reserved area for the future talks graph"><div><b>Reserved</b><br>Talks graph sticker goes here (future feature).</div></section>
+    <section class="sticker next">
+      <h2>Catch me next</h2>
+      <ul>
+        <li>Ticino Dev Days <span class="lang">EN</span><small>12 Mar 2027, Lugano</small></li>
+        <li>Milano Craft Night <span class="lang">IT</span><small>08 Apr 2027, Milan</small></li>
+      </ul>
+    </section>
+  </main>
+</div>
+<footer><div><img src="welld-assets/logo/welld_logo_primary_white_rgb.svg" alt="WellD"><span>Made by a speaker who co-owns <a href="https://www.welld.ch">WellD</a>.</span></div></footer>
+</body>
+</html>

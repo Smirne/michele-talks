@@ -1,0 +1,133 @@
+# Appearances: one entry per time the speaker spoke (or facilitated) at an event.
+# `talk` links a catalogue talk; `sessionTitle` is the title used at that event, when it differs.
+# Every resource states its own language.
+
+- id: jug-milano-2026
+  event: JUG Milano
+  date: 2026-06-18
+  city: Milan
+  country: Italy
+  online: false
+  language: it
+  talk: from-kubernetes-to-kilowatts
+  sessionTitle: 'Scaling smart energy: building a cloud-native platform for renewable communities'
+  resources:
+    - {
+        type: slides,
+        language: it,
+        url: 'https://speakerdeck.com/smirne/ita-scaling-smart-energy-building-a-cloud-native-platform-for-renewable-communities',
+      }
+    - { type: video, language: it, url: 'https://www.youtube.com/watch?v=sNWVQHHGc6w' }
+
+- id: wearedevelopers-world-congress-2026
+  event: WeAreDevelopers World Congress 2026
+  date: 2026-06-30
+  online: true
+  language: en
+  talk: flex-your-energy
+  note: Video selection for the virtual stage, not a live slot. The recording needs a WeAreDevelopers login.
+  resources:
+    - {
+        type: slides,
+        language: en,
+        url: 'https://speakerdeck.com/smirne/from-grid-saturation-to-gitops-engineering-a-renewable-energy-community-platform',
+      }
+    - {
+        type: video,
+        language: en,
+        url: 'https://www.wearedevelopers.com/videos/1990-flex-your-energy-building-a-cloud-native-platform-for-renewable-energy-communities',
+      }
+
+- id: aeit-conference-2026
+  event: AEIT Conference 2026
+  date: 2026-09-10
+  city: Rome
+  country: Italy
+  online: false
+  language: it
+  note: 'Invited talk: an introduction to SPARklE and DANTE.'
+
+- id: devoxx-belgium-2026
+  event: 'Devoxx Belgium 2026: Robot Games finalists session'
+  date: 2026-10-08
+  city: Antwerp
+  country: Belgium
+  online: false
+  language: en
+  talk: agents-built-the-graphics
+  sessionTitle: Devoxx After Dark
+  note: 4-minute live demo of Devoxx After Dark, winner of the Robot Games.
+  eventUrl: 'https://m.devoxx.com/events/dvbe26/talks/52103/the-devoxx-robot-games'
+  resources:
+    - { type: video, language: en, url: 'https://www.youtube.com/watch?v=NT0wyPM58G8' }
+
+- id: devfest-milano-2026
+  event: DevFest Milano 2026
+  date: 2026-10-10
+  city: Milan
+  country: Italy
+  online: false
+  language: en
+  talk: before-delegating-to-agents
+  eventUrl: 'https://2026.devfestmilano.it/it/agenda/'
+  resources:
+    - {
+        type: slides,
+        language: en,
+        url: 'https://speakerdeck.com/smirne/before-delegating-to-agents-adrs-and-spec-driven-development-as-the-foundation-for-ai-in-the-team',
+      }
+
+- id: containerday-2026
+  event: ContainerDay 2026
+  date: 2026-10-15
+  city: Bologna
+  country: Italy
+  online: false
+  language: it
+  talk: from-kubernetes-to-kilowatts
+  sessionTitle: 'Da Kubernetes al Kilowatt: GitOps e PostgreSQL RLS per le Comunità Energetiche Rinnovabili'
+  eventUrl: 'https://www.containerday.it/talk/da-kubernetes-al-kilowatt-gitops-e-postgresql-rls-per-le-comunita-energetiche-rinnovabili/'
+  resources:
+    - { type: slides, language: it, url: 'https://speakerdeck.com/michelegiacobazzi/sparkle-containerdays-2026-2-d2b5ce04-a059-4ec3-a8c1-027551984312' }
+
+- id: green-software-italia-sustainability-month-2026
+  event: 'Sustainability Month: Green Software Italia meetup'
+  date: 2026-10-23
+  city: Milan
+  country: Italy
+  online: false
+  language: it
+  talk: flex-your-energy
+  sessionTitle: "SPARklE – Gestione intelligente dell'energia"
+
+- id: codemotion-tech-lead-summit-2026
+  event: Codemotion Tech Lead Summit
+  date: 2026-10-28
+  city: Milan
+  country: Italy
+  online: false
+  language: it
+  note: Facilitator of a working table.
+  eventUrl: 'https://conferences.codemotion.com/milan/tech-lead-summit/'
+
+- id: cloud-day-2026
+  event: Cloud Day 2026
+  date: 2026-11-18
+  city: Milan
+  country: Italy
+  online: false
+  language: it
+  talk: from-kubernetes-to-kilowatts
+  note: Recorded; the video will be published on Improove Play.
+  eventUrl: 'https://sessionize.com/cloud-day-2026/'
+  resources:
+    - { type: slides, language: it, url: 'https://speakerdeck.com/smirne/sparkle-cloudday-2026' }
+
+- id: better-software-2026
+  event: Better Software 2026
+  date: 2026-12-11
+  city: Milan
+  country: Italy
+  online: false
+  language: it
+  talk: clean-code-for-clean-energy
