@@ -2,11 +2,11 @@ import defaultContent from 'virtual:content'
 import { AppearanceRow, ButtonLink, LanguageBadge } from '@/components/content'
 import { GraphPlaceholder } from '@/components/graph-placeholder'
 import { PageHeader } from '@/components/layout'
-import { WELLD_URL } from '@/components/layout/SiteLayout'
+import { Mascot } from '@/components/mascot'
+import { ProfilePhoto } from '@/components/profile-photo'
 import type { Content } from '@/content/schema'
 import { t } from '@/i18n/t'
 import { splitAppearances } from '@/lib/schedule'
-import mascot from '@/assets/mascot/ux-strategy.png'
 import styles from './HomePage.module.css'
 
 const TEASER_COUNT = 3
@@ -19,7 +19,7 @@ type Props = {
 
 /**
  * Home as a programme board: intro, the NOW row (Talks call to action), the contact row,
- * then the "Next" teaser and the reserved graph area. The D card sits in the intro row.
+ * then the "Next" teaser and the reserved graph area. The photo sits in the intro row, D in the contact row.
  */
 export const HomeView = ({ now = new Date(), content = defaultContent }: Props) => {
   const { profile, talks, appearances } = content
@@ -43,19 +43,18 @@ export const HomeView = ({ now = new Date(), content = defaultContent }: Props) 
               <span>{t('home.intro.where')}</span>
             </p>
           </div>
-          <figure className={styles.dCard}>
-            <img src={mascot} alt={t('home.dCard.alt')} width={360} height={200} />
-            <figcaption>
-              {t('home.dCard.caption')} <a href={WELLD_URL}>{t('home.dCard.welld')}</a>
-            </figcaption>
-          </figure>
+          <div className={styles.photo}>
+            <ProfilePhoto
+              src={profile.photo}
+              alt={profile.photoAlt}
+              name={profile.name}
+              aspect="1/1"
+            />
+          </div>
         </section>
 
-        <section className={[styles.slot, styles.now].filter(Boolean).join(' ')}>
-          <p className={styles.label}>
-            <span className={styles.dot} aria-hidden="true" />
-            {t('home.talks.label')}
-          </p>
+        <section className={[styles.slot, styles.featured].join(' ')}>
+          <p className={styles.label}>{t('home.talks.label')}</p>
           <div>
             <h2 className={styles.heading}>{t('home.talks.title')}</h2>
             <p className={styles.text}>
@@ -77,6 +76,11 @@ export const HomeView = ({ now = new Date(), content = defaultContent }: Props) 
               </ButtonLink>
             </div>
           </div>
+          <Mascot
+            pose="mobile-development"
+            alt={t('common.mascot.alt.homeContact')}
+            className={styles.contactMascot}
+          />
         </section>
 
         {teaser.length > 0 && (

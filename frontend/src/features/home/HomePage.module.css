@@ -6,7 +6,7 @@
 
 .slot {
   display: grid;
-  grid-template-columns: 130px 1fr 220px;
+  grid-template-columns: 130px 1fr 240px;
   gap: 0 var(--space-3);
   align-items: center;
   padding: var(--space-2) 0;
@@ -45,8 +45,8 @@
   gap: var(--space-1) var(--space-2);
 }
 
-/* The NOW row bleeds past the page margins (the signature). */
-.now {
+/* The talks row bleeds past the page margins (the signature). */
+.featured {
   margin: 0 calc(var(--space-3) * -1);
   padding-left: var(--space-3);
   padding-right: var(--space-3);
@@ -55,63 +55,38 @@
   border-bottom-color: var(--ink);
 }
 
-.now .label {
+.featured .label {
   text-transform: uppercase;
 }
 
-.now .heading,
-.now .text {
+.featured .heading,
+.featured .text {
   color: var(--white);
 }
 
-.now a {
+.featured a {
   border-color: var(--white);
   background: var(--white);
   color: var(--ink);
 }
 
-.now a:hover {
+.featured a:hover {
   background: var(--mint);
 }
 
-.dot::before {
-  content: '\25CF';
-  animation: blink 1.6s steps(2) infinite;
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0.25;
-  }
-}
-
-.dCard {
-  margin: 0;
+.photo {
   justify-self: end;
   width: 100%;
-  max-width: 192px;
-  border: 3px solid var(--ink);
-  background: var(--white);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.4;
+  max-width: 240px;
 }
 
-.dCard img {
-  display: block;
+.contactMascot {
+  justify-self: end;
   width: 100%;
+  max-width: 220px;
   height: auto;
   aspect-ratio: 360 / 200;
-}
-
-.dCard figcaption {
-  padding: 6px var(--space-1);
-  border-top: 3px solid var(--ink);
-}
-
-.dCard a {
-  color: var(--ink);
-  font-weight: 700;
+  border: 2px solid var(--ink);
 }
 
 .next {
@@ -143,14 +118,21 @@
     gap: 6px;
   }
 
-  .dCard {
+  .photo {
+    order: -1;
     justify-self: start;
+    max-width: 240px;
+  }
+
+  .contactMascot {
+    justify-self: start;
+    max-width: 240px;
     margin-top: var(--space-1);
   }
 }
 
 @media (max-width: 480px) {
-  .now {
+  .featured {
     margin: 0 calc(var(--space-2) * -1);
     padding-left: var(--space-2);
     padding-right: var(--space-2);

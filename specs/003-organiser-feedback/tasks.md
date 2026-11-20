@@ -71,7 +71,7 @@ implement what it says; this file adds only the contracts it leaves open.
 - [x] T9: Official bios in the content model and content — refs: AC-3.7, AC-3.8, AC-3.9 — deps: T1
   - touch: `frontend/src/content/schema.ts`, `frontend/src/content/validate.test.ts`, `frontend/src/content/__fixtures__/*`, `frontend/vite-plugins/content.test.ts`, `frontend/content/profile.yaml`, `frontend/src/features/profile/ProfilePage.tsx`, `frontend/src/features/profile/ProfilePage.test.tsx`, `frontend/src/features/home/HomePage.test.tsx`, `frontend/src/features/contact/ContactPage.test.tsx`
   - done when: validation tests show a missing or empty `bios.<lang>.<length>` fails naming that field; the real content loads with all four bios equal to the owner's text paragraph for paragraph; Profile test shows the main bio is `bios.en.extended`; `profile.yaml` `bioShort` is the Home summary from design.md's amendment; `pnpm typecheck` and tests pass.
-- [ ] T3: Home photo, contact-row D and "Talks" label — refs: AC-1.1, AC-1.2, AC-2.3, AC-7.1, AC-3.8 — deps: T2, T9
+- [x] T3: Home photo, contact-row D and "Talks" label — refs: AC-1.1, AC-1.2, AC-2.3, AC-7.1, AC-3.8 — deps: T2, T9
   - touch: `frontend/src/features/home/*`, `frontend/src/components/profile-photo/*`
   - done when: Home test shows the profile photo with `profile.photoAlt` in the intro row and no D card there, a D with its alt text in the contact row, the talks band label "Talks" with no dot and no "Now"; ProfilePhoto test covers `aspect="1/1"`.
 - [ ] T4: "For organisers" band on Profile (bio choice, copy bio, download photo, D) — refs: AC-3.1, AC-3.2, AC-3.3, AC-3.4, AC-3.5, AC-3.6, AC-2.3 — deps: T1, T2, T9
