@@ -1,6 +1,8 @@
-/* SPIKE (004): Sticker Sheet skin layered over the existing components.
-   Targets CSS-module classes by their local name ([class*='_card_']) instead of editing each
-   module: fast to try, brittle to keep. /wellforge:promote would move this into the modules. */
+/* SPIKE (004), pass 2: Sticker Sheet skin with Programme Board discipline.
+   Rules: blocks are flat stickers (white, ink border, rounded, hard shadow, NO tilt); only the
+   focal pieces tilt (photo, D, the page's main call to action); pink only for the current page
+   and the primary button. Targets CSS-module classes by their local name ([class*='_card_']):
+   fast to try, brittle to keep. /wellforge:promote would move this into the modules. */
 
 body {
   background-color: var(--mint);
@@ -17,8 +19,21 @@ h3 {
   letter-spacing: -0.01em;
   line-height: 1.1;
 }
+[class*='_heading_'],
+[class*='_title_'],
+[class*='_nextHeading_'],
+[class*='_wordmark_'],
+[class*='_button_'],
+nav [class*='_link_'] {
+  text-transform: none !important;
+}
 
-/* Wordmark: an ink label, tilted. */
+/* Page titles: Dela is wide; the Programme Board size would eat the fold. */
+main [class*='_header_'] > h1[class*='_title_']:not([class*='_compact_']) {
+  font-size: clamp(40px, 6vw, 76px);
+}
+
+/* Wordmark: an ink label, the one tilted piece in the header. */
 [class*='_wordmark_'] {
   display: inline-block;
   background: var(--ink);
@@ -29,13 +44,7 @@ h3 {
   text-decoration: none;
 }
 
-/* Nav: pill stickers, alternating tilt, pink for the current page. */
-[class*='_list_'] > li:nth-child(odd) > [class*='_link_'] {
-  transform: rotate(1.5deg);
-}
-[class*='_list_'] > li:nth-child(even) > [class*='_link_'] {
-  transform: rotate(-1.5deg);
-}
+/* Nav: straight pill stickers, pink for the current page. */
 nav [class*='_link_'] {
   display: inline-block;
   padding: 8px 16px;
@@ -51,13 +60,11 @@ nav [class*='_link_'][aria-current='page'] {
   color: var(--ink);
 }
 
-/* The sticker edge: white fill, ink border, rounded, hard shadow, slight tilt. */
+/* The sticker edge, flat. Talk cards, history rows, organiser band, talk aside. */
 [class*='_card_'],
 [class*='_row_'],
-[class*='_slot_'],
 [class*='_band_'],
-[class*='_aside_'],
-[class*='_next_'] {
+[class*='_aside_'] {
   background: var(--white);
   border: 3px solid var(--ink) !important;
   border-radius: var(--radius);
@@ -65,27 +72,136 @@ nav [class*='_link_'][aria-current='page'] {
   padding: var(--space-3);
   margin-bottom: var(--space-3);
 }
-[class*='_card_']:nth-child(3n + 1),
-[class*='_row_']:nth-child(3n + 1),
-[class*='_slot_']:nth-child(odd) {
-  transform: rotate(-1deg);
-}
-[class*='_card_']:nth-child(3n + 2),
-[class*='_row_']:nth-child(3n + 2),
-[class*='_slot_']:nth-child(even) {
-  transform: rotate(0.8deg);
-}
-[class*='_card_']:nth-child(3n),
-[class*='_row_']:nth-child(3n) {
-  transform: rotate(-0.4deg);
+
+/* Talk list: a clean catalogue. Smaller titles keep long ones on two lines. */
+[class*='_card_'] [class*='_title_'] {
+  font-size: clamp(20px, 1.9vw, 26px);
+  line-height: 1.15;
 }
 
-/* Home's featured talks band: a teal sticker instead of a full-bleed row. */
-[class*='_featured_'] {
-  margin: var(--space-3) 0 !important;
+/* Talk page: the aside wrapper and its inner block both matched; only the inner one is a sticker. */
+[class*='_aside_']:has(> [class*='_aside_']) {
+  background: none;
+  border: 0 !important;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* Rows inside a sticker go flat (no sticker in a sticker). */
+[class*='_next_'] [class*='_row_'],
+[class*='_band_'] [class*='_row_'] {
+  border: 0 !important;
+  border-top: 2px solid var(--ink) !important;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding-inline: 0;
+}
+
+/* ---------- Home: a short collage instead of the timetable ---------- */
+main [class*='_board_'] {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  grid-template-areas:
+    'intro talks'
+    'intro invite'
+    'next next';
+  gap: var(--space-3);
+  border-top: 0;
+  margin-top: 0;
+}
+main [class*='_board_'] > [class*='_slot_'] {
+  grid-template-columns: 1fr;
+  gap: var(--space-1);
+  align-content: start;
+  margin: 0;
+  padding: var(--space-3);
+  border: 3px solid var(--ink) !important;
   border-radius: var(--radius);
   box-shadow: var(--shadow-hard);
-  transform: rotate(1.2deg);
+}
+/* The timetable labels ("Speaker", "Talks", "Invite") are the row-header column: not needed here. */
+main [class*='_board_'] > [class*='_slot_'] > [class*='_label_'] {
+  display: none;
+}
+
+/* Intro: white sticker, text beside a tilted die-cut photo. */
+main [class*='_board_'] > [class*='_intro_'] {
+  grid-area: intro;
+  grid-template-columns: 1fr 180px;
+  align-items: start;
+  background: var(--white);
+}
+main [class*='_board_'] > [class*='_intro_'] [class*='_photo_'] {
+  max-width: 180px;
+}
+
+/* Browse the talks: the pink sticker, tilted (the page's main call to action). */
+main [class*='_board_'] > [class*='_featured_'] {
+  grid-area: talks;
+  background: var(--pink);
+  color: var(--ink);
+  transform: rotate(1.5deg);
+}
+main [class*='_board_'] > [class*='_featured_'] [class*='_heading_'],
+main [class*='_board_'] > [class*='_featured_'] [class*='_text_'] {
+  color: var(--ink);
+}
+main [class*='_board_'] > [class*='_featured_'] a {
+  background: var(--ink) !important;
+  color: var(--mint) !important;
+  border-color: var(--ink) !important;
+  box-shadow: 4px 4px 0 var(--white);
+}
+
+/* Invite me: the ink sticker, straight. D sits at its corner, tilted. */
+main [class*='_board_'] > [class*='_slot_']:nth-child(3) {
+  grid-area: invite;
+  grid-template-columns: 1fr 120px;
+  align-items: end;
+  background: var(--ink);
+  color: var(--mint);
+  box-shadow: 5px 5px 0 var(--white);
+}
+main [class*='_board_'] > [class*='_slot_']:nth-child(3) [class*='_heading_'] {
+  color: var(--mint);
+  font-size: clamp(22px, 2.2vw, 30px);
+}
+main [class*='_board_'] > [class*='_slot_']:nth-child(3) [class*='_text_'] {
+  color: var(--white);
+}
+main [class*='_board_'] > [class*='_slot_']:nth-child(3) [class*='_secondary_'] {
+  background: var(--white);
+  color: var(--ink);
+}
+main [class*='_board_'] > [class*='_slot_'] [class*='_heading_'] {
+  font-size: clamp(22px, 2.4vw, 32px);
+}
+
+/* Next: a flat white sticker across the full width. */
+main [class*='_board_'] > [class*='_next_'] {
+  grid-area: next;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hard);
+  padding: var(--space-3);
+}
+
+@media (max-width: 860px) {
+  main [class*='_board_'] {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'intro' 'talks' 'invite' 'next';
+  }
+  main [class*='_board_'] > [class*='_intro_'] {
+    grid-template-columns: 1fr;
+  }
+  main [class*='_board_'] > [class*='_intro_'] [class*='_photo_'] {
+    order: -1;
+  }
+  main [class*='_board_'] > [class*='_featured_'] {
+    transform: rotate(0.8deg);
+  }
 }
 
 /* Buttons: pink primary sticker, white secondary, both with the hard shadow. */
@@ -100,15 +216,16 @@ nav [class*='_link_'][aria-current='page'] {
   color: var(--ink) !important;
 }
 
-/* Photo and mascots: die-cut white edge. */
+/* Focal pieces: photo and D get the die-cut white edge and a tilt. */
 [class*='_photo_'] img,
 [class*='_mascot_'] img,
+img[class*='_contactMascot_'],
 [class*='_contactMascot_'] img {
-  border: 6px solid var(--white);
+  border: 5px solid var(--white);
   outline: 3px solid var(--ink);
-  border-radius: var(--radius);
-  box-shadow: 6px 6px 0 var(--ink);
-  transform: rotate(2deg);
+  border-radius: 14px;
+  box-shadow: 5px 5px 0 var(--ink);
+  transform: rotate(2.5deg);
 }
 
 /* Small labels: ink chips (language badges) and white pill topic tags. */
@@ -131,23 +248,35 @@ nav [class*='_link_'][aria-current='page'] {
   color: var(--white);
 }
 
-/* Sentence case everywhere the modules force capitals (headings, labels, nav, buttons). */
-[class*='_heading_'],
-[class*='_title_'],
-[class*='_nextHeading_'],
-[class*='_wordmark_'],
-[class*='_button_'],
-nav [class*='_link_'] {
+/* Pass 2 fixes: the modules' own padding wins on specificity; event names keep their case. */
+main [class*='_card_'] {
+  padding: var(--space-3) !important;
+}
+[class*='_event_'] {
   text-transform: none !important;
 }
+main [class*='_board_'] > [class*='_intro_'] {
+  align-self: start;
+}
 
-/* A sticker inside a sticker reads as noise: inner rows go flat. */
-[class*='_next_'] [class*='_row_'],
-[class*='_band_'] [class*='_row_'] {
-  border: 0 !important;
-  border-top: 2px solid var(--ink) !important;
-  border-radius: 0;
-  box-shadow: none;
-  transform: none !important;
-  margin: 0;
+/* Pass 2 layout: "Next" fills the left column under the intro; the invite card stacks when narrow. */
+@media (min-width: 861px) {
+  main [class*='_board_'] {
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'intro talks'
+      'next invite';
+    align-items: start;
+  }
+  main [class*='_board_'] > [class*='_next_'] {
+    align-self: start;
+  }
+}
+@media (max-width: 860px) {
+  main [class*='_board_'] > [class*='_slot_']:nth-child(3) {
+    grid-template-columns: 1fr;
+  }
+  main [class*='_board_'] > [class*='_slot_']:nth-child(3) [class*='_contactMascot_'] {
+    max-width: 160px;
+  }
 }

@@ -49,3 +49,17 @@ What it costs:
 
 Gates (advisory): lint 0 warnings; unit 224/228 (4 token tests); e2e 43/47 (the 4 layout checks above).
 Security floor: audit no known vulnerabilities; gitleaks clean (history and spike files).
+
+### Pass 2 (owner feedback: talk page good, Home and the list need a fix)
+Direction: Sticker Sheet skin with Programme Board discipline.
+- Blocks are flat stickers with no tilt. Only the photo, D, the wordmark and Home's "Browse the
+  talks" sticker tilt. Pink is reserved for the current page and the primary button.
+- Talk list: flat cards, titles at clamp(20px, 1.9vw, 26px). The longest title fits on 2 lines at 1280.
+- Home is a 2-column collage with no timetable labels: intro (text + tilted photo) next to a pink
+  "Browse the talks" sticker; "Next" under the intro next to an ink "Invite me" sticker with D. It
+  stacks to one column at 860px.
+- Talk page: the doubled aside sticker is fixed (only the inner block is a sticker).
+- Gates (advisory): lint 0 warnings; unit 224/228 (the same 4 token tests); e2e 47/47 (the fold,
+  2-line title and 375px reflow checks now pass). gitleaks clean.
+- Left rough: the "Next" row is cramped in the narrower left column (the event title wraps
+  over 3 lines); the whole skin still relies on substring selectors.
