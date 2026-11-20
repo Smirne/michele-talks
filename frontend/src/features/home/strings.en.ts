@@ -12,7 +12,7 @@ export const homeStrings = {
   },
   contact: {
     label: 'Invite',
-    title: 'Invite the speaker',
+    title: 'Invite me to speak',
     body: 'Tell me the date, the audience and the format.',
     cta: 'Contact details',
   },

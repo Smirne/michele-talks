@@ -11,7 +11,7 @@ export const commonStrings = {
     contact: 'Contact',
   },
   footer: {
-    prefix: 'Michele is CTO and co-founder of',
+    prefix: "I'm CTO and co-founder of",
     welld: 'WellD',
   },
   notFound: {
