@@ -1,10 +1,11 @@
 ---
 id: 001
 slug: site-foundation
-status: in-progress
+status: done
 rigor: mvp
 created: 2026-11-19
 approved: 2026-11-19
+done: 2026-11-20
 ---
 
 # Site foundation: content, structure and visual identity
