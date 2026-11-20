@@ -1,7 +1,45 @@
-.title {
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
   margin: 0 0 var(--space-4);
+}
+
+.title {
+  margin: 0;
+  min-width: 0;
   font-size: clamp(48px, 12vw, 112px);
   letter-spacing: -0.01em;
+}
+
+.header:not(:has(.mascot)) {
+  display: block;
+}
+
+/* The talk page: sentence case, sized to fit a long title (token from tokens.css). */
+.compact {
+  font-size: var(--title-size-page, clamp(28px, 3.6vw, 48px));
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.mascot {
+  flex: none;
+}
+
+.mascot img {
+  display: block;
+  width: 128px;
+  height: auto;
+}
+
+@media (min-width: 640px) {
+  .mascot img {
+    width: 240px;
+  }
 }
 
 .title:focus {

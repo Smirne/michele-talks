@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
+import { Mascot } from '@/components/mascot'
 import { t } from '@/i18n/t'
 import { MainNav } from './MainNav'
 import styles from './SiteLayout.module.css'
@@ -26,10 +27,13 @@ export const SiteLayout = ({ children }: { children: ReactNode }) => {
         {children}
       </main>
       <footer className={styles.footer}>
-        <p className={styles.footerLine}>
-          <span>{t('common.footer.prefix')}</span>
-          <a href={WELLD_URL}>{t('common.footer.welld')}</a>
-        </p>
+        <div className={styles.footerLine}>
+          <Mascot pose="software-development" alt="" className={styles.footerMascot} />
+          <p className={styles.footerText}>
+            <span>{t('common.footer.prefix')}</span>
+            <a href={WELLD_URL}>{t('common.footer.welld')}</a>
+          </p>
+        </div>
       </footer>
     </div>
   )

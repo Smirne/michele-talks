@@ -1,12 +1,16 @@
 import defaultContent from 'virtual:content'
 import { PageHeader } from '@/components/layout'
+import { Mascot } from '@/components/mascot'
 import type { Profile } from '@/content/schema'
 import { t } from '@/i18n/t'
 import styles from './ContactPage.module.css'
 
 export const ContactView = ({ profile }: { profile: Profile }) => (
   <>
-    <PageHeader title={t('common.nav.contact')} />
+    <PageHeader
+      title={t('common.nav.contact')}
+      mascot={<Mascot pose="software-development-1" alt={t('common.mascot.contact')} />}
+    />
     <div className={styles.board}>
       <p className={styles.intro}>{t('contact.intro')}</p>
       <section className={styles.row} aria-labelledby="contact-email">

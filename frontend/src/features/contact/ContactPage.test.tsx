@@ -54,3 +54,12 @@ describe('Contact', () => {
     expect(screen.queryByText('Elsewhere online')).toBeNull()
   })
 })
+
+describe('Contact header', () => {
+  it('shows one D with its alt text', async () => {
+    await renderWithRouter(<ContactView profile={profile} />)
+    expect(
+      screen.getAllByRole('img', { name: 'D, the WellD mascot, holding an open laptop' })
+    ).toHaveLength(1)
+  })
+})
