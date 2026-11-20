@@ -98,8 +98,9 @@ nav [class*='_link_'][aria-current='page'] {
   padding-inline: 0;
 }
 
-/* ---------- Home: a short collage instead of the timetable ---------- */
-main [class*='_board_'] {
+/* ---------- Home: a short collage instead of the timetable ----------
+   Scoped with :has(> featured): History and Contact also use .board (Contact has an .intro too). */
+main [class*='_board_']:has(> [class*='_featured_']) {
   display: grid;
   grid-template-columns: 7fr 5fr;
   grid-template-areas:
@@ -110,7 +111,7 @@ main [class*='_board_'] {
   border-top: 0;
   margin-top: 0;
 }
-main [class*='_board_'] > [class*='_slot_'] {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_'] {
   grid-template-columns: 1fr;
   gap: var(--space-1);
   align-content: start;
@@ -121,33 +122,33 @@ main [class*='_board_'] > [class*='_slot_'] {
   box-shadow: var(--shadow-hard);
 }
 /* The timetable labels ("Speaker", "Talks", "Invite") are the row-header column: not needed here. */
-main [class*='_board_'] > [class*='_slot_'] > [class*='_label_'] {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_'] > [class*='_label_'] {
   display: none;
 }
 
 /* Intro: white sticker, text beside a tilted die-cut photo. */
-main [class*='_board_'] > [class*='_intro_'] {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_intro_'] {
   grid-area: intro;
   grid-template-columns: 1fr 180px;
   align-items: start;
   background: var(--white);
 }
-main [class*='_board_'] > [class*='_intro_'] [class*='_photo_'] {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_intro_'] [class*='_photo_'] {
   max-width: 180px;
 }
 
 /* Browse the talks: the pink sticker, tilted (the page's main call to action). */
-main [class*='_board_'] > [class*='_featured_'] {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_featured_'] {
   grid-area: talks;
   background: var(--pink);
   color: var(--ink);
   transform: rotate(1.5deg);
 }
-main [class*='_board_'] > [class*='_featured_'] [class*='_heading_'],
-main [class*='_board_'] > [class*='_featured_'] [class*='_text_'] {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_featured_'] [class*='_heading_'],
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_featured_'] [class*='_text_'] {
   color: var(--ink);
 }
-main [class*='_board_'] > [class*='_featured_'] a {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_featured_'] a {
   background: var(--ink) !important;
   color: var(--mint) !important;
   border-color: var(--ink) !important;
@@ -155,7 +156,7 @@ main [class*='_board_'] > [class*='_featured_'] a {
 }
 
 /* Invite me: the ink sticker, straight. D sits at its corner, tilted. */
-main [class*='_board_'] > [class*='_slot_']:nth-child(3) {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_']:nth-child(3) {
   grid-area: invite;
   grid-template-columns: 1fr 120px;
   align-items: end;
@@ -163,23 +164,23 @@ main [class*='_board_'] > [class*='_slot_']:nth-child(3) {
   color: var(--mint);
   box-shadow: 5px 5px 0 var(--white);
 }
-main [class*='_board_'] > [class*='_slot_']:nth-child(3) [class*='_heading_'] {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_']:nth-child(3) [class*='_heading_'] {
   color: var(--mint);
   font-size: clamp(22px, 2.2vw, 30px);
 }
-main [class*='_board_'] > [class*='_slot_']:nth-child(3) [class*='_text_'] {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_']:nth-child(3) [class*='_text_'] {
   color: var(--white);
 }
-main [class*='_board_'] > [class*='_slot_']:nth-child(3) [class*='_secondary_'] {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_']:nth-child(3) [class*='_secondary_'] {
   background: var(--white);
   color: var(--ink);
 }
-main [class*='_board_'] > [class*='_slot_'] [class*='_heading_'] {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_'] [class*='_heading_'] {
   font-size: clamp(22px, 2.4vw, 32px);
 }
 
 /* Next: a flat white sticker across the full width. */
-main [class*='_board_'] > [class*='_next_'] {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_next_'] {
   grid-area: next;
   background: var(--white);
   border: 3px solid var(--ink);
@@ -189,17 +190,17 @@ main [class*='_board_'] > [class*='_next_'] {
 }
 
 @media (max-width: 860px) {
-  main [class*='_board_'] {
+  main [class*='_board_']:has(> [class*='_featured_']) {
     grid-template-columns: 1fr;
     grid-template-areas: 'intro' 'talks' 'invite' 'next';
   }
-  main [class*='_board_'] > [class*='_intro_'] {
+  main [class*='_board_']:has(> [class*='_featured_']) > [class*='_intro_'] {
     grid-template-columns: 1fr;
   }
-  main [class*='_board_'] > [class*='_intro_'] [class*='_photo_'] {
+  main [class*='_board_']:has(> [class*='_featured_']) > [class*='_intro_'] [class*='_photo_'] {
     order: -1;
   }
-  main [class*='_board_'] > [class*='_featured_'] {
+  main [class*='_board_']:has(> [class*='_featured_']) > [class*='_featured_'] {
     transform: rotate(0.8deg);
   }
 }
@@ -255,28 +256,42 @@ main [class*='_card_'] {
 [class*='_event_'] {
   text-transform: none !important;
 }
-main [class*='_board_'] > [class*='_intro_'] {
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_intro_'] {
   align-self: start;
 }
 
 /* Pass 2 layout: "Next" fills the left column under the intro; the invite card stacks when narrow. */
 @media (min-width: 861px) {
-  main [class*='_board_'] {
+  main [class*='_board_']:has(> [class*='_featured_']) {
     grid-template-rows: auto 1fr;
     grid-template-areas:
       'intro talks'
       'next invite';
     align-items: start;
   }
-  main [class*='_board_'] > [class*='_next_'] {
+  main [class*='_board_']:has(> [class*='_featured_']) > [class*='_next_'] {
     align-self: start;
   }
 }
 @media (max-width: 860px) {
-  main [class*='_board_'] > [class*='_slot_']:nth-child(3) {
+  main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_']:nth-child(3) {
     grid-template-columns: 1fr;
   }
-  main [class*='_board_'] > [class*='_slot_']:nth-child(3) [class*='_contactMascot_'] {
+  main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_']:nth-child(3) [class*='_contactMascot_'] {
     max-width: 160px;
   }
+}
+
+/* The Programme Board rules above the Talks list and History groups sat on top of the first
+   sticker ("strange line"): stickers carry their own edge, so the rules go. */
+main [class*='_list_']:has([class*='_card_']),
+main [class*='_board_']:not(:has(> [class*='_featured_'])),
+main [class*='_board_'] [class*='_rows_'] {
+  border-top: 0 !important;
+}
+
+/* Contact: Dela Gothic One is far wider than Big Shoulders, so the email needs a smaller size. */
+main [class*='_email_'] {
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 400;
 }
