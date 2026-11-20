@@ -8,7 +8,7 @@ const ROUTES = [
   ['Talk detail', '/talks/from-kubernetes-to-kilowatts'],
   ['Workshop detail', '/talks/lego4scrum'],
   ['No longer offered', '/talks/repetition-is-bad'],
-  ['History', '/history'],
+  ['On stage', '/on-stage'],
   ['Contact', '/contact'],
   ['404', '/no-such-page'],
   // AC-4.4: a hidden talk's address must be indistinguishable from an unknown one.
@@ -74,7 +74,7 @@ test.describe('talk content update (002)', () => {
   test('History lists both Voxxed Days Ticino rows; 2015 links to a page saying No longer offered', async ({
     page,
   }) => {
-    await ready(page, '/history')
+    await ready(page, '/on-stage')
     await expect(page.getByText('Voxxed Days Ticino 2015', { exact: true })).toBeVisible()
     await expect(page.getByText('Voxxed Days Ticino 2025 workshop day')).toBeVisible()
     await page.getByRole('link', { name: 'Repetition is Bad, Repetition is Bad' }).click()

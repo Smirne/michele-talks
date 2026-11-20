@@ -44,7 +44,7 @@ const routeTree = rootRoute.addChildren([
   ),
   talkDetailRoute,
   child(
-    '/history',
+    '/on-stage',
     lazyRouteComponent(() => import('@/features/history'), 'HistoryPage')
   ),
   child(

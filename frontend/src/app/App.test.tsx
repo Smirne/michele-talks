@@ -25,7 +25,7 @@ const NAV = [
   ['Home', '/'],
   ['Profile', '/profile'],
   ['Talks', '/talks'],
-  ['History', '/history'],
+  ['On stage', '/on-stage'],
   ['Contact', '/contact'],
 ] as const
 
@@ -37,7 +37,7 @@ const ROUTES: [string, string][] = [
   [content.profile.name, '/profile'],
   ['Talks', '/talks'],
   [firstTalk.title, `/talks/${firstTalk.slug}`],
-  ['History', '/history'],
+  ['On stage', '/on-stage'],
   ['Contact', '/contact'],
   ['Page not found', '/nowhere'],
 ]
@@ -126,14 +126,14 @@ describe('app shell', () => {
     expect(document.title).toBe('Michele Talks')
     fireEvent.click(
       within(screen.getByRole('navigation', { name: 'Main' })).getByRole('link', {
-        name: 'History',
+        name: 'On stage',
       })
     )
     await waitFor(() => {
       expect(document.activeElement).toBe(screen.getByRole('heading', { level: 1 }))
     })
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('History')
-    expect(document.title).toBe('History | Michele Talks')
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('On stage')
+    expect(document.title).toBe('On stage | Michele Talks')
   })
 
   it('gives Home the headline "On the programme" and Profile the speaker name, with their own titles', async () => {
