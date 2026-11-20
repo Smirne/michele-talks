@@ -23,6 +23,7 @@ const talks: Talk[] = [
     languages: ['en'],
     topics: [],
     hidden: false,
+    offered: true,
   },
 ]
 
@@ -132,5 +133,29 @@ describe('HistoryView', () => {
     await render([])
     expect(screen.getByText('No appearances yet.')).toBeTruthy()
     expect(screen.queryByRole('heading', { level: 2 })).toBeNull()
+  })
+
+  it('shows co-hosts on a row', async () => {
+    await render([appearance('w', '2026-03-10', { coHosts: ['Matteo Codogno'] })])
+    expect(screen.getByText('With Matteo Codogno')).toBeTruthy()
+  })
+
+  it('links a row to a no-longer-offered talk, using its title', async () => {
+    const retired: Talk = {
+      ...(talks[0] as Talk),
+      slug: 'retired',
+      title: 'Retired talk',
+      offered: false,
+    }
+    await renderWithRouter(
+      <HistoryView
+        appearances={[appearance('old', '2015-04-18', { talk: 'retired' })]}
+        talks={[retired]}
+        now={NOW}
+      />
+    )
+    expect(screen.getByRole('link', { name: 'Retired talk' }).getAttribute('href')).toBe(
+      '/talks/retired'
+    )
   })
 })

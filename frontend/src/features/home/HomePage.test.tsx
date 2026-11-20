@@ -20,6 +20,7 @@ const talk: Talk = {
   languages: ['en'],
   topics: [],
   hidden: false,
+  offered: true,
 }
 
 const appearance = (id: string, date: string): Appearance => ({
@@ -143,5 +144,15 @@ describe('Home', () => {
     expect(within(figure).getByRole('link', { name: 'WellD' }).getAttribute('href')).toBe(
       'https://www.welld.ch'
     )
+  })
+
+  it('counts only offered talks', async () => {
+    await renderHome({
+      content: {
+        ...content,
+        talks: [talk, { ...talk, slug: 'retired', title: 'Retired', offered: false }],
+      },
+    })
+    expect(screen.getByText(/1 talks/)).toBeTruthy()
   })
 })

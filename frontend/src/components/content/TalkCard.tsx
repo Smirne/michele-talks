@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { t } from '@/i18n/t'
-import { formatDuration } from './format'
+import { formatCoHosts, formatDuration, formatLevel } from './format'
 import { LanguageBadge } from './LanguageBadge'
 import type { Talk } from './types'
 import styles from './TalkCard.module.css'
@@ -22,8 +22,9 @@ export const TalkCard = ({ talk }: { talk: Talk }) => {
       <p className={styles.summary}>{talk.summary}</p>
       <p className={styles.meta} lang="en">
         <span>{formatDuration(talk.durationMinutes)}</span>
-        <span>{t(`content.level.${talk.level}` as const)}</span>
+        <span>{formatLevel(talk.level)}</span>
         <span>{t(`content.format.${talk.format}` as const)}</span>
+        {talk.coHosts !== undefined && <span>{formatCoHosts(talk.coHosts)}</span>}
         <span className={styles.badges}>
           {talk.languages.map((l) => (
             <LanguageBadge key={l} language={l} />

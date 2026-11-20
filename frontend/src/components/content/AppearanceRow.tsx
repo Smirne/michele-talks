@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { t } from '@/i18n/t'
-import { formatDate } from './format'
+import { formatCoHosts, formatDate } from './format'
 import { LanguageBadge } from './LanguageBadge'
 import { ResourceLink } from './ResourceLink'
 import type { Appearance } from './types'
@@ -46,6 +46,11 @@ export const AppearanceRow = ({ appearance: a, talkTitle }: Props) => {
               </span>
             )}
             {a.sessionTitle}
+          </p>
+        )}
+        {a.coHosts !== undefined && (
+          <p className={styles.session} lang="en">
+            {formatCoHosts(a.coHosts)}
           </p>
         )}
         {a.note !== undefined && <p className={styles.note}>{a.note}</p>}

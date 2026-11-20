@@ -1,13 +1,26 @@
 export const contentStrings = {
   language: { en: 'English', it: 'Italian' },
-  duration: { one: '{minutes} minute', other: '{minutes} minutes' },
-  level: { beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' },
+  duration: {
+    one: '{minutes} minute',
+    other: '{minutes} minutes',
+    minutesRange: '{min}–{max} minutes',
+    hours: '{value} hours',
+    hoursRange: '{min}–{max} hours',
+  },
+  level: {
+    beginner: 'Beginner',
+    intermediate: 'Intermediate',
+    advanced: 'Advanced',
+    range: '{from}–{to}',
+  },
+  coHosts: { with: 'With {names}', and: '{head} and {last}' },
   format: {
     talk: 'Talk',
     lightning: 'Lightning talk',
     keynote: 'Keynote',
     workshop: 'Workshop',
     panel: 'Panel',
+    quickie: 'Quickie',
   },
   appearance: {
     online: 'Online',

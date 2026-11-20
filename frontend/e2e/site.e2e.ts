@@ -6,6 +6,8 @@ const ROUTES = [
   ['Profile', '/profile'],
   ['Talks', '/talks'],
   ['Talk detail', '/talks/from-kubernetes-to-kilowatts'],
+  ['Workshop detail', '/talks/lego4scrum'],
+  ['No longer offered', '/talks/repetition-is-bad'],
   ['History', '/history'],
   ['Contact', '/contact'],
   ['404', '/no-such-page'],
@@ -22,6 +24,65 @@ const ready = async (page: Page, path: string) => {
 test('hidden talk address renders Page not found (AC-4.4)', async ({ page }) => {
   await ready(page, '/talks/what-the-aot-cache-actually-costs')
   await expect(page.getByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible()
+})
+
+test.describe('talk content update (002)', () => {
+  test('/talks/flex-your-energy renders Page not found (AC-1.4)', async ({ page }) => {
+    await ready(page, '/talks/flex-your-energy')
+    await expect(page.getByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible()
+  })
+
+  test('the Talks page lists Kilowatts once and not Flex your Energy as its own talk (AC-1.1)', async ({
+    page,
+  }) => {
+    await ready(page, '/talks')
+    await expect(page.getByRole('link', { name: /^From Kubernetes to Kilowatts/ })).toHaveCount(1)
+    await expect(page.getByRole('link', { name: /^Flex your Energy/ })).toHaveCount(0)
+    await expect(
+      page.getByRole('link', { name: 'Repetition is Bad, Repetition is Bad' })
+    ).toHaveCount(0)
+  })
+
+  test('the Kilowatts page shows the note, level range and the Flex your Energy title', async ({
+    page,
+  }) => {
+    await ready(page, '/talks/from-kubernetes-to-kilowatts')
+    await expect(page.getByText(/Length and technical depth adapt to the event/)).toBeVisible()
+    await expect(page.getByText('Beginner–Intermediate')).toBeVisible()
+    const also = page
+      .getByRole('heading', { name: 'Also given as' })
+      .locator('xpath=following-sibling::ul[1]')
+    await expect(
+      also.getByText(
+        'Flex your Energy: Building a Cloud-Native Platform for Renewable Energy Communities'
+      )
+    ).toBeVisible()
+  })
+
+  test('the Lego4Scrum page shows the duration range, co-host and related link', async ({
+    page,
+  }) => {
+    await ready(page, '/talks/lego4scrum')
+    await expect(page.getByText('6–8 hours')).toBeVisible()
+    await expect(page.getByText('With Matteo Codogno').first()).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Lego4Scrum training at WellD' })).toHaveAttribute(
+      'href',
+      'https://welld.ch/services/training/lego4scrum'
+    )
+  })
+
+  test('History lists both Voxxed Days Ticino rows; 2015 links to a page saying No longer offered', async ({
+    page,
+  }) => {
+    await ready(page, '/history')
+    await expect(page.getByText('Voxxed Days Ticino 2015', { exact: true })).toBeVisible()
+    await expect(page.getByText('Voxxed Days Ticino 2025 workshop day')).toBeVisible()
+    await page.getByRole('link', { name: 'Repetition is Bad, Repetition is Bad' }).click()
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Repetition is Bad, Repetition is Bad' })
+    ).toBeVisible()
+    await expect(page.getByText('No longer offered')).toBeVisible()
+  })
 })
 
 test.describe('accessibility (WCAG 2.1 A/AA, incl. colour contrast)', () => {

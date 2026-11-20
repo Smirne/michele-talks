@@ -8,6 +8,8 @@ export const talksStrings = {
     back: 'All talks',
     abstract: 'Abstract',
     alsoGivenAs: 'Also given as',
+    links: 'Related links',
+    noLongerOffered: 'No longer offered',
     upcoming: 'Upcoming',
     past: 'Past',
     none: 'Not given in public yet.',

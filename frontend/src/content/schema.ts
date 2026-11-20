@@ -34,18 +34,43 @@ export const profileSchema = z.object({
   profiles: z.array(z.object({ label: nonEmpty, url: httpUrl })),
 })
 
+const levelValue = z.enum(['beginner', 'intermediate', 'advanced'], 'unknown level')
+const levelOrder = ['beginner', 'intermediate', 'advanced'] as const
+
+const positiveInt = z.number().int().positive()
+
+const coHosts = z.array(nonEmpty).min(1, 'needs at least one name')
+
 export const talkSchema = z.object({
   slug: kebab,
   title: nonEmpty,
   summary: nonEmpty,
   abstract: z.array(nonEmpty).min(1, 'needs at least one paragraph'),
-  durationMinutes: z.number().int().positive(),
-  level: z.enum(['beginner', 'intermediate', 'advanced'], 'unknown level'),
-  format: z.enum(['talk', 'lightning', 'keynote', 'workshop', 'panel'], 'unknown format'),
+  durationMinutes: z.union([
+    positiveInt,
+    z
+      .object({ min: positiveInt, max: positiveInt })
+      .refine((d) => d.min < d.max, 'min must be less than max'),
+  ]),
+  level: z.union([
+    levelValue,
+    z
+      .tuple([levelValue, levelValue])
+      .refine(
+        ([a, b]) => levelOrder.indexOf(a) < levelOrder.indexOf(b),
+        'a level range must run from lower to higher'
+      ),
+  ]),
+  format: z.enum(['talk', 'lightning', 'keynote', 'workshop', 'panel', 'quickie'], 'unknown format'),
   languages: z.array(language).min(1, 'needs at least one language'),
   topics: z.array(nonEmpty),
   alsoGivenAs: z.array(z.object({ title: nonEmpty, language })).optional(),
+  note: nonEmpty.optional(),
+  coHosts: coHosts.optional(),
+  links: z.array(z.object({ label: nonEmpty, url: httpUrl })).optional(),
   hidden: z.boolean().default(false),
+  /** false = "no longer offered": published, but not in the Talks list or the Home count. */
+  offered: z.boolean().default(true),
 })
 
 export const appearanceSchema = z
@@ -60,6 +85,7 @@ export const appearanceSchema = z
     talk: kebab.optional(),
     sessionTitle: nonEmpty.optional(),
     note: nonEmpty.optional(),
+    coHosts: coHosts.optional(),
     eventUrl: httpUrl.optional(),
     resources: z
       .array(z.object({ type: z.enum(['slides', 'video'], 'unknown type'), url: httpUrl, language }))
