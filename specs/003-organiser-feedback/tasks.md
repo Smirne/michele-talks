@@ -86,7 +86,7 @@ implement what it says; this file adds only the contracts it leaves open.
 - [x] T7: End-to-end checks for layout, fit and accessibility — refs: AC-1.2, AC-4.7, AC-5.1, AC-5.3, AC-2.1 — deps: T3, T4, T5, T6
   - touch: `frontend/e2e/*`
   - done when: Playwright passes: at 1280 × 800 the longest-title talk page shows title, facts and the invite button above y = 800 and the aside to the right of the abstract; at 375px the aside is below the facts and above the abstract, and Home shows the photo with no horizontal scroll; at 1280px every Talks card title is at most two lines; axe scan of Home, Profile, Talks, a talk page, History, Contact and Not found reports no WCAG 2.1 AA violations; 001 AC-2.3 (Home CTAs within 800px) still holds.
-- [ ] T8: All gates green, QE-light verdict, spec status → done — refs: all — deps: T7
+- [x] T8: All gates green, QE-light verdict, spec status → done — refs: all — deps: T7
   - touch: `specs/003-organiser-feedback/*`
   - done when: `mise run lint`, `mise run test`, `mise run build` and the e2e suite pass; QE-light PASS recorded in `qe-report.md`; `/wellforge:done 003-organiser-feedback` closes the feature.
 

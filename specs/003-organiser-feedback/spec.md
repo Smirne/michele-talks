@@ -1,10 +1,11 @@
 ---
 id: 003
 slug: organiser-feedback
-status: in-progress
+status: done
 rigor: mvp
 created: 2026-11-20
 approved: 2026-11-20
+done: 2026-11-20
 ---
 
 # Organiser feedback: who the speaker is, how to invite, what a talk covers

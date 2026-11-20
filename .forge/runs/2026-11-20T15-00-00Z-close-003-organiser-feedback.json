@@ -1,0 +1,34 @@
+{
+  "schema": "wellforge-run/v3",
+  "plugin_version": "2.61.0",
+  "run_id": "2026-11-20T15-00-00Z-close-003-organiser-feedback",
+  "command": "implement",
+  "feature": "003-organiser-feedback",
+  "rigor": "mvp",
+  "rigor_recorded": null,
+  "started": "2026-11-20T12:00:00Z",
+  "finished": "2026-11-20T15:00:00Z",
+  "isolation": "worktree (session claude/003-organiser-feedback-f62092); trace written by the main loop at close, the implementing session left none",
+  "agents": [
+    { "agent": "frontend-dev", "tasks": ["T1", "T2", "T5"], "outcome": "completed", "commits": [] },
+    { "agent": "frontend-dev", "tasks": ["T9", "T3", "T4", "T6"], "outcome": "completed", "commits": [] },
+    { "agent": "quality-engineer", "tasks": ["T7"], "outcome": "FAIL", "commits": ["de89774"] },
+    { "agent": "quality-engineer", "tasks": ["T7"], "outcome": "PASS", "commits": ["89f5763"] }
+  ],
+  "drift_events": [
+    { "what": "owner added official short and extended bios in EN and IT after approval", "resolved": true, "how": "spec amended and tasks re-synced (T9 added) before implementation" }
+  ],
+  "collision_events": [],
+  "env_faults": [
+    { "what": "critical dev-only audit (vitest 2.x, tinypool) pre-existing on main", "resolved": true, "how": "PR #5 upgraded vitest to v4; audit clean on main at b74c24d" },
+    { "what": "SAST-high not runnable locally", "resolved": true, "how": "semgrep in CI on main at b74c24d, success" }
+  ],
+  "verdicts": { "qe": "PASS" },
+  "fix_rounds": { "used": 1, "cap": 2, "extensions": [] },
+  "security": { "matched_rules": [], "dispatched": false },
+  "result": "completed",
+  "tokens": null,
+  "cost_usd": null,
+  "terse": false,
+  "control_run_id": null
+}
