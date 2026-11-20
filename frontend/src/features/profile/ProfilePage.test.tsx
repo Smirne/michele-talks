@@ -1,5 +1,5 @@
-import { cleanup, screen, within } from '@testing-library/react'
-import { afterEach, beforeAll, describe, expect, it } from 'vitest'
+import { cleanup, fireEvent, screen, waitFor, within } from '@testing-library/react'
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { renderWithRouter } from '@/components/content/test-utils'
 import type { Profile } from '@/content/schema'
 import { ProfileView } from './ProfilePage'
@@ -17,10 +17,10 @@ const profile: Profile = {
   bioShort: 'Short.',
   bios: {
     en: {
-      short: ['Short en.'],
+      short: ['Short en one.', 'Short en two.'],
       extended: ['First paragraph.', 'Second paragraph.', 'Third paragraph.'],
     },
-    it: { short: ['Breve.'], extended: ['Esteso.'] },
+    it: { short: ['Breve.'], extended: ['Esteso uno.', 'Esteso due.'] },
   },
   topics: ['Engines', 'Notes on the Analytical Engine'],
   email: 'ada@example.com',
@@ -43,8 +43,6 @@ describe('Profile', () => {
   it('shows the extended English bio, paragraph by paragraph, as the main bio', async () => {
     await renderWithRouter(<ProfileView profile={profile} />)
     for (const p of profile.bios.en.extended) expect(screen.getByText(p)).toBeTruthy()
-    expect(screen.queryByText('Short en.')).toBeNull()
-    expect(screen.queryByText('Esteso.')).toBeNull()
   })
 
   it('shows every topic in a list', async () => {
@@ -82,5 +80,110 @@ describe('Profile', () => {
       />
     )
     expect(screen.getByRole('heading', { level: 1 })).toBeTruthy()
+  })
+
+  describe('For organisers', () => {
+    const band = () => screen.getByRole('region', { name: 'For organisers' })
+    const setClipboard = (writeText: ((text: string) => Promise<void>) | undefined) => {
+      Object.defineProperty(navigator, 'clipboard', {
+        value: writeText === undefined ? undefined : { writeText },
+        configurable: true,
+      })
+    }
+
+    it('shows the heading and the short English bio by default', async () => {
+      await renderWithRouter(<ProfileView profile={profile} />)
+      expect(screen.getByRole('heading', { level: 2, name: 'For organisers' })).toBeTruthy()
+      const box = document.getElementById('short-bio') as HTMLElement
+      expect(
+        within(box)
+          .getAllByRole('paragraph')
+          .map((p) => p.textContent)
+      ).toEqual(['Short en one.', 'Short en two.'])
+      expect(box.getAttribute('lang')).toBeNull()
+      expect(within(band()).getByRole('radio', { name: 'English' })).toHaveProperty('checked', true)
+      expect(within(band()).getByRole('radio', { name: 'Short' })).toHaveProperty('checked', true)
+    })
+
+    it('offers the choices as two labelled radio groups', async () => {
+      await renderWithRouter(<ProfileView profile={profile} />)
+      const language = within(band()).getByRole('group', { name: 'Language' })
+      const length = within(band()).getByRole('group', { name: 'Length' })
+      expect(within(language).getAllByRole('radio')).toHaveLength(2)
+      expect(within(length).getAllByRole('radio')).toHaveLength(2)
+    })
+
+    it('shows Italian extended in a box marked lang="it"', async () => {
+      await renderWithRouter(<ProfileView profile={profile} />)
+      fireEvent.click(within(band()).getByRole('radio', { name: 'Italian' }))
+      fireEvent.click(within(band()).getByRole('radio', { name: 'Extended' }))
+      const box = document.getElementById('short-bio') as HTMLElement
+      expect(box.getAttribute('lang')).toBe('it')
+      expect(
+        within(box)
+          .getAllByRole('paragraph')
+          .map((p) => p.textContent)
+      ).toEqual(['Esteso uno.', 'Esteso due.'])
+    })
+
+    it('copies exactly the shown paragraphs joined by a blank line and says so', async () => {
+      const writeText = vi.fn(() => Promise.resolve())
+      setClipboard(writeText)
+      await renderWithRouter(<ProfileView profile={profile} />)
+      fireEvent.click(within(band()).getByRole('radio', { name: 'Italian' }))
+      fireEvent.click(within(band()).getByRole('radio', { name: 'Extended' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Copy bio' }))
+      await waitFor(() => {
+        expect(within(band()).getByRole('status').textContent).toBe('Bio copied to the clipboard.')
+      })
+      expect(writeText).toHaveBeenCalledWith('Esteso uno.\n\nEsteso due.')
+    })
+
+    it('keeps the status region in the DOM, empty, until used; changing a choice clears it', async () => {
+      setClipboard(() => Promise.resolve())
+      await renderWithRouter(<ProfileView profile={profile} />)
+      expect(within(band()).getByRole('status').textContent).toBe('')
+      fireEvent.click(screen.getByRole('button', { name: 'Copy bio' }))
+      await waitFor(() => {
+        expect(within(band()).getByRole('status').textContent).not.toBe('')
+      })
+      fireEvent.click(within(band()).getByRole('radio', { name: 'Extended' }))
+      expect(within(band()).getByRole('status').textContent).toBe('')
+    })
+
+    it.each([
+      ['rejects', () => Promise.reject(new Error('denied'))],
+      ['is absent', undefined],
+    ])('says copying failed and selects the bio when the clipboard %s', async (_name, write) => {
+      setClipboard(write)
+      await renderWithRouter(<ProfileView profile={profile} />)
+      fireEvent.click(screen.getByRole('button', { name: 'Copy bio' }))
+      await waitFor(() => {
+        expect(within(band()).getByRole('status').textContent).toBe(
+          'Copying failed. Select the text above and copy it yourself.'
+        )
+      })
+      const selection = window.getSelection()
+      expect(selection?.rangeCount).toBe(1)
+      expect(selection?.getRangeAt(0).commonAncestorContainer).toBe(
+        document.getElementById('short-bio')
+      )
+    })
+
+    it('links the 1024 px JPEG as a download named after the speaker', async () => {
+      await renderWithRouter(<ProfileView profile={profile} />)
+      const link = within(band()).getByRole('link', { name: /^Download photo/ })
+      expect(link.getAttribute('href')).toBe('/ada-1024.jpg')
+      expect(link.getAttribute('download')).toBe('ada-lovelace.jpg')
+      expect(link.textContent).toContain('JPG, 1024 × 1024 px')
+      expect(link.getAttribute('aria-label')).toBe('Download photo, JPG, 1024 × 1024 px')
+    })
+
+    it('shows D with its alt text in the band', async () => {
+      await renderWithRouter(<ProfileView profile={profile} />)
+      expect(
+        within(band()).getByRole('img', { name: 'D, the WellD mascot, with a documents icon' })
+      ).toBeTruthy()
+    })
   })
 })

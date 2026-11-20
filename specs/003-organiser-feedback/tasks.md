@@ -74,7 +74,7 @@ implement what it says; this file adds only the contracts it leaves open.
 - [x] T3: Home photo, contact-row D and "Talks" label — refs: AC-1.1, AC-1.2, AC-2.3, AC-7.1, AC-3.8 — deps: T2, T9
   - touch: `frontend/src/features/home/*`, `frontend/src/components/profile-photo/*`
   - done when: Home test shows the profile photo with `profile.photoAlt` in the intro row and no D card there, a D with its alt text in the contact row, the talks band label "Talks" with no dot and no "Now"; ProfilePhoto test covers `aspect="1/1"`.
-- [ ] T4: "For organisers" band on Profile (bio choice, copy bio, download photo, D) — refs: AC-3.1, AC-3.2, AC-3.3, AC-3.4, AC-3.5, AC-3.6, AC-2.3 — deps: T1, T2, T9
+- [x] T4: "For organisers" band on Profile (bio choice, copy bio, download photo, D) — refs: AC-3.1, AC-3.2, AC-3.3, AC-3.4, AC-3.5, AC-3.6, AC-2.3 — deps: T1, T2, T9
   - touch: `frontend/src/features/profile/*`, `frontend/src/components/content/ButtonLink.tsx`, `frontend/src/components/content/ButtonLink.module.css`
   - done when: Profile tests show the "For organisers" heading with `bios.en.short` by default; picking Italian + Extended (radio groups "Language", "Length") shows `bios.it.extended` in a box with `lang="it"`; clicking "Copy bio" with a mocked clipboard writes exactly the shown version's paragraphs joined by a blank line and the `role="status"` region reads "Bio copied to the clipboard."; with a rejecting/absent clipboard it reads the failure text and the bio is selected; the download link has `download="michele-giacobazzi.jpg"`, an href to the fingerprinted JPEG and the text "JPG, 1024 × 1024 px"; the band's D has its alt text.
 - [x] T5: Talk card titles and topic tags on the Talks list — refs: AC-5.2, AC-5.3, AC-6.1, AC-6.3 — deps: none

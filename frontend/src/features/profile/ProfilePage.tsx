@@ -5,6 +5,7 @@ import { WELLD_URL } from '@/components/layout/SiteLayout'
 import { ProfilePhoto } from '@/components/profile-photo'
 import type { Profile } from '@/content/schema'
 import { t } from '@/i18n/t'
+import { OrganisersSection } from './OrganisersSection'
 import styles from './ProfilePage.module.css'
 
 export const ProfileView = ({ profile }: { profile: Profile }) => (
@@ -44,6 +45,7 @@ export const ProfileView = ({ profile }: { profile: Profile }) => (
         </div>
       </div>
     </div>
+    <OrganisersSection profile={profile} />
   </>
 )
 
