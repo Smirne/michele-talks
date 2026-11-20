@@ -7,7 +7,7 @@ import type { Talk } from '@/content/schema'
 import { t } from '@/i18n/t'
 import styles from './TalksPage.module.css'
 
-/** Talks no longer offered stay published (History links to them) but are not listed here. */
+/** Talks no longer offered stay published (On stage links to them) but are not listed here. */
 export const TalksView = ({ talks: all }: { talks: readonly Talk[] }) => {
   const talks = all.filter((talk) => talk.offered)
   return (

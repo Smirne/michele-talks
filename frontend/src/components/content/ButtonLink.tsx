@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
 import { type ButtonVariant, buttonClassName } from './button-class'
 
-type InternalTo = '/' | '/profile' | '/talks' | '/history' | '/contact'
+type InternalTo = '/' | '/profile' | '/talks' | '/on-stage' | '/contact'
 
 type Props = { variant?: ButtonVariant; children: ReactNode } & (
   | { to: InternalTo; href?: never; download?: never; ariaLabel?: never }

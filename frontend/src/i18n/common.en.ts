@@ -7,7 +7,7 @@ export const commonStrings = {
     home: 'Home',
     profile: 'Profile',
     talks: 'Talks',
-    history: 'History',
+    history: 'On stage',
     contact: 'Contact',
   },
   footer: {

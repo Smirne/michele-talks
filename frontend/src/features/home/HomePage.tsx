@@ -100,7 +100,7 @@ export const HomeView = ({ now = new Date(), content = defaultContent }: Props) 
               ))}
             </ul>
             <div className={styles.more}>
-              <ButtonLink variant="secondary" to="/history">
+              <ButtonLink variant="secondary" to="/on-stage">
                 {t('home.next.all')}
               </ButtonLink>
             </div>
