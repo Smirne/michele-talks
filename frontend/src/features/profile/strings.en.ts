@@ -14,7 +14,6 @@ export const profileStrings = {
     copyFailed: 'Copying failed. Select the text above and copy it yourself.',
     download: 'Download photo',
     fileInfo: '{format}, {width} × {height} px',
-    downloadAria: '{download}, {fileInfo}',
   },
   welld: {
     prefix: 'Michele is CTO and co-founder of',

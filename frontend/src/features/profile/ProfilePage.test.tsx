@@ -176,7 +176,7 @@ describe('Profile', () => {
       expect(link.getAttribute('href')).toBe('/ada-1024.jpg')
       expect(link.getAttribute('download')).toBe('ada-lovelace.jpg')
       expect(link.textContent).toContain('JPG, 1024 × 1024 px')
-      expect(link.getAttribute('aria-label')).toBe('Download photo, JPG, 1024 × 1024 px')
+      expect(link.hasAttribute('aria-label')).toBe(false)
     })
 
     it('shows D with its alt text in the band', async () => {

@@ -11,8 +11,8 @@ export const talksStrings = {
     subject: 'Speaker invitation: {title}',
     recording: 'Recording ({language}), {event}',
     slides: 'Slides ({language}), {event}',
-    recordingAria: 'Recording ({language}), {languageName}, {event}',
-    slidesAria: 'Slides ({language}), {languageName}, {event}',
+    recordingAria: 'Recording ({language}), {event}, in {languageName}',
+    slidesAria: 'Slides ({language}), {event}, in {languageName}',
   },
   detail: {
     back: 'All talks',

@@ -283,7 +283,7 @@ describe('talk page aside, topics and layout (003)', () => {
     const recording = within(aside()).getByRole('link', { name: /^Recording/ })
     expect(recording.textContent).toBe('Recording (IT), Event new')
     expect(recording.getAttribute('href')).toBe('https://v/new')
-    expect(recording.getAttribute('aria-label')).toBe('Recording (IT), Italian, Event new')
+    expect(recording.getAttribute('aria-label')).toBe('Recording (IT), Event new, in Italian')
     const slides = within(aside()).getByRole('link', { name: /^Slides/ })
     expect(slides.textContent).toBe('Slides (IT), Event new')
     expect(slides.getAttribute('href')).toBe('https://s/new')

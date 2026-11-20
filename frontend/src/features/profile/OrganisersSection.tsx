@@ -133,10 +133,9 @@ export const OrganisersSection = ({ profile }: { profile: Profile }) => {
             variant="secondary"
             href={photoDownload.url}
             download={`${kebab(profile.name)}.jpg`}
-            ariaLabel={t('profile.organisers.downloadAria', { download, fileInfo })}
           >
             <span className={styles.download}>
-              {download}
+              <span>{download}</span>
               <span className={styles.fileInfo}>{fileInfo}</span>
             </span>
           </ButtonLink>

@@ -33,7 +33,7 @@ export const HomeView = ({ now = new Date(), content = defaultContent }: Props) 
     <>
       <PageHeader title={t('home.headline')} documentTitle={t('common.siteName')} />
       <div className={styles.board}>
-        <section className={styles.slot}>
+        <section className={[styles.slot, styles.intro].join(' ')}>
           <p className={styles.label}>{t('home.intro.label')}</p>
           <div>
             <h2 className={styles.heading}>{profile.name}</h2>
