@@ -1,18 +1,14 @@
 /* Programme Board rows (sketches/03-programme-board.html). */
 .board {
+  --home-figure-width: 160px;
   margin-top: calc(var(--space-2) * -1);
   border-top: 4px solid var(--ink);
 }
 
 .slot {
   display: grid;
-  grid-template-columns: 130px 1fr 240px;
-}
-
-/* The intro row holds the photo: kept at 180px on wide screens so the contact actions stay
-   inside the first 800px (spec 001 AC-2.3). */
-.intro {
-  grid-template-columns: 130px 1fr 180px;
+  /* The third column holds the photo (intro) and D (contact) at one shared width. */
+  grid-template-columns: 130px 1fr var(--home-figure-width);
   gap: 0 var(--space-3);
   align-items: center;
   padding: var(--space-2) 0;
@@ -51,14 +47,20 @@
   gap: var(--space-1) var(--space-2);
 }
 
-/* The talks row bleeds past the page margins (the signature). */
+/* The talks row bleeds past the page margins (the signature), set off from the rows around
+   it by a gap and a full-width ink rule above and below. */
 .featured {
-  margin: 0 calc(var(--space-3) * -1);
-  padding-left: var(--space-3);
-  padding-right: var(--space-3);
+  margin: 12px calc(var(--space-3) * -1);
+  padding: 12px var(--space-3);
   background: var(--signal);
   color: var(--white);
-  border-bottom-color: var(--ink);
+  border-top: 4px solid var(--ink);
+  border-bottom: 4px solid var(--ink);
+}
+
+/* The row before the band closes with the band's own rule, not a second one. */
+.intro {
+  border-bottom: 0;
 }
 
 .featured .label {
@@ -83,13 +85,13 @@
 .photo {
   justify-self: end;
   width: 100%;
-  max-width: 180px;
+  max-width: var(--home-figure-width);
 }
 
 .contactMascot {
   justify-self: end;
   width: 100%;
-  max-width: 220px;
+  max-width: var(--home-figure-width);
   height: auto;
   aspect-ratio: 360 / 200;
   border: 2px solid var(--ink);
@@ -139,8 +141,7 @@
 
 @media (max-width: 480px) {
   .featured {
-    margin: 0 calc(var(--space-2) * -1);
-    padding-left: var(--space-2);
-    padding-right: var(--space-2);
+    margin: var(--space-2) calc(var(--space-2) * -1);
+    padding: var(--space-2);
   }
 }

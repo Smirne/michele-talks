@@ -324,3 +324,18 @@ New strings (`profile.organisers.*`): `language` "Language", `english` "English"
 
 AC map additions: AC-3.6 → the two fieldsets; AC-3.7 → Profile main bio; AC-3.8 → Home intro
 paragraph; AC-3.9 → content validation (no UI).
+
+## Amendment 2026-11-20: Home review and footer
+
+Supersedes the Home and footer items above where they differ.
+- Home rows: 16px vertical padding, 2px ink rule between rows. The Talks band has a 4px ink rule
+  above and below across its full bleed width and 12px vertical margin and padding. The intro row
+  has no bottom rule of its own (the band's rule closes it).
+- Photo and Home D share one width (`--home-figure-width`, 160px at ≥821px; 240px when stacked).
+- Home D: `problem-identification.png` (D behind a lectern), the only "speaker" pose in the WellD
+  library. It is the red variant; no teal or violet lectern pose exists. Alt: "D, the WellD
+  mascot, speaking from a lectern". `mobile-development.png` is no longer used.
+- Measured at 1280 × 800: email CTA bottom at 790px (spec 001 AC-2.3 holds).
+- Footer: D (decorative) | "Michele Giacobazzi" (bold) over "CTO and co-founder @ WellD" (link) |
+  a list labelled "Profiles" with LinkedIn, GitHub and Sessionize (matched by label from
+  `profile.profiles`), right-aligned; below 640px the list wraps under the name.

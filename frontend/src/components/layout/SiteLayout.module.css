@@ -89,9 +89,29 @@
 
 .footerText {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1);
+  flex-direction: column;
+  gap: 4px;
   margin: 0;
+}
+
+.footerProfiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin: 0 0 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 640px) {
+  .footerLine {
+    flex-wrap: wrap;
+  }
+
+  .footerProfiles {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
 }
 
 .footerLine a {

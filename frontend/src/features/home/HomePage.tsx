@@ -77,7 +77,7 @@ export const HomeView = ({ now = new Date(), content = defaultContent }: Props) 
             </div>
           </div>
           <Mascot
-            pose="mobile-development"
+            pose="problem-identification"
             alt={t('common.mascot.alt.homeContact')}
             className={styles.contactMascot}
           />

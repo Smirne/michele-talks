@@ -1,7 +1,7 @@
 ---
 spec: 003
 generated: 2026-11-20
-synced: 2026-11-20  # re-synced after the official-bios amendment
+synced: 2026-11-20  # re-synced after the Home review amendment (implemented as a T3/T2 follow-up)
 ---
 
 # Tasks: Organiser feedback

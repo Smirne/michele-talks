@@ -89,11 +89,11 @@ describe('Home', () => {
     expect(within(intro).queryByRole('img', { name: /mascot/ })).toBeNull()
   })
 
-  it('shows D holding a phone in the contact row', async () => {
+  it('shows D speaking from a lectern in the contact row', async () => {
     await renderHome()
     const row = screen.getByText('Invite').closest('section') as HTMLElement
     expect(
-      within(row).getByRole('img', { name: 'D, the WellD mascot, holding a phone' })
+      within(row).getByRole('img', { name: 'D, the WellD mascot, speaking from a lectern' })
     ).toBeTruthy()
   })
 

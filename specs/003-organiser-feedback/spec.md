@@ -133,6 +133,11 @@ confuse me.
   short English one (AC-3.1, AC-3.2 reworded, AC-3.6 added); Profile uses the extended English
   bio and Home a one-paragraph summary built from the official text (US-3b). Bio text: owner's
   paste of 2026-11-20, verbatim.
+- 2026-11-20 (owner, reviewing the built Home): more space between Home rows, a full ink rule
+  above and below the Talks band, the photo and the Home D at the same width, a "speaker" D on
+  Home, and a footer reading "Michele Giacobazzi, CTO and co-founder @ WellD" with links to
+  LinkedIn, GitHub and Sessionize. Spec 001 AC-2.3 (contact path within 800px at 1280 × 800)
+  still holds: the owner chose to tighten the spacing rather than relax it.
 
 ## Non-goals
 - A topic filter on Talks: tags only now; a filter needs a cleaned-up topic vocabulary first

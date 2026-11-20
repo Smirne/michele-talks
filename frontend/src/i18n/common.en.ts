@@ -11,7 +11,8 @@ export const commonStrings = {
     contact: 'Contact',
   },
   footer: {
-    prefix: "I'm CTO and co-founder of",
+    role: 'CTO and co-founder @',
+    profiles: 'Profiles',
     welld: 'WellD',
   },
   mascot: {
@@ -20,7 +21,7 @@ export const commonStrings = {
       talks: 'D, the WellD mascot, with a code speech bubble',
       history: 'D, the WellD mascot, holding a pie chart',
       contact: 'D, the WellD mascot, holding an open laptop',
-      homeContact: 'D, the WellD mascot, holding a phone',
+      homeContact: 'D, the WellD mascot, speaking from a lectern',
       organisers: 'D, the WellD mascot, with a documents icon',
     },
   },
