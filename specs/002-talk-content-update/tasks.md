@@ -87,7 +87,7 @@ synced: 2026-11-20
     History row link, its page saying "No longer offered"; lint (incl. no JSX literals),
     typecheck and existing tests pass.
 
-- [ ] T3: [frontend] Content update — refs: AC-1.1, AC-1.2, AC-1.3, AC-1.4, AC-2.2, AC-2.3, AC-2.4, AC-3.1, AC-3.2, AC-3.3, AC-4.4 — deps: T1, T2
+- [x] T3: [frontend] Content update — refs: AC-1.1, AC-1.2, AC-1.3, AC-1.4, AC-2.2, AC-2.3, AC-2.4, AC-3.1, AC-3.2, AC-3.3, AC-4.4 — deps: T1, T2
   - touch: `frontend/content/*.yaml`, `frontend/e2e/*`
   - done when: the YAML matches the Content section of the Architecture notes; `mise run
     frontend:build` passes; an e2e check (Playwright, against the build) shows

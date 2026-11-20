@@ -22,8 +22,9 @@
       cost in image size and memory per replica.
     - Real production numbers, the mistakes included, and a live demo.
   durationMinutes: 35
-  level: intermediate
+  level: [beginner, intermediate]
   format: talk
+  note: Length and technical depth adapt to the event, from an overview for energy-sector managers to a deep dive for developers.
   languages: [en, it]
   topics:
     [
@@ -32,6 +33,9 @@
       PostgreSQL multitenancy,
       Java / JVM performance,
       Energy transition,
+      Energy communities,
+      Flexibility markets,
+      Cloud-native architecture,
     ]
   alsoGivenAs:
     - {
@@ -46,33 +50,10 @@
     - { title: 'From Grid Saturation to GitOps', language: en }
     - { title: 'From Kubernetes to Kilowatts: GitOps and JVM Tuning', language: en }
     - { title: 'The Pilot Worked. Then We Had to Run It.', language: en }
-
-- slug: flex-your-energy
-  title: 'Flex your Energy: Building a Cloud-Native Platform for Renewable Energy Communities'
-  summary: >-
-    What it takes in software to turn neighbours, rooftop solar and a strained grid into a
-    working energy community and a flexibility market.
-  abstract:
-    - >-
-      The grid was built for one-way traffic. Rooftop solar, heat pumps and electric cars are
-      changing that faster than the cables can be replaced, and much of the gap can be closed
-      with coordination instead of copper.
-    - >-
-      This talk follows SPARklE, a platform for Renewable Energy Communities and energy
-      flexibility markets for distribution system operators, from the domain problem down to
-      the architecture: reading every meter, forecasting sun and demand, settling incentives
-      correctly every day, and taking part in flexibility markets. On the technical side it
-      touches multitenancy with PostgreSQL Row-Level Security, time-series ingestion with
-      TimescaleDB and GitOps deployments with FluxCD, at the level a mixed audience needs.
-    - >-
-      Includes a live demo. Length and depth adapt to the room, from energy-sector managers
-      to developers.
-  durationMinutes: 35
-  level: beginner
-  format: talk
-  languages: [en, it]
-  topics: [Energy communities, Flexibility markets, Energy transition, Cloud-native architecture]
-  alsoGivenAs:
+    - {
+        title: 'Flex your Energy: Building a Cloud-Native Platform for Renewable Energy Communities',
+        language: en,
+      }
     - {
         title: 'Flex your Energy: come il software sta ridisegnando le Comunità Energetiche Rinnovabili',
         language: it,
@@ -209,3 +190,41 @@
   format: talk
   languages: [en, it]
   topics: [PostgreSQL, Multitenancy, TimescaleDB, Security]
+
+- slug: lego4scrum
+  title: Lego4Scrum
+  summary: >-
+    A hands-on workshop that teaches Scrum by building with Lego: the team plans, builds and
+    inspects together, and feels the framework instead of reading about it.
+  abstract:
+    - >-
+      Lego4Scrum is a full-day workshop in which participants learn Scrum by playing it. In
+      short rounds the teams build with Lego bricks, working through sprint planning,
+      development, review and retrospective as they go.
+    - >-
+      Along the way the workshop touches the Scrum roles, the product backlog and the work of
+      the product owner, and how a team inspects and adapts. No Scrum experience is needed.
+  durationMinutes: { min: 360, max: 480 }
+  level: beginner
+  format: workshop
+  languages: [en, it]
+  topics: [Scrum, Agile, Teamwork, Product ownership]
+  coHosts: [Matteo Codogno]
+  links:
+    - { label: Lego4Scrum training at WellD, url: 'https://welld.ch/services/training/lego4scrum' }
+
+- slug: repetition-is-bad
+  title: Repetition is Bad, Repetition is Bad
+  summary: >-
+    A 15-minute quickie on duplicated code in Java, and how clean code and design patterns
+    remove it.
+  abstract:
+    - >-
+      A quickie on why repeating yourself in code hurts, with Java examples of how clean code
+      practices and design patterns take the repetition out.
+  durationMinutes: 15
+  level: intermediate
+  format: quickie
+  languages: [en]
+  topics: [Java, Clean code, Design patterns]
+  offered: false

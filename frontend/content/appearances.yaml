@@ -24,7 +24,8 @@
   date: 2026-06-30
   online: true
   language: en
-  talk: flex-your-energy
+  talk: from-kubernetes-to-kilowatts
+  sessionTitle: 'Flex your Energy: Building a Cloud-Native Platform for Renewable Energy Communities'
   note: Video selection for the virtual stage, not a live slot. The recording needs a WeAreDevelopers login.
   resources:
     - {
@@ -97,7 +98,7 @@
   country: Italy
   online: false
   language: it
-  talk: flex-your-energy
+  talk: from-kubernetes-to-kilowatts
   sessionTitle: "SPARklE – Gestione intelligente dell'energia"
 
 - id: codemotion-tech-lead-summit-2026
@@ -131,3 +132,31 @@
   online: false
   language: it
   talk: clean-code-for-clean-energy
+
+- id: voxxed-days-ticino-2015
+  event: Voxxed Days Ticino 2015
+  date: 2015-04-18
+  city: Lugano
+  country: Switzerland
+  online: false
+  language: en
+  talk: repetition-is-bad
+  note: My first talk, at the first edition.
+  resources:
+    - {
+        type: slides,
+        language: en,
+        url: 'https://speakerdeck.com/smirne/repetition-is-bad-repetition-is-bad',
+      }
+
+- id: voxxed-days-ticino-2025-workshop-day
+  event: Voxxed Days Ticino 2025 workshop day
+  date: 2025-01-16
+  city: Lugano
+  country: Switzerland
+  online: false
+  language: it
+  talk: lego4scrum
+  coHosts: [Matteo Codogno]
+  note: Full-day workshop.
+  eventUrl: 'https://sessionize.com/s/matteocodogno/lego4scrum/141346'
