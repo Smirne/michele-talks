@@ -1,0 +1,153 @@
+/* SPIKE (004): Sticker Sheet skin layered over the existing components.
+   Targets CSS-module classes by their local name ([class*='_card_']) instead of editing each
+   module: fast to try, brittle to keep. /wellforge:promote would move this into the modules. */
+
+body {
+  background-color: var(--mint);
+  background-image: radial-gradient(rgba(22, 17, 15, 0.14) 1.5px, transparent 1.6px);
+  background-size: 22px 22px;
+}
+
+/* Sentence case and the single heavy weight of Dela Gothic One. */
+h1,
+h2,
+h3 {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+/* Wordmark: an ink label, tilted. */
+[class*='_wordmark_'] {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--mint) !important;
+  padding: 10px 16px;
+  border-radius: 12px;
+  transform: rotate(-2deg);
+  text-decoration: none;
+}
+
+/* Nav: pill stickers, alternating tilt, pink for the current page. */
+[class*='_list_'] > li:nth-child(odd) > [class*='_link_'] {
+  transform: rotate(1.5deg);
+}
+[class*='_list_'] > li:nth-child(even) > [class*='_link_'] {
+  transform: rotate(-1.5deg);
+}
+nav [class*='_link_'] {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 var(--ink);
+  text-decoration: none;
+  font-weight: 800;
+}
+nav [class*='_link_'][aria-current='page'] {
+  background: var(--pink);
+  color: var(--ink);
+}
+
+/* The sticker edge: white fill, ink border, rounded, hard shadow, slight tilt. */
+[class*='_card_'],
+[class*='_row_'],
+[class*='_slot_'],
+[class*='_band_'],
+[class*='_aside_'],
+[class*='_next_'] {
+  background: var(--white);
+  border: 3px solid var(--ink) !important;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hard);
+  padding: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+[class*='_card_']:nth-child(3n + 1),
+[class*='_row_']:nth-child(3n + 1),
+[class*='_slot_']:nth-child(odd) {
+  transform: rotate(-1deg);
+}
+[class*='_card_']:nth-child(3n + 2),
+[class*='_row_']:nth-child(3n + 2),
+[class*='_slot_']:nth-child(even) {
+  transform: rotate(0.8deg);
+}
+[class*='_card_']:nth-child(3n),
+[class*='_row_']:nth-child(3n) {
+  transform: rotate(-0.4deg);
+}
+
+/* Home's featured talks band: a teal sticker instead of a full-bleed row. */
+[class*='_featured_'] {
+  margin: var(--space-3) 0 !important;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hard);
+  transform: rotate(1.2deg);
+}
+
+/* Buttons: pink primary sticker, white secondary, both with the hard shadow. */
+[class*='_button_'] {
+  border: 3px solid var(--ink) !important;
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 var(--ink);
+  font-weight: 800;
+}
+[class*='_primary_'] {
+  background: var(--pink) !important;
+  color: var(--ink) !important;
+}
+
+/* Photo and mascots: die-cut white edge. */
+[class*='_photo_'] img,
+[class*='_mascot_'] img,
+[class*='_contactMascot_'] img {
+  border: 6px solid var(--white);
+  outline: 3px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 6px 6px 0 var(--ink);
+  transform: rotate(2deg);
+}
+
+/* Small labels: ink chips (language badges) and white pill topic tags. */
+[class*='_badge_'] {
+  background: var(--ink);
+  color: var(--mint);
+  border-radius: 6px;
+}
+[class*='_tag_'] {
+  border-radius: 999px;
+  border-width: 2px;
+}
+
+/* Footer: an ink strip. */
+[class*='_footer_'] {
+  background: var(--ink);
+  color: var(--mint);
+}
+[class*='_footer_'] a {
+  color: var(--white);
+}
+
+/* Sentence case everywhere the modules force capitals (headings, labels, nav, buttons). */
+[class*='_heading_'],
+[class*='_title_'],
+[class*='_nextHeading_'],
+[class*='_wordmark_'],
+[class*='_button_'],
+nav [class*='_link_'] {
+  text-transform: none !important;
+}
+
+/* A sticker inside a sticker reads as noise: inner rows go flat. */
+[class*='_next_'] [class*='_row_'],
+[class*='_band_'] [class*='_row_'] {
+  border: 0 !important;
+  border-top: 2px solid var(--ink) !important;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none !important;
+  margin: 0;
+}

@@ -1,8 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import '@fontsource/big-shoulders-display/latin-900'
-import '@fontsource/public-sans/latin-400'
-import '@fontsource/public-sans/latin-700'
+// SPIKE (004): Sticker Sheet fonts
+import '@fontsource/dela-gothic-one/latin-400'
+import '@fontsource/figtree/latin-400'
+import '@fontsource/figtree/latin-600'
+import '@fontsource/figtree/latin-800'
 import '@fontsource/space-mono/latin-400'
 import '@fontsource/space-mono/latin-700'
 import { App } from './App'

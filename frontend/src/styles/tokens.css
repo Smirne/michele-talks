@@ -1,14 +1,15 @@
-/* Design tokens: Programme Board direction (specs/001-site-foundation/design.md).
+/* SPIKE (004): token values swapped to direction 4 Sticker Sheet; names kept so components
+   need no edit (--mint is now the banana sheet, --signal teal). Was: Programme Board direction (specs/001-site-foundation/design.md).
    Components reference these custom properties; no hex literals outside this file. */
 :root {
-  --mint: #e3f1e7;
-  --ink: #10281f;
-  --signal: #b43a08;
-  --muted: #3f5a4c;
+  --mint: #ffd93b;
+  --ink: #16110f;
+  --signal: #0b7a72;
+  --muted: #4a3f00;
   --white: #ffffff;
 
-  --font-display: 'Big Shoulders Display', 'Arial Narrow', Impact, sans-serif;
-  --font-body: 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Dela Gothic One', 'Arial Black', sans-serif;
+  --font-body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'Space Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* 8px spacing scale */
@@ -31,7 +32,9 @@
   --tag-border: var(--ink);
   --tag-size: 13px;
 
-  --radius: 0;
-  --focus-ring: 3px solid var(--signal);
+  --radius: 18px;
+  --pink: #ff5c93;
+  --shadow-hard: 5px 5px 0 var(--ink);
+  --focus-ring: 4px solid var(--ink);
   --focus-offset: 2px;
 }
