@@ -194,16 +194,20 @@
 - slug: lego4scrum
   title: Lego4Scrum
   summary: >-
-    A hands-on workshop that teaches Scrum by building with Lego: the team plans, builds and
-    inspects together, and feels the framework instead of reading about it.
+    A hands-on Scrum workshop where teams build a LEGO city in sprints, and learn planning,
+    review and retrospective by doing them.
   abstract:
     - >-
-      Lego4Scrum is a full-day workshop in which participants learn Scrum by playing it. In
-      short rounds the teams build with Lego bricks, working through sprint planning,
-      development, review and retrospective as they go.
+      Explore the power of Agile through a hands-on experience. Teams use LEGO bricks to run the
+      full Scrum cycle — sprint planning, execution, sprint review and retrospective — building
+      a city for a customer whose wishes keep changing.
     - >-
-      Along the way the workshop touches the Scrum roles, the product backlog and the work of
-      the product owner, and how a team inspects and adapts. No Scrum experience is needed.
+      Through collaborative exercises, participants experience teamwork, adaptive planning and
+      continuous feedback rather than hearing about them: how to work with team members and
+      stakeholders, adapt quickly to change, and get more done in short cycles. No technical
+      knowledge needed; it works for newcomers to Agile and for experienced practitioners
+      alike. For 10 to 25 people: analysts, project managers, product owners, UX designers,
+      engineers and team leads.
   durationMinutes: { min: 360, max: 480 }
   level: beginner
   format: workshop
@@ -216,12 +220,19 @@
 - slug: repetition-is-bad
   title: Repetition is Bad, Repetition is Bad
   summary: >-
-    A 15-minute quickie on duplicated code in Java, and how clean code and design patterns
-    remove it.
+    Removing the boilerplate around every remote call in a Java service: reflection,
+    callables, Java 8 lambdas and interceptors compared.
   abstract:
     - >-
-      A quickie on why repeating yourself in code hurts, with Java examples of how clean code
-      practices and design patterns take the repetition out.
+      Every service method that calls a remote back end repeats the same six steps: get the
+      operator from a token, open a connection, make the call, handle exceptions, close the
+      connection and audit the call. Only the middle step changes.
+    - >-
+      This quickie compares four ways to write that once: reflection, Callable tasks, Java 8
+      functional interfaces and interceptors, with what each costs in type safety, readability
+      and logging. The answer we chose combines a functional interface for the business call
+      with an interceptor for the cross-cutting concerns, so each method holds only what is
+      specific to it.
   durationMinutes: 15
   level: intermediate
   format: quickie
