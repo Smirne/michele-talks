@@ -1,0 +1,297 @@
+/* SPIKE (004), pass 2: Sticker Sheet skin with Programme Board discipline.
+   Rules: blocks are flat stickers (white, ink border, rounded, hard shadow, NO tilt); only the
+   focal pieces tilt (photo, D, the page's main call to action); pink only for the current page
+   and the primary button. Targets CSS-module classes by their local name ([class*='_card_']):
+   fast to try, brittle to keep. /wellforge:promote would move this into the modules. */
+
+body {
+  background-color: var(--mint);
+  background-image: radial-gradient(rgba(22, 17, 15, 0.14) 1.5px, transparent 1.6px);
+  background-size: 22px 22px;
+}
+
+/* Sentence case and the single heavy weight of Dela Gothic One. */
+h1,
+h2,
+h3 {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+[class*='_heading_'],
+[class*='_title_'],
+[class*='_nextHeading_'],
+[class*='_wordmark_'],
+[class*='_button_'],
+nav [class*='_link_'] {
+  text-transform: none !important;
+}
+
+/* Page titles: Dela is wide; the Programme Board size would eat the fold. */
+main [class*='_header_'] > h1[class*='_title_']:not([class*='_compact_']) {
+  font-size: clamp(40px, 6vw, 76px);
+}
+
+/* Wordmark: an ink label, the one tilted piece in the header. */
+[class*='_wordmark_'] {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--mint) !important;
+  padding: 10px 16px;
+  border-radius: 12px;
+  transform: rotate(-2deg);
+  text-decoration: none;
+}
+
+/* Nav: straight pill stickers, pink for the current page. */
+nav [class*='_link_'] {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 var(--ink);
+  text-decoration: none;
+  font-weight: 800;
+}
+nav [class*='_link_'][aria-current='page'] {
+  background: var(--pink);
+  color: var(--ink);
+}
+
+/* The sticker edge, flat. Talk cards, history rows, organiser band, talk aside. */
+[class*='_card_'],
+[class*='_row_'],
+[class*='_band_'],
+[class*='_aside_'] {
+  background: var(--white);
+  border: 3px solid var(--ink) !important;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hard);
+  padding: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+/* Talk list: a clean catalogue. Smaller titles keep long ones on two lines. */
+[class*='_card_'] [class*='_title_'] {
+  font-size: clamp(20px, 1.9vw, 26px);
+  line-height: 1.15;
+}
+
+/* Talk page: the aside wrapper and its inner block both matched; only the inner one is a sticker. */
+[class*='_aside_']:has(> [class*='_aside_']) {
+  background: none;
+  border: 0 !important;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* Rows inside a sticker go flat (no sticker in a sticker). */
+[class*='_next_'] [class*='_row_'],
+[class*='_band_'] [class*='_row_'] {
+  border: 0 !important;
+  border-top: 2px solid var(--ink) !important;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding-inline: 0;
+}
+
+/* ---------- Home: a short collage instead of the timetable ----------
+   Scoped with :has(> featured): History and Contact also use .board (Contact has an .intro too). */
+main [class*='_board_']:has(> [class*='_featured_']) {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  grid-template-areas:
+    'intro talks'
+    'intro invite'
+    'next next';
+  gap: var(--space-3);
+  border-top: 0;
+  margin-top: 0;
+}
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_'] {
+  grid-template-columns: 1fr;
+  gap: var(--space-1);
+  align-content: start;
+  margin: 0;
+  padding: var(--space-3);
+  border: 3px solid var(--ink) !important;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hard);
+}
+/* The timetable labels ("Speaker", "Talks", "Invite") are the row-header column: not needed here. */
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_'] > [class*='_label_'] {
+  display: none;
+}
+
+/* Intro: white sticker, text beside a tilted die-cut photo. */
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_intro_'] {
+  grid-area: intro;
+  grid-template-columns: 1fr 180px;
+  align-items: start;
+  background: var(--white);
+}
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_intro_'] [class*='_photo_'] {
+  max-width: 180px;
+}
+
+/* Browse the talks: the pink sticker, tilted (the page's main call to action). */
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_featured_'] {
+  grid-area: talks;
+  background: var(--pink);
+  color: var(--ink);
+  transform: rotate(1.5deg);
+}
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_featured_'] [class*='_heading_'],
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_featured_'] [class*='_text_'] {
+  color: var(--ink);
+}
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_featured_'] a {
+  background: var(--ink) !important;
+  color: var(--mint) !important;
+  border-color: var(--ink) !important;
+  box-shadow: 4px 4px 0 var(--white);
+}
+
+/* Invite me: the ink sticker, straight. D sits at its corner, tilted. */
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_']:nth-child(3) {
+  grid-area: invite;
+  grid-template-columns: 1fr 120px;
+  align-items: end;
+  background: var(--ink);
+  color: var(--mint);
+  box-shadow: 5px 5px 0 var(--white);
+}
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_']:nth-child(3) [class*='_heading_'] {
+  color: var(--mint);
+  font-size: clamp(22px, 2.2vw, 30px);
+}
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_']:nth-child(3) [class*='_text_'] {
+  color: var(--white);
+}
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_']:nth-child(3) [class*='_secondary_'] {
+  background: var(--white);
+  color: var(--ink);
+}
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_'] [class*='_heading_'] {
+  font-size: clamp(22px, 2.4vw, 32px);
+}
+
+/* Next: a flat white sticker across the full width. */
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_next_'] {
+  grid-area: next;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hard);
+  padding: var(--space-3);
+}
+
+@media (max-width: 860px) {
+  main [class*='_board_']:has(> [class*='_featured_']) {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'intro' 'talks' 'invite' 'next';
+  }
+  main [class*='_board_']:has(> [class*='_featured_']) > [class*='_intro_'] {
+    grid-template-columns: 1fr;
+  }
+  main [class*='_board_']:has(> [class*='_featured_']) > [class*='_intro_'] [class*='_photo_'] {
+    order: -1;
+  }
+  main [class*='_board_']:has(> [class*='_featured_']) > [class*='_featured_'] {
+    transform: rotate(0.8deg);
+  }
+}
+
+/* Buttons: pink primary sticker, white secondary, both with the hard shadow. */
+[class*='_button_'] {
+  border: 3px solid var(--ink) !important;
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 var(--ink);
+  font-weight: 800;
+}
+[class*='_primary_'] {
+  background: var(--pink) !important;
+  color: var(--ink) !important;
+}
+
+/* Focal pieces: photo and D get the die-cut white edge and a tilt. */
+[class*='_photo_'] img,
+[class*='_mascot_'] img,
+img[class*='_contactMascot_'],
+[class*='_contactMascot_'] img {
+  border: 5px solid var(--white);
+  outline: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 5px 5px 0 var(--ink);
+  transform: rotate(2.5deg);
+}
+
+/* Small labels: ink chips (language badges) and white pill topic tags. */
+[class*='_badge_'] {
+  background: var(--ink);
+  color: var(--mint);
+  border-radius: 6px;
+}
+[class*='_tag_'] {
+  border-radius: 999px;
+  border-width: 2px;
+}
+
+/* Footer: an ink strip. */
+[class*='_footer_'] {
+  background: var(--ink);
+  color: var(--mint);
+}
+[class*='_footer_'] a {
+  color: var(--white);
+}
+
+/* Pass 2 fixes: the modules' own padding wins on specificity; event names keep their case. */
+main [class*='_card_'] {
+  padding: var(--space-3) !important;
+}
+[class*='_event_'] {
+  text-transform: none !important;
+}
+main [class*='_board_']:has(> [class*='_featured_']) > [class*='_intro_'] {
+  align-self: start;
+}
+
+/* Pass 2 layout: "Next" fills the left column under the intro; the invite card stacks when narrow. */
+@media (min-width: 861px) {
+  main [class*='_board_']:has(> [class*='_featured_']) {
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'intro talks'
+      'next invite';
+    align-items: start;
+  }
+  main [class*='_board_']:has(> [class*='_featured_']) > [class*='_next_'] {
+    align-self: start;
+  }
+}
+@media (max-width: 860px) {
+  main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_']:nth-child(3) {
+    grid-template-columns: 1fr;
+  }
+  main [class*='_board_']:has(> [class*='_featured_']) > [class*='_slot_']:nth-child(3) [class*='_contactMascot_'] {
+    max-width: 160px;
+  }
+}
+
+/* The Programme Board rules above the Talks list and History groups sat on top of the first
+   sticker ("strange line"): stickers carry their own edge, so the rules go. */
+main [class*='_list_']:has([class*='_card_']),
+main [class*='_board_']:not(:has(> [class*='_featured_'])),
+main [class*='_board_'] [class*='_rows_'] {
+  border-top: 0 !important;
+}
+
+/* Contact: Dela Gothic One is far wider than Big Shoulders, so the email needs a smaller size. */
+main [class*='_email_'] {
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 400;
+}
