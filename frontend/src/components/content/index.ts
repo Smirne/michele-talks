@@ -1,6 +1,6 @@
 export { AppearanceRow } from './AppearanceRow'
 export { ButtonLink } from './ButtonLink'
-export { formatDate, formatDuration } from './format'
+export { formatCoHosts, formatDate, formatDuration, formatLevel } from './format'
 export { LanguageBadge } from './LanguageBadge'
 export { ResourceLink } from './ResourceLink'
 export { TalkCard } from './TalkCard'

@@ -20,6 +20,7 @@ const talk: Talk = {
   languages: ['en', 'it'],
   topics: [],
   hidden: false,
+  offered: true,
 }
 
 const appearance: Appearance = {
@@ -173,5 +174,52 @@ describe('AppearanceRow', () => {
     expect(within(row).queryByText('Presented as')).toBeNull()
     // Only event name, date and place/badge text: nothing else.
     expect(row.querySelectorAll('p')).toHaveLength(1)
+  })
+})
+
+describe('new talk fields on TalkCard (002)', () => {
+  it.each([
+    [35, '35 minutes'],
+    [120, '2 hours'],
+    [360, '6 hours'],
+    [150, '2.5 hours'],
+    [{ min: 360, max: 480 }, '6–8 hours'],
+    [{ min: 15, max: 30 }, '15–30 minutes'],
+  ] as [Talk['durationMinutes'], string][])('writes the duration %j as "%s"', async (durationMinutes, text) => {
+    await renderWithRouter(<TalkCard talk={{ ...talk, durationMinutes }} />)
+    expect(screen.getByText(text)).toBeTruthy()
+  })
+
+  it('writes a level range with an en dash', async () => {
+    await renderWithRouter(<TalkCard talk={{ ...talk, level: ['beginner', 'intermediate'] }} />)
+    expect(screen.getByText('Beginner–Intermediate')).toBeTruthy()
+  })
+
+  it('writes the quickie format', async () => {
+    await renderWithRouter(<TalkCard talk={{ ...talk, format: 'quickie' }} />)
+    expect(screen.getByText('Quickie')).toBeTruthy()
+  })
+
+  it.each([
+    [['Matteo Codogno'], 'With Matteo Codogno'],
+    [['Ada', 'Grace'], 'With Ada and Grace'],
+    [['Ada', 'Grace', 'Linus'], 'With Ada, Grace and Linus'],
+  ])('writes the co-hosts %j as "%s"', async (coHosts, text) => {
+    await renderWithRouter(<TalkCard talk={{ ...talk, coHosts }} />)
+    expect(screen.getByText(text)).toBeTruthy()
+  })
+
+  it('shows no co-host line when there are none', async () => {
+    await renderWithRouter(<TalkCard talk={talk} />)
+    expect(screen.queryByText(/^With /)).toBeNull()
+  })
+})
+
+describe('AppearanceRow co-hosts (002)', () => {
+  it('reads "With <names>" when the appearance has co-hosts', async () => {
+    await renderWithRouter(
+      inList(<AppearanceRow appearance={{ ...appearance, coHosts: ['Matteo Codogno'] }} />)
+    )
+    expect(screen.getByText('With Matteo Codogno')).toBeTruthy()
   })
 })

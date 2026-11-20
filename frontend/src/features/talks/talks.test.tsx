@@ -23,6 +23,7 @@ const talk: Talk = {
   languages: ['en', 'it'],
   topics: [],
   hidden: false,
+  offered: true,
 }
 const other: Talk = {
   ...talk,
@@ -142,5 +143,87 @@ describe('TalkDetailView', () => {
     expect(screen.queryByRole('heading', { name: 'Upcoming' })).toBeNull()
     expect(screen.queryByRole('heading', { name: 'Past' })).toBeNull()
     expect(screen.getByText('Not given in public yet.')).toBeTruthy()
+  })
+})
+
+describe('offered: false and new fields (002)', () => {
+  const retired: Talk = { ...talk, slug: 'retired', title: 'Retired talk', offered: false }
+
+  it('leaves a no-longer-offered talk out of the Talks list', async () => {
+    await renderWithRouter(<TalksView talks={[talk, retired]} />)
+    expect(screen.getByRole('link', { name: 'Flex your energy' })).toBeTruthy()
+    expect(screen.queryByRole('link', { name: 'Retired talk' })).toBeNull()
+  })
+
+  it('shows the empty message when every talk is no longer offered', async () => {
+    await renderWithRouter(<TalksView talks={[retired]} />)
+    expect(screen.getByText(/No talks listed yet/)).toBeTruthy()
+  })
+
+  it('says "No longer offered" on the page, with abstract and appearances', async () => {
+    await renderWithRouter(
+      <TalkDetailView
+        talk={retired}
+        now={NOW}
+        appearances={[appearance('p', '2026-01-10', { talk: 'retired' })]}
+      />
+    )
+    expect(screen.getByText('No longer offered')).toBeTruthy()
+    expect(screen.getByText('First paragraph.')).toBeTruthy()
+    expect(screen.getByRole('heading', { name: 'Past' })).toBeTruthy()
+  })
+
+  it('does not say it for an offered talk', async () => {
+    await renderWithRouter(<TalkDetailView talk={talk} now={NOW} appearances={[]} />)
+    expect(screen.queryByText('No longer offered')).toBeNull()
+  })
+
+  it('shows the note under the title, before the abstract, and nothing when absent', async () => {
+    const { unmount } = await renderWithRouter(
+      <TalkDetailView talk={{ ...talk, note: 'Adapts to the event.' }} now={NOW} appearances={[]} />
+    )
+    const note = screen.getByText('Adapts to the event.')
+    const abstract = screen.getByRole('heading', { name: 'Abstract' })
+    const title = screen.getByRole('heading', { level: 1 })
+    expect(title.compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(note.compareDocumentPosition(abstract) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    unmount()
+    await renderWithRouter(<TalkDetailView talk={talk} now={NOW} appearances={[]} />)
+    expect(screen.queryByText('Adapts to the event.')).toBeNull()
+  })
+
+  it('shows level range, duration range, co-hosts and quickie in the page meta', async () => {
+    await renderWithRouter(
+      <TalkDetailView
+        talk={{
+          ...talk,
+          level: ['beginner', 'intermediate'],
+          durationMinutes: { min: 360, max: 480 },
+          coHosts: ['Matteo Codogno'],
+          format: 'quickie',
+        }}
+        now={NOW}
+        appearances={[]}
+      />
+    )
+    expect(screen.getByText('Beginner–Intermediate')).toBeTruthy()
+    expect(screen.getByText('6–8 hours')).toBeTruthy()
+    expect(screen.getByText('With Matteo Codogno')).toBeTruthy()
+    expect(screen.getByText('Quickie')).toBeTruthy()
+  })
+
+  it('lists related links by label, after the abstract, opening safely', async () => {
+    await renderWithRouter(
+      <TalkDetailView
+        talk={{ ...talk, links: [{ label: 'Training page', url: 'https://example.org/training' }] }}
+        now={NOW}
+        appearances={[]}
+      />
+    )
+    const link = screen.getByRole('link', { name: 'Training page' })
+    expect(link.getAttribute('href')).toBe('https://example.org/training')
+    expect(link.getAttribute('rel')).toBe('noopener')
+    const abstract = screen.getByRole('heading', { name: 'Abstract' })
+    expect(abstract.compareDocumentPosition(link) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
   })
 })

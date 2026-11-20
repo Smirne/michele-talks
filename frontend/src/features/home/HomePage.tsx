@@ -58,7 +58,9 @@ export const HomeView = ({ now = new Date(), content = defaultContent }: Props) 
           </p>
           <div>
             <h2 className={styles.heading}>{t('home.talks.title')}</h2>
-            <p className={styles.text}>{t('home.talks.body', { count: talks.length })}</p>
+            <p className={styles.text}>
+              {t('home.talks.body', { count: talks.filter((talk) => talk.offered).length })}
+            </p>
             <ButtonLink to="/talks">{t('home.talks.cta')}</ButtonLink>
           </div>
         </section>

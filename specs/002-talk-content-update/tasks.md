@@ -77,7 +77,7 @@ synced: 2026-11-20
     such a talk stays in published content; the real content still validates; existing
     validation tests pass.
 
-- [ ] T2: [frontend] Render the new fields — refs: AC-2.1, AC-2.3, AC-2.4, AC-2.5, AC-3.1, AC-3.2, AC-3.3, AC-3.4, AC-4.1, AC-4.2, AC-4.3 — deps: T1
+- [x] T2: [frontend] Render the new fields — refs: AC-2.1, AC-2.3, AC-2.4, AC-2.5, AC-3.1, AC-3.2, AC-3.3, AC-3.4, AC-4.1, AC-4.2, AC-4.3 — deps: T1
   - touch: `frontend/src/components/content/*`, `frontend/src/features/talks/*`, `frontend/src/features/history/*`, `frontend/src/features/home/*`, `frontend/src/lib/*`
   - done when: component tests with fixtures show: level range "Beginner–Intermediate" on card
     and page; durations "35 minutes", "2 hours", "6 hours", "6–8 hours"; "Quickie"; "With

@@ -1,6 +1,12 @@
 import defaultContent from 'virtual:content'
 import { Link } from '@tanstack/react-router'
-import { AppearanceRow, LanguageBadge, formatDuration } from '@/components/content'
+import {
+  AppearanceRow,
+  LanguageBadge,
+  formatCoHosts,
+  formatDuration,
+  formatLevel,
+} from '@/components/content'
 import { PageHeader } from '@/components/layout'
 import type { Appearance, Talk } from '@/content/schema'
 import { t } from '@/i18n/t'
@@ -31,14 +37,17 @@ export const TalkDetailView = ({ talk, appearances, now = new Date() }: ViewProp
       <PageHeader title={talk.title} />
       <p className={styles.meta}>
         <span>{formatDuration(talk.durationMinutes)}</span>
-        <span>{t(`content.level.${talk.level}` as const)}</span>
+        <span>{formatLevel(talk.level)}</span>
         <span>{t(`content.format.${talk.format}` as const)}</span>
+        {talk.coHosts !== undefined && <span>{formatCoHosts(talk.coHosts)}</span>}
         <span className={styles.badges}>
           {talk.languages.map((l) => (
             <LanguageBadge key={l} language={l} />
           ))}
         </span>
       </p>
+      {!talk.offered && <p className={styles.retired}>{t('talks.detail.noLongerOffered')}</p>}
+      {talk.note !== undefined && <p className={styles.note}>{talk.note}</p>}
 
       <section className={styles.section} aria-labelledby="talk-abstract">
         <h2 id="talk-abstract" className={styles.sectionHeading}>
@@ -50,6 +59,23 @@ export const TalkDetailView = ({ talk, appearances, now = new Date() }: ViewProp
           ))}
         </div>
       </section>
+
+      {talk.links !== undefined && talk.links.length > 0 && (
+        <section className={styles.section} aria-labelledby="talk-links">
+          <h2 id="talk-links" className={styles.sectionHeading}>
+            {t('talks.detail.links')}
+          </h2>
+          <ul className={styles.also}>
+            {talk.links.map((l) => (
+              <li key={l.url}>
+                <a href={l.url} rel="noopener" className={styles.link}>
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {talk.alsoGivenAs !== undefined && talk.alsoGivenAs.length > 0 && (
         <section className={styles.section}>
