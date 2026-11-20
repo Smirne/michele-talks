@@ -2,7 +2,9 @@ name: Ada Example
 photo: media/ada.jpg
 photoAlt: Portrait of Ada
 bioShort: Short bio.
-bio: [First paragraph.]
+bios:
+  en: { short: [Short.], extended: [Extended.] }
+  it: { short: [Breve.], extended: [Esteso.] }
 topics: [Testing]
 email: ada@example.org
 profiles:

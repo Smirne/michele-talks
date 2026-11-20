@@ -70,6 +70,35 @@ describe('the real content in frontend/content', () => {
   })
 })
 
+describe('the official bios in the real content', () => {
+  const { bios, bioShort } = loadContent(path.resolve(import.meta.dirname, '../content')).profile
+
+  it('has three paragraphs in every version, each opening and closing as the owner wrote it', () => {
+    expect(bios.en.short).toHaveLength(3)
+    expect(bios.it.short).toHaveLength(3)
+    expect(bios.en.extended).toHaveLength(3)
+    expect(bios.it.extended).toHaveLength(3)
+    expect(bios.en.short[2]).toBe(
+      'He speaks at developer conferences in Italy and abroad and sits on the Voxxed Days Ticino programme committee.'
+    )
+    expect(bios.it.short[2]).toBe(
+      "Interviene come speaker a conferenze per sviluppatori in Italia e all'estero e fa parte del comitato di programma di Voxxed Days Ticino."
+    )
+    expect(bios.en.extended[1]).toContain('SPARklE')
+    expect(bios.it.extended[2]).toMatch(
+      /^Ha tenuto il suo primo talk .* Professional Scrum Master \(PSM I\)/
+    )
+    expect(bios.it.extended[1]).toContain("un'attenzione particolare")
+  })
+
+  it('keeps the extended bio a superset of the short one and the Home summary as one paragraph', () => {
+    expect(bios.en.extended[0]).toBe(bios.en.short[0])
+    expect(bios.it.extended[0]).toBe(bios.it.short[0])
+    expect(bioShort).toMatch(/^A Java developer at heart, Michele Giacobazzi is CTO/)
+    expect(bioShort).not.toContain('\n')
+  })
+})
+
 describe('contentPlugin', () => {
   it('fails the build at start when content is invalid, even if nothing imports it', () => {
     const plugin = contentPlugin({ dir: fixture('invalid-talk-ref') })

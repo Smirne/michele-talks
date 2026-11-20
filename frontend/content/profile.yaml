@@ -3,29 +3,28 @@ name: Michele Giacobazzi
 photo: media/michele-giacobazzi.jpg
 photoAlt: Portrait of Michele Giacobazzi
 
-bioShort: >-
-  Michele Giacobazzi is CTO and co-founder of WellD, a software company in Italy and
-  Switzerland that builds cloud-native solutions for the energy sector. He is tech lead of
-  SPARklE, a production platform for Renewable Energy Communities and energy flexibility
-  markets.
+bioShort: "A Java developer at heart, Michele Giacobazzi is CTO and co-founder of WellD. He works on cloud-native systems on Kubernetes, with a particular eye on JVM and container optimisation, and is bringing AI agents into his teams, always with quality and craftsmanship in mind."
 
-bio:
-  - >-
-    Michele Giacobazzi is CTO and co-founder of WellD, a software company based in Italy and
-    Switzerland that builds cloud-native solutions for the energy sector. He is tech lead of
-    SPARklE, a microservice platform for Renewable Energy Communities and energy flexibility
-    markets, built with four partner companies under EU research funding and now running in
-    production.
-  - >-
-    His work sits where the grid meets the cluster: multitenant PostgreSQL, GitOps on
-    Kubernetes, and measuring what JVM optimisations really cost in containers. Lately he
-    focuses on how engineering teams can bring AI agents into their work without losing
-    control, through architecture decision records and spec-driven development, a topic WellD
-    also teaches in its AI4Dev course.
-  - >-
-    He speaks at developer conferences in Italy and abroad, including DevFest Milano,
-    ContainerDay and Cloud Day, and his AI-built game Devoxx After Dark won the Devoxx Belgium
-    2026 Robot Games. He sits on the Voxxed Days Ticino programme committee.
+# Official bios, as supplied by the speaker. Profile shows en.extended; Home uses bioShort.
+bios:
+  en:
+    short:
+      - "Michele Giacobazzi is CTO and co-founder of WellD, a software house founded in 2008 with offices in Lugano and Milan. WellD builds custom software for mission-critical businesses in banking, energy, healthcare and e-government, and helps teams bring AI into their development process."
+      - "A Java developer at heart, Michele works on cloud-native systems on Kubernetes, with a particular eye on JVM and container optimisation. He is also bringing AI agents into his teams, always with quality and craftsmanship in mind."
+      - "He speaks at developer conferences in Italy and abroad and sits on the Voxxed Days Ticino programme committee."
+    extended:
+      - "Michele Giacobazzi is CTO and co-founder of WellD, a software house founded in 2008 with offices in Lugano and Milan. WellD builds custom software for mission-critical businesses in banking, energy, healthcare and e-government, and helps teams bring AI into their development process."
+      - "A Java developer at heart, Michele works on cloud-native systems on Kubernetes, with a particular eye on JVM and container optimisation. He is also bringing AI agents into his teams, always with quality and craftsmanship in mind. In the energy sector he is tech lead of SPARklE, a platform for Renewable Energy Communities and energy flexibility markets, built with partner companies under EU research funding and now running in production, and he knows the domain beyond the code, from incentive rules to market data. His recent talks put numbers on what startup optimisations really cost in production, and show how architecture decision records and spec-driven development keep humans in control when agents write the code."
+      - "He gave his first talk at the first edition of Voxxed Days Ticino in 2015, and has since spoken at JUG Milano, DevFest Milano, ContainerDay and Cloud Day. His AI-built game Devoxx After Dark won the Devoxx Belgium 2026 Robot Games. A Professional Scrum Master (PSM I), he co-runs hands-on Lego4Scrum workshops, and he sits on the Voxxed Days Ticino programme committee."
+  it:
+    short:
+      - "Michele Giacobazzi è CTO e co-founder di WellD, software house fondata nel 2008 con sedi a Lugano e Milano. WellD sviluppa software su misura per aziende con processi critici nei settori bancario, energetico, sanitario e della pubblica amministrazione, e aiuta i team a portare l'AI nel proprio processo di sviluppo."
+      - "Sviluppatore Java nell'anima, Michele lavora su sistemi cloud-native su Kubernetes, con un'attenzione particolare all'ottimizzazione di JVM e container. Sta inoltre portando gli agenti AI nei suoi team, senza mai perdere di vista qualità e cura del mestiere."
+      - "Interviene come speaker a conferenze per sviluppatori in Italia e all'estero e fa parte del comitato di programma di Voxxed Days Ticino."
+    extended:
+      - "Michele Giacobazzi è CTO e co-founder di WellD, software house fondata nel 2008 con sedi a Lugano e Milano. WellD sviluppa software su misura per aziende con processi critici nei settori bancario, energetico, sanitario e della pubblica amministrazione, e aiuta i team a portare l'AI nel proprio processo di sviluppo."
+      - "Sviluppatore Java nell'anima, Michele lavora su sistemi cloud-native su Kubernetes, con un'attenzione particolare all'ottimizzazione di JVM e container. Sta inoltre portando gli agenti AI nei suoi team, senza mai perdere di vista qualità e cura del mestiere. Nel settore energetico è tech lead di SPARklE, piattaforma per le Comunità Energetiche Rinnovabili e i mercati della flessibilità, nata con aziende partner in un progetto di ricerca europeo e oggi in produzione, e conosce il dominio oltre il codice, dalle regole sugli incentivi ai dati di mercato. Nei suoi talk più recenti mette numeri su quanto costano davvero in produzione le ottimizzazioni dell'avvio, e mostra come ADR e spec-driven development tengano le persone al comando quando il codice lo scrivono gli agenti."
+      - "Ha tenuto il suo primo talk alla prima edizione di Voxxed Days Ticino nel 2015 e da allora è intervenuto a JUG Milano, DevFest Milano, ContainerDay e Cloud Day. Il suo gioco Devoxx After Dark, costruito con agenti AI, ha vinto le Robot Games di Devoxx Belgium 2026. Professional Scrum Master (PSM I), co-conduce workshop pratici di Lego4Scrum e fa parte del comitato di programma di Voxxed Days Ticino."
 
 topics:
   - 'Software for the energy transition: energy communities, flexibility markets, grid data'

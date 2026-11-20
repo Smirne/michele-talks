@@ -23,6 +23,9 @@ const isoDate = z
     return !Number.isNaN(d.getTime()) && d.toISOString().startsWith(value)
   }, 'must be a real calendar date')
 
+const paragraphs = z.array(nonEmpty).min(1, 'needs at least one paragraph')
+const bioVersions = z.object({ short: paragraphs, extended: paragraphs })
+
 export const profileSchema = z.object({
   name: nonEmpty,
   photo: nonEmpty,
@@ -30,7 +33,7 @@ export const profileSchema = z.object({
   /** Path relative to the content folder, like `photo`: the full-size JPEG organisers download. */
   photoDownload: nonEmpty,
   bioShort: nonEmpty,
-  bio: z.array(nonEmpty),
+  bios: z.object({ en: bioVersions, it: bioVersions }),
   topics: z.array(nonEmpty).min(1, 'needs at least one topic'),
   email: z.email('must be a valid email address'),
   profiles: z.array(z.object({ label: nonEmpty, url: httpUrl })),

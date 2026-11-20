@@ -7,7 +7,10 @@ const profile = {
   photoAlt: 'Portrait of Ada',
   photoDownload: 'media/ada-download.jpg',
   bioShort: 'Short bio.',
-  bio: ['First paragraph.'],
+  bios: {
+    en: { short: ['Short.'], extended: ['Extended.'] },
+    it: { short: ['Breve.'], extended: ['Esteso.'] },
+  },
   topics: ['Testing'],
   email: 'ada@example.org',
   profiles: [{ label: 'Site', url: 'https://example.org' }],
@@ -51,6 +54,29 @@ const errorsOf = (r: RawContent): ContentError[] => {
   if (result.ok) throw new Error('expected validation to fail')
   return result.errors
 }
+
+describe('official bios', () => {
+  const withBios = (bios: unknown) => raw({ profile: { ...profile, bios } })
+
+  it('fails naming a missing bios.<lang>.<length>', () => {
+    const bios = { ...profile.bios, it: { short: profile.bios.it.short } }
+    expect(errorsOf(withBios(bios))).toContainEqual(
+      expect.objectContaining({ file: 'profile.yaml', item: 'profile', field: 'bios.it.extended' })
+    )
+  })
+
+  it('fails naming an empty bios.<lang>.<length>', () => {
+    const bios = { ...profile.bios, en: { ...profile.bios.en, short: [] } }
+    expect(errorsOf(withBios(bios))).toContainEqual(
+      expect.objectContaining({ field: 'bios.en.short' })
+    )
+  })
+
+  it('fails on a blank paragraph', () => {
+    const bios = { ...profile.bios, en: { ...profile.bios.en, extended: [' '] } }
+    expect(errorsOf(withBios(bios)).length).toBeGreaterThan(0)
+  })
+})
 
 describe('validateContent', () => {
   it('accepts valid content', () => {

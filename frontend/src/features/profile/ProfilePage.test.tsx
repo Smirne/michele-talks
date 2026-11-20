@@ -15,7 +15,13 @@ const profile: Profile = {
   photoAlt: 'Portrait of Ada Lovelace',
   photoDownload: { url: '/ada-1024.jpg', format: 'JPG', width: 1024, height: 1024 },
   bioShort: 'Short.',
-  bio: ['First paragraph.', 'Second paragraph.', 'Third paragraph.'],
+  bios: {
+    en: {
+      short: ['Short en.'],
+      extended: ['First paragraph.', 'Second paragraph.', 'Third paragraph.'],
+    },
+    it: { short: ['Breve.'], extended: ['Esteso.'] },
+  },
   topics: ['Engines', 'Notes on the Analytical Engine'],
   email: 'ada@example.com',
   profiles: [],
@@ -34,9 +40,11 @@ describe('Profile', () => {
     expect(document.querySelector('[data-aspect]')).toBeTruthy()
   })
 
-  it('shows every bio paragraph', async () => {
+  it('shows the extended English bio, paragraph by paragraph, as the main bio', async () => {
     await renderWithRouter(<ProfileView profile={profile} />)
-    for (const p of profile.bio) expect(screen.getByText(p)).toBeTruthy()
+    for (const p of profile.bios.en.extended) expect(screen.getByText(p)).toBeTruthy()
+    expect(screen.queryByText('Short en.')).toBeNull()
+    expect(screen.queryByText('Esteso.')).toBeNull()
   })
 
   it('shows every topic in a list', async () => {
@@ -65,7 +73,14 @@ describe('Profile', () => {
   })
 
   it('renders without bio paragraphs', async () => {
-    await renderWithRouter(<ProfileView profile={{ ...profile, bio: [] }} />)
+    await renderWithRouter(
+      <ProfileView
+        profile={{
+          ...profile,
+          bios: { ...profile.bios, en: { ...profile.bios.en, extended: [] } },
+        }}
+      />
+    )
     expect(screen.getByRole('heading', { level: 1 })).toBeTruthy()
   })
 })

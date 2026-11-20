@@ -21,7 +21,7 @@ export const ProfileView = ({ profile }: { profile: Profile }) => (
         <ProfilePhoto src={profile.photo} alt={profile.photoAlt} name={profile.name} />
       </div>
       <div className={styles.text}>
-        {profile.bio.map((paragraph) => (
+        {profile.bios.en.extended.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
         ))}
         <h2 id="profile-topics" className={styles.heading}>

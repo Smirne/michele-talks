@@ -15,7 +15,10 @@ const profile: Profile = {
   photoAlt: 'Portrait of Ada Lovelace',
   photoDownload: { url: '/ada-1024.jpg', format: 'JPG', width: 1024, height: 1024 },
   bioShort: 'Short.',
-  bio: [],
+  bios: {
+    en: { short: ['S.'], extended: ['Long bio.'] },
+    it: { short: ['B.'], extended: ['E.'] },
+  },
   topics: ['Engines'],
   email: 'ada@example.com',
   profiles: [
