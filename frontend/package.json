@@ -48,7 +48,8 @@
     "vitest-axe": "^0.1.0"
   },
   "engines": {
-    "node": ">=20.0.0",
+    "node": "22.x",
     "pnpm": ">=9.0.0"
-  }
+  },
+  "packageManager": "pnpm@10.34.5"
 }

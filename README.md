@@ -61,6 +61,6 @@ Local setup per clone: `git config merge.ff only && git config pull.rebase true`
 
 ## Pending setup
 
-- **Hosting / deploy**: not decided. Suggested: Cloudflare Pages (frontend) + Workers (Hono API), or GCP Cloud Run. The template ships no Dockerfile or deploy config yet; to be specified as a feature.
+- **Hosting / deploy**: Vercel (static site, decided 2026-11-20). Config in `frontend/vercel.json`; import the GitHub repo in Vercel with **Root Directory `frontend`**. Every PR gets a preview URL, `main` is production. `backend/` is not deployed.
 - **Contact form email provider** (e.g. Resend): its API key goes in the machine-local mise file locally and in a GitHub secret for CI/deploy, once the contact feature is built.
 - **groma CI action** (`MrLesk/groma.md-action`): optional, not added.
