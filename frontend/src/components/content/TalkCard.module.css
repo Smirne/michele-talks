@@ -5,11 +5,24 @@
 
 .title {
   margin: 0 0 var(--space-1);
-  font-size: clamp(26px, 3vw, 38px);
+  font-size: var(--title-size-card);
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: none;
 }
 
 .link {
   color: var(--ink);
+  text-decoration: none;
+}
+
+.link:hover,
+.link:focus-visible {
+  text-decoration: underline;
+}
+
+.topics {
+  margin-top: var(--space-2);
 }
 
 .summary {

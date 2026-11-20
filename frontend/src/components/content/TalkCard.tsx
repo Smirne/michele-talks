@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import { t } from '@/i18n/t'
 import { formatCoHosts, formatDuration, formatLevel } from './format'
 import { LanguageBadge } from './LanguageBadge'
+import { TopicTags } from './TopicTags'
 import type { Talk } from './types'
 import styles from './TalkCard.module.css'
 
@@ -31,6 +32,11 @@ export const TalkCard = ({ talk }: { talk: Talk }) => {
           ))}
         </span>
       </p>
+      {talk.topics.length > 0 && (
+        <div className={styles.topics}>
+          <TopicTags topics={talk.topics} />
+        </div>
+      )}
     </article>
   )
 }

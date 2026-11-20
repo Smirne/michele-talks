@@ -4,3 +4,4 @@ export { formatCoHosts, formatDate, formatDuration, formatLevel } from './format
 export { LanguageBadge } from './LanguageBadge'
 export { ResourceLink } from './ResourceLink'
 export { TalkCard } from './TalkCard'
+export { TopicTags } from './TopicTags'

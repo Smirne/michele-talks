@@ -1,7 +1,15 @@
-import { cleanup, screen, within } from '@testing-library/react'
+import { cleanup, render, screen, within } from '@testing-library/react'
+import { readFileSync } from 'node:fs'
 import { afterEach, beforeAll, describe, expect, it } from 'vitest'
 import type { Appearance, Talk } from '@/content/schema'
-import { AppearanceRow, ButtonLink, LanguageBadge, ResourceLink, TalkCard } from './index'
+import {
+  AppearanceRow,
+  ButtonLink,
+  LanguageBadge,
+  ResourceLink,
+  TalkCard,
+  TopicTags,
+} from './index'
 import { renderWithRouter } from './test-utils'
 
 beforeAll(() => {
@@ -221,5 +229,55 @@ describe('AppearanceRow co-hosts (002)', () => {
       inList(<AppearanceRow appearance={{ ...appearance, coHosts: ['Matteo Codogno'] }} />)
     )
     expect(screen.getByText('With Matteo Codogno')).toBeTruthy()
+  })
+})
+
+describe('TopicTags', () => {
+  it('renders the topics as a list labelled "Topics", in content order', () => {
+    render(<TopicTags topics={['Kubernetes', 'AI', 'PostgreSQL']} />)
+    const list = screen.getByRole('list', { name: 'Topics' })
+    expect(within(list).getAllByRole('listitem').map((li) => li.textContent)).toEqual([
+      'Kubernetes',
+      'AI',
+      'PostgreSQL',
+    ])
+  })
+
+  it('renders nothing for no topics', () => {
+    const { container } = render(<TopicTags topics={[]} />)
+    expect(container.innerHTML).toBe('')
+  })
+})
+
+describe('TalkCard topics and title (003)', () => {
+  it('shows the topics after the facts, in content order', async () => {
+    await renderWithRouter(<TalkCard talk={{ ...talk, topics: ['GitOps', 'AI'] }} />)
+    const list = screen.getByRole('list', { name: 'Topics' })
+    expect(within(list).getAllByRole('listitem').map((li) => li.textContent)).toEqual([
+      'GitOps',
+      'AI',
+    ])
+  })
+
+  it('shows no topics list for a talk without topics', async () => {
+    await renderWithRouter(<TalkCard talk={talk} />)
+    expect(screen.queryByRole('list', { name: 'Topics' })).toBeNull()
+  })
+
+  it('renders the title link with its content text (case is CSS, never the text)', async () => {
+    await renderWithRouter(<TalkCard talk={{ ...talk, title: 'Before Delegating: ADRs' }} />)
+    expect(screen.getByRole('link', { name: 'Before Delegating: ADRs' }).textContent).toBe(
+      'Before Delegating: ADRs'
+    )
+  })
+
+  it('styles the title in sentence case and underlines it only on hover or focus', () => {
+    const css = readFileSync('src/components/content/TalkCard.module.css', 'utf8')
+    const title = /\.title\s*\{([^}]*)\}/.exec(css)?.[1] ?? ''
+    expect(title).toMatch(/text-transform:\s*none/)
+    expect(title).toContain('var(--title-size-card)')
+    const link = /\.link\s*\{([^}]*)\}/.exec(css)?.[1] ?? ''
+    expect(link).toMatch(/text-decoration:\s*none/)
+    expect(css).toMatch(/\.link:hover,\s*\.link:focus-visible\s*\{[^}]*text-decoration:\s*underline/)
   })
 })
