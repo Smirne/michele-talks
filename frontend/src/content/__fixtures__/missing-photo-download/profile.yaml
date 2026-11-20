@@ -1,0 +1,10 @@
+name: Ada Example
+photo: media/ada.jpg
+photoAlt: Portrait of Ada
+bioShort: Short bio.
+bio: [First paragraph.]
+topics: [Testing]
+email: ada@example.org
+profiles:
+  - { label: Site, url: 'https://example.org' }
+photoDownload: media/gone.jpg

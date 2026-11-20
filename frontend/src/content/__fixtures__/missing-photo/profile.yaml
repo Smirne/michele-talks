@@ -7,3 +7,4 @@ topics: [Testing]
 email: ada@example.org
 profiles:
   - { label: Site, url: 'https://example.org' }
+photoDownload: media/ada-download.jpg

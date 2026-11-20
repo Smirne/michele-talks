@@ -38,6 +38,7 @@ const content: Content = {
     name: 'Ada Lovelace',
     photo: '/ada.jpg',
     photoAlt: 'Portrait of Ada',
+    photoDownload: { url: '/ada-1024.jpg', format: 'JPG', width: 1024, height: 1024 },
     bioShort: 'Ada writes about engines.',
     bio: ['Long bio.'],
     topics: ['Engines'],

@@ -30,6 +30,18 @@ describe('loadContent', () => {
     expect(() => loadContent(fixture('missing-photo'))).toThrow(/profile\.yaml › profile › photo/)
   })
 
+  it('fails when the photoDownload file does not exist', () => {
+    expect(() => loadContent(fixture('missing-photo-download'))).toThrow(
+      /profile\.yaml › profile › photoDownload/
+    )
+  })
+
+  it('fails when the photoDownload file is not a JPEG', () => {
+    expect(() => loadContent(fixture('bad-photo-download'))).toThrow(
+      /profile\.yaml › profile › photoDownload.*JPEG/
+    )
+  })
+
   it('fails when a content file is missing', () => {
     expect(() => loadContent(fixture('does-not-exist'))).toThrow(/profile\.yaml/)
   })
@@ -46,6 +58,15 @@ describe('the real content in frontend/content', () => {
     expect(content.talks.length).toBeGreaterThan(0)
     expect(content.appearances.length).toBeGreaterThan(0)
     expect(content.talks.every((t) => !t.hidden)).toBe(true)
+  })
+
+  it('exposes the photo download with its pixel size read from the JPEG', () => {
+    const content = loadContent(path.resolve(import.meta.dirname, '../content'))
+    expect(content.profile.photoDownload).toMatchObject({
+      format: 'JPG',
+      width: 1024,
+      height: 1024,
+    })
   })
 })
 

@@ -5,6 +5,7 @@ const profile = {
   name: 'Ada Example',
   photo: 'media/ada.jpg',
   photoAlt: 'Portrait of Ada',
+  photoDownload: 'media/ada-download.jpg',
   bioShort: 'Short bio.',
   bio: ['First paragraph.'],
   topics: ['Testing'],
@@ -231,5 +232,47 @@ describe('validateContent: 002 talk fields', () => {
     if (!result.ok) throw new Error('expected ok')
     expect(result.content.talks.map((t) => t.slug)).toEqual(['first-talk'])
     expect(result.content.appearances.map((a) => a.talk)).toEqual(['first-talk'])
+  })
+})
+
+describe('featuredRecording', () => {
+  const video = { type: 'video', url: 'https://example.org/v1', language: 'en' }
+  const featuredErrors = (value: string, appearances: unknown[]) =>
+    errorsOf(raw({ talks: [{ ...talk, featuredRecording: value }], appearances })).filter(
+      (e) => e.file === 'talks.yaml' && e.item === 'first-talk' && e.field === 'featuredRecording'
+    )
+
+  it('accepts the url of a video of one of the talk appearances', () => {
+    const result = validateContent(
+      raw({
+        talks: [{ ...talk, featuredRecording: video.url }],
+        appearances: [{ ...appearance, resources: [video] }],
+      })
+    )
+    expect(result.ok).toBe(true)
+  })
+
+  it('rejects a url that is not a video of one of the talk appearances', () => {
+    expect(featuredErrors('https://example.org/other', [{ ...appearance, resources: [video] }])).toHaveLength(1)
+  })
+
+  it('rejects a slides url and a video of another talk appearance', () => {
+    const slides = { ...video, type: 'slides' }
+    expect(featuredErrors(video.url, [{ ...appearance, resources: [slides] }])).toHaveLength(1)
+    const other = { ...appearance, talk: 'other-talk', resources: [video] }
+    expect(featuredErrors(video.url, [other])).toHaveLength(1)
+  })
+
+  it('rejects a malformed url naming the same field', () => {
+    expect(featuredErrors('not a url', [])).toHaveLength(1)
+  })
+})
+
+describe('photoDownload', () => {
+  it('is required and names the profile field when missing', () => {
+    const errors = errorsOf(raw({ profile: omit(profile, 'photoDownload') }))
+    expect(errors).toContainEqual(
+      expect.objectContaining({ file: 'profile.yaml', item: 'profile', field: 'photoDownload' })
+    )
   })
 })

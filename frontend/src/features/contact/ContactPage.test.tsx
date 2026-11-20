@@ -13,6 +13,7 @@ const profile: Profile = {
   name: 'Ada Lovelace',
   photo: '/ada.jpg',
   photoAlt: 'Portrait of Ada Lovelace',
+  photoDownload: { url: '/ada-1024.jpg', format: 'JPG', width: 1024, height: 1024 },
   bioShort: 'Short.',
   bio: [],
   topics: ['Engines'],

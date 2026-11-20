@@ -54,7 +54,7 @@ implement what it says; this file adds only the contracts it leaves open.
 - Deferred: topic filter (non-goal), featured slides (non-goal), SVG/@2x D artwork (design.md
   artwork need), owner-chosen featured recordings in content.
 
-- [ ] T1: Add featuredRecording and photoDownload to the content model — refs: AC-4.8, AC-3.4, AC-3.5 — deps: none
+- [x] T1: Add featuredRecording and photoDownload to the content model — refs: AC-4.8, AC-3.4, AC-3.5 — deps: none
   - touch: `frontend/src/content/schema.ts`, `frontend/src/content/validate.test.ts`, `frontend/src/content/__fixtures__/*`, `frontend/vite-plugins/content.ts`, `frontend/vite-plugins/content.test.ts`, `frontend/src/vite-env.d.ts`, `frontend/content/profile.yaml`, `frontend/content/media/*`
   - done when: unit tests show (a) a featuredRecording that is not one of the talk's appearance videos and (b) a malformed one each fail naming `talks.yaml › <slug> › featuredRecording`; a missing or non-JPEG photoDownload fails naming `profile.yaml › profile › photoDownload`; loading the real content yields `photoDownload` `{ format: 'JPG', width: 1024, height: 1024 }`; `mise run frontend:build` passes.
 - [ ] T2: Mascot component, footer D, Not found D and page-header D on Talks, History, Contact — refs: AC-2.1, AC-2.2, AC-2.3, AC-2.4 — deps: none
