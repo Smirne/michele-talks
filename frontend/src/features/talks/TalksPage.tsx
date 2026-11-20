@@ -14,7 +14,7 @@ export const TalksView = ({ talks: all }: { talks: readonly Talk[] }) => {
     <>
       <PageHeader
         title={t('common.nav.talks')}
-        mascot={<Mascot pose="technical-analysis" alt={t('common.mascot.talks')} />}
+        mascot={<Mascot pose="technical-analysis" alt={t('common.mascot.alt.talks')} />}
       />
       {talks.length === 0 ? (
         <p className={styles.empty}>

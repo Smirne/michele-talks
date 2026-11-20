@@ -15,12 +15,14 @@ export const commonStrings = {
     welld: 'WellD',
   },
   mascot: {
-    notFound: 'D, the WellD mascot, searching with a magnifying glass',
-    talks: 'D, the WellD mascot, with a code speech bubble',
-    history: 'D, the WellD mascot, holding a pie chart',
-    contact: 'D, the WellD mascot, holding an open laptop',
-    contactRow: 'D, the WellD mascot, holding a phone',
-    organisers: 'D, the WellD mascot, with a documents icon',
+    alt: {
+      notFound: 'D, the WellD mascot, searching with a magnifying glass',
+      talks: 'D, the WellD mascot, with a code speech bubble',
+      history: 'D, the WellD mascot, holding a pie chart',
+      contact: 'D, the WellD mascot, holding an open laptop',
+      homeContact: 'D, the WellD mascot, holding a phone',
+      organisers: 'D, the WellD mascot, with a documents icon',
+    },
   },
   notFound: {
     title: 'Page not found',

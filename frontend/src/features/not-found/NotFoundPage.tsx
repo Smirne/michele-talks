@@ -14,7 +14,7 @@ export const NotFoundPage = () => {
           <Link to="/">{t('common.notFound.back')}</Link>
         </p>
       </div>
-      <Mascot pose="ux-strategy" alt={t('common.mascot.notFound')} className={styles.mascot} />
+      <Mascot pose="ux-strategy" alt={t('common.mascot.alt.notFound')} className={styles.mascot} />
     </div>
   )
 }

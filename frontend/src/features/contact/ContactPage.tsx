@@ -9,7 +9,7 @@ export const ContactView = ({ profile }: { profile: Profile }) => (
   <>
     <PageHeader
       title={t('common.nav.contact')}
-      mascot={<Mascot pose="software-development-1" alt={t('common.mascot.contact')} />}
+      mascot={<Mascot pose="software-development-1" alt={t('common.mascot.alt.contact')} />}
     />
     <div className={styles.board}>
       <p className={styles.intro}>{t('contact.intro')}</p>

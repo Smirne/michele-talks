@@ -26,7 +26,7 @@ export const HistoryView = ({ appearances, talks, now = new Date() }: Props) => 
     <>
       <PageHeader
         title={t('common.nav.history')}
-        mascot={<Mascot pose="ui" alt={t('common.mascot.history')} />}
+        mascot={<Mascot pose="ui" alt={t('common.mascot.alt.history')} />}
       />
       {groups.length === 0 ? (
         <p className={styles.none}>{t('history.none')}</p>
