@@ -86,3 +86,19 @@ visible text ("Recording (IT), <event>, in Italian") (defects 2 and 3). Minor vi
 The feature's ACs and the regressions found are green. Two floor rows remain that 003 did not
 cause and cannot fix within its scope: the dev-dependency audit (needs a vitest upgrade, its own
 change) and SAST (runs in CI). `/wellforge:done` should wait for the owner's call on those.
+
+## Floor rows re-check (2026-11-20, on main at b74c24d)
+
+The two floor rows left open after round 1 are now green. Neither needed a change inside 003.
+
+| Check | Actual | Result |
+|---|---|---|
+| Critical-CVE audit | `pnpm audit --audit-level critical`, frontend and backend: no known vulnerabilities (vitest v4, PR #5, 1d25226) | PASS |
+| SAST-high | semgrep (WellForge rules) in the Frontend quality job, CI run 44751855256 on main at b74c24d: success | PASS |
+| lint / test / build | main at b74c24d: 0 warnings; frontend 228/228; build ok | PASS |
+| e2e (Playwright) | main at b74c24d: 47/47 | PASS |
+
+## Final verdict: PASS (QE-light, rigor mvp)
+
+Every 003 AC passes (round 1 re-check), and every blocking row is green. Coverage stays advisory
+at this tier. Minor visual items (defect 4) are left as owner follow-ups.
