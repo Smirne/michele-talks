@@ -41,6 +41,32 @@ const readYaml = (dir: string, file: ContentFile): unknown => {
   }
 }
 
+/** Pixel size from the first SOF marker of a JPEG, or undefined when the bytes are not a JPEG. */
+export const readJpegSize = (bytes: Buffer): { width: number; height: number } | undefined => {
+  if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) return undefined
+  let offset = 2
+  while (offset + 4 <= bytes.length) {
+    if (bytes[offset] !== 0xff) return undefined
+    const marker = bytes[offset + 1] ?? 0
+    if (marker === 0xff) {
+      offset += 1
+      continue
+    }
+    // SOF0..SOF15 except DHT (c4), JPG (c8) and DAC (cc)
+    if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+      if (offset + 9 > bytes.length) return undefined
+      return { height: bytes.readUInt16BE(offset + 5), width: bytes.readUInt16BE(offset + 7) }
+    }
+    offset += 2 + bytes.readUInt16BE(offset + 2)
+  }
+  return undefined
+}
+
+const photoDownloadError = (message: string): ContentValidationError =>
+  new ContentValidationError([
+    { file: 'profile.yaml', item: 'profile', field: 'photoDownload', message },
+  ])
+
 /** Reads, validates and returns the published content; throws one error listing every problem. */
 export const loadContent = (dir: string): Content => {
   const [profile, talks, appearances] = FILES.map((f) => readYaml(dir, f))
@@ -58,7 +84,22 @@ export const loadContent = (dir: string): Content => {
       },
     ])
   }
-  return result.content
+
+  const downloadRel = result.content.profile.photoDownload
+  const downloadPath = path.join(dir, downloadRel)
+  if (!existsSync(downloadPath)) {
+    throw photoDownloadError(`no file at ${downloadRel} (relative to the content folder)`)
+  }
+  const size = readJpegSize(readFileSync(downloadPath))
+  if (size === undefined) throw photoDownloadError(`${downloadRel} is not a JPEG image`)
+
+  return {
+    ...result.content,
+    profile: {
+      ...result.content.profile,
+      photoDownload: { url: downloadPath, format: 'JPG', ...size },
+    },
+  }
 }
 
 /** `virtual:content`: validated, published content. Fails build and dev server when invalid. */
@@ -76,11 +117,14 @@ export const contentPlugin = (options: { dir: string }): Plugin => {
       for (const f of FILES) this.addWatchFile(path.join(dir, f))
       const content = loadContent(dir)
       const photo = path.join(dir, content.profile.photo)
-      // The photo is imported so Vite fingerprints and emits it.
+      // The photos are imported so Vite fingerprints and emits it.
       return [
         `import photo from ${JSON.stringify(photo)}`,
+        `import photoDownloadUrl from ${JSON.stringify(content.profile.photoDownload.url)}`,
         `const content = ${JSON.stringify(content)}`,
-        'export default { ...content, profile: { ...content.profile, photo } }',
+        'const { photoDownload } = content.profile',
+        'export default { ...content, profile: { ...content.profile, photo,',
+        '  photoDownload: { ...photoDownload, url: photoDownloadUrl } } }',
       ].join('\n')
     },
   }

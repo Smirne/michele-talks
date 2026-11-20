@@ -6,6 +6,10 @@
   background: var(--ink);
 }
 
+.box[data-aspect='1/1'] {
+  aspect-ratio: 1 / 1;
+}
+
 .image {
   display: block;
   width: 100%;

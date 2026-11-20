@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styles from './ProfilePhoto.module.css'
 
-type Props = { src: string; alt: string; name: string }
+type Props = { src: string; alt: string; name: string; aspect?: '4/5' | '1/1' }
 
 const monogram = (name: string): string => {
   const words = name.trim().split(/\s+/).filter(Boolean)
@@ -11,13 +11,13 @@ const monogram = (name: string): string => {
 }
 
 /**
- * The speaker's photo in a box that reserves its 4:5 aspect ratio, so nothing shifts while
+ * The speaker's photo in a box that reserves its aspect ratio (4:5 by default, 1:1 for a square source), so nothing shifts while
  * it loads. If the image fails, the monogram takes its place and keeps the alt text.
  */
-export const ProfilePhoto = ({ src, alt, name }: Props) => {
+export const ProfilePhoto = ({ src, alt, name, aspect = '4/5' }: Props) => {
   const [failed, setFailed] = useState(false)
   return (
-    <div className={styles.box} data-aspect="4/5">
+    <div className={styles.box} data-aspect={aspect}>
       {failed ? (
         <div className={styles.monogram} role="img" aria-label={alt}>
           {monogram(name)}

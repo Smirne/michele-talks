@@ -5,6 +5,7 @@ import { WELLD_URL } from '@/components/layout/SiteLayout'
 import { ProfilePhoto } from '@/components/profile-photo'
 import type { Profile } from '@/content/schema'
 import { t } from '@/i18n/t'
+import { OrganisersSection } from './OrganisersSection'
 import styles from './ProfilePage.module.css'
 
 export const ProfileView = ({ profile }: { profile: Profile }) => (
@@ -21,7 +22,7 @@ export const ProfileView = ({ profile }: { profile: Profile }) => (
         <ProfilePhoto src={profile.photo} alt={profile.photoAlt} name={profile.name} />
       </div>
       <div className={styles.text}>
-        {profile.bio.map((paragraph) => (
+        {profile.bios.en.extended.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
         ))}
         <h2 id="profile-topics" className={styles.heading}>
@@ -44,6 +45,7 @@ export const ProfileView = ({ profile }: { profile: Profile }) => (
         </div>
       </div>
     </div>
+    <OrganisersSection profile={profile} />
   </>
 )
 

@@ -5,7 +5,7 @@ export const homeStrings = {
     where: 'Talks in English and Italian',
   },
   talks: {
-    label: 'Now',
+    label: 'Talks',
     title: 'Browse the talks',
     body: '{count} talks with abstract, level and format. Pick one for your event.',
     cta: 'Open the talks',
@@ -20,11 +20,6 @@ export const homeStrings = {
     upcoming: 'Next',
     recent: 'Recently',
     all: 'Full history',
-  },
-  dCard: {
-    alt: 'D, the WellD mascot, holding a magnifying glass',
-    caption: 'D, the mascot of',
-    welld: 'WellD',
   },
   graph: {
     label: 'Later',

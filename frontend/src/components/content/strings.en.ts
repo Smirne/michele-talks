@@ -22,6 +22,7 @@ export const contentStrings = {
     panel: 'Panel',
     quickie: 'Quickie',
   },
+  topics: { label: 'Topics' },
   appearance: {
     online: 'Online',
     place: '{city}, {country}',

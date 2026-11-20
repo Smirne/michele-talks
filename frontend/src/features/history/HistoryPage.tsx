@@ -1,6 +1,7 @@
 import defaultContent from 'virtual:content'
 import { AppearanceRow } from '@/components/content'
 import { PageHeader } from '@/components/layout'
+import { Mascot } from '@/components/mascot'
 import type { Appearance, Talk } from '@/content/schema'
 import { t } from '@/i18n/t'
 import { splitAppearances } from '@/lib/schedule'
@@ -23,7 +24,10 @@ export const HistoryView = ({ appearances, talks, now = new Date() }: Props) => 
 
   return (
     <>
-      <PageHeader title={t('common.nav.history')} />
+      <PageHeader
+        title={t('common.nav.history')}
+        mascot={<Mascot pose="ui" alt={t('common.mascot.alt.history')} />}
+      />
       {groups.length === 0 ? (
         <p className={styles.none}>{t('history.none')}</p>
       ) : (

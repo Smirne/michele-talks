@@ -21,6 +21,16 @@
   --space-8: 64px;
   --space-10: 80px;
 
+  /* Talk titles: card on the list, compact on the talk page (sentence case, fits long titles) */
+  --title-size-card: clamp(24px, 2.4vw, 32px);
+  --title-size-page: clamp(28px, 3.6vw, 48px);
+
+  /* Topic tags */
+  --tag-bg: var(--white);
+  --tag-ink: var(--ink);
+  --tag-border: var(--ink);
+  --tag-size: 13px;
+
   --radius: 0;
   --focus-ring: 3px solid var(--signal);
   --focus-offset: 2px;

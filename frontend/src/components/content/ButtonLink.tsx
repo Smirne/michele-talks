@@ -1,20 +1,18 @@
 import { Link } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
-import styles from './ButtonLink.module.css'
+import { type ButtonVariant, buttonClassName } from './button-class'
 
-type Variant = 'primary' | 'secondary'
 type InternalTo = '/' | '/profile' | '/talks' | '/history' | '/contact'
 
-type Props = { variant?: Variant; children: ReactNode } & (
-  | { to: InternalTo; href?: never }
-  | { href: string; to?: never }
+type Props = { variant?: ButtonVariant; children: ReactNode } & (
+  | { to: InternalTo; href?: never; download?: never; ariaLabel?: never }
+  /** `download`: the file name the browser saves the target under. */
+  | { href: string; to?: never; download?: string; ariaLabel?: string }
 )
 
 /** A link that looks like a button. Always a real link: no button library, no onClick. */
-export const ButtonLink = ({ variant = 'primary', children, to, href }: Props) => {
-  const className = [styles.button, variant === 'primary' ? styles.primary : styles.secondary]
-    .filter(Boolean)
-    .join(' ')
+export const ButtonLink = ({ variant = 'primary', children, to, href, download, ariaLabel }: Props) => {
+  const className = buttonClassName(variant)
   if (to !== undefined) {
     return (
       <Link to={to} className={className}>
@@ -23,7 +21,9 @@ export const ButtonLink = ({ variant = 'primary', children, to, href }: Props) =
     )
   }
   return (
-    <a href={href} className={className}>
+    <a href={href} className={className} {...(download !== undefined ? { download } : {})}
+      {...(ariaLabel !== undefined ? { 'aria-label': ariaLabel } : {})}
+    >
       {children}
     </a>
   )

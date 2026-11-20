@@ -159,3 +159,12 @@ describe('HistoryView', () => {
     )
   })
 })
+
+describe('History header', () => {
+  it('shows one D with its alt text', async () => {
+    await renderWithRouter(<HistoryView appearances={[]} talks={talks} now={NOW} />)
+    expect(
+      screen.getAllByRole('img', { name: 'D, the WellD mascot, holding a pie chart' })
+    ).toHaveLength(1)
+  })
+})

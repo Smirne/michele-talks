@@ -103,6 +103,19 @@ describe('app shell', () => {
     )
   })
 
+  it('shows the name, the WellD role and the main profiles in the footer', async () => {
+    await renderAt('/')
+    const footer = screen.getByRole('contentinfo')
+    expect(within(footer).getByText('Michele Giacobazzi')).toBeDefined()
+    expect(footer.textContent).toContain('CTO and co-founder @')
+    const profiles = within(footer).getByRole('list', { name: 'Profiles' })
+    expect(within(profiles).getAllByRole('link').map((l) => l.textContent)).toEqual([
+      'LinkedIn',
+      'GitHub',
+      'Sessionize',
+    ])
+  })
+
   it('does not steal focus on the first load', async () => {
     await renderAt('/profile')
     expect(document.activeElement).toBe(document.body)

@@ -227,3 +227,122 @@ describe('offered: false and new fields (002)', () => {
     expect(abstract.compareDocumentPosition(link) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
   })
 })
+
+describe('talk page aside, topics and layout (003)', () => {
+  const EMAIL = 'ada@example.com'
+  const render = (over: Partial<Talk> = {}, appearances: Appearance[] = []) =>
+    renderWithRouter(
+      <TalkDetailView
+        talk={{ ...talk, ...over }}
+        now={NOW}
+        appearances={appearances}
+        email={EMAIL}
+      />
+    )
+  const aside = () => screen.getByRole('complementary', { name: 'Invitation and links' })
+  const after = (a: Node, b: Node) =>
+    !!(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING)
+
+  it('invites with a mailto link whose subject carries the encoded talk title', async () => {
+    await render({ title: 'Flex your energy & more' })
+    const link = within(aside()).getByRole('link', { name: 'Invite me with this talk' })
+    expect(link.getAttribute('href')).toBe(
+      `mailto:${EMAIL}?subject=${encodeURIComponent('Speaker invitation: Flex your energy & more')}`
+    )
+    expect(within(aside()).getByText(/Opens your email app/)).toBeTruthy()
+  })
+
+  it('has no invitation on a talk that is no longer offered, but still lists its links', async () => {
+    await render({ offered: false }, [
+      appearance('a', '2026-01-10', {
+        resources: [{ type: 'video', url: 'https://v/a', language: 'it' }],
+      }),
+    ])
+    expect(screen.queryByRole('link', { name: 'Invite me with this talk' })).toBeNull()
+    expect(screen.queryByText(/Opens your email app/)).toBeNull()
+    expect(within(aside()).getByRole('link', { name: /^Recording \(IT\)/ })).toBeTruthy()
+  })
+
+  it('has no aside at all when the talk is no longer offered and has no links', async () => {
+    await render({ offered: false })
+    expect(screen.queryByRole('complementary')).toBeNull()
+  })
+
+  it('shows recording and slides from the latest appearances, with language and event', async () => {
+    await render({}, [
+      appearance('old', '2025-01-10', {
+        resources: [{ type: 'slides', url: 'https://s/old', language: 'en' }],
+      }),
+      appearance('new', '2026-02-10', {
+        resources: [
+          { type: 'video', url: 'https://v/new', language: 'it' },
+          { type: 'slides', url: 'https://s/new', language: 'it' },
+        ],
+      }),
+    ])
+    const recording = within(aside()).getByRole('link', { name: /^Recording/ })
+    expect(recording.textContent).toBe('Recording (IT), Event new')
+    expect(recording.getAttribute('href')).toBe('https://v/new')
+    expect(recording.getAttribute('aria-label')).toBe('Recording (IT), Event new, in Italian')
+    const slides = within(aside()).getByRole('link', { name: /^Slides/ })
+    expect(slides.textContent).toBe('Slides (IT), Event new')
+    expect(slides.getAttribute('href')).toBe('https://s/new')
+  })
+
+  it('uses the featured recording instead of the latest one', async () => {
+    await render({ featuredRecording: 'https://v/old' }, [
+      appearance('old', '2025-01-10', {
+        resources: [{ type: 'video', url: 'https://v/old', language: 'en' }],
+      }),
+      appearance('new', '2026-02-10', {
+        resources: [{ type: 'video', url: 'https://v/new', language: 'it' }],
+      }),
+    ])
+    expect(within(aside()).getByRole('link', { name: /^Recording/ }).textContent).toBe(
+      'Recording (EN), Event old'
+    )
+  })
+
+  it('leaves out the rows that have nothing to show', async () => {
+    await render({}, [
+      appearance('a', '2026-01-10', {
+        resources: [{ type: 'slides', url: 'https://s/a', language: 'en' }],
+      }),
+    ])
+    expect(within(aside()).queryByRole('link', { name: /^Recording/ })).toBeNull()
+    expect(within(aside()).getByRole('link', { name: /^Slides/ })).toBeTruthy()
+    expect(within(aside()).getByRole('link', { name: 'Invite me with this talk' })).toBeTruthy()
+  })
+
+  it('shows only the invitation when there is no recording and no slides', async () => {
+    await render({}, [appearance('a', '2026-01-10')])
+    expect(within(aside()).getAllByRole('link')).toHaveLength(1)
+  })
+
+  it('shows the topics in the head block, and nothing when there are none', async () => {
+    const { unmount } = await render({ topics: ['Energy', 'Kubernetes'] })
+    const list = screen.getByRole('list', { name: 'Topics' })
+    expect(
+      within(list)
+        .getAllByRole('listitem')
+        .map((li) => li.textContent)
+    ).toEqual(['Energy', 'Kubernetes'])
+    expect(after(screen.getByRole('heading', { level: 1 }), list)).toBe(true)
+    expect(after(list, aside())).toBe(true)
+    unmount()
+    await render({ topics: [] })
+    expect(screen.queryByRole('list', { name: 'Topics' })).toBeNull()
+  })
+
+  it('puts the aside after the head and before the note and the abstract in the DOM', async () => {
+    await render({ note: 'Adapts to the event.' })
+    expect(after(screen.getByRole('heading', { level: 1 }), aside())).toBe(true)
+    expect(after(aside(), screen.getByText('Adapts to the event.'))).toBe(true)
+    expect(after(aside(), screen.getByRole('heading', { name: 'Abstract' }))).toBe(true)
+  })
+
+  it('uses the compact title', async () => {
+    await render()
+    expect(screen.getByRole('heading', { level: 1 }).className).toMatch(/compact/)
+  })
+})

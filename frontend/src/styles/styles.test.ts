@@ -26,6 +26,15 @@ describe('tokens.css', () => {
     expect(tokens).toContain('--space-2: 16px;')
   })
 
+  it('defines the title-size and topic-tag tokens (003)', () => {
+    expect(tokens).toContain('--title-size-card: clamp(24px, 2.4vw, 32px);')
+    expect(tokens).toContain('--title-size-page: clamp(28px, 3.6vw, 48px);')
+    expect(tokens).toContain('--tag-bg: var(--white);')
+    expect(tokens).toContain('--tag-ink: var(--ink);')
+    expect(tokens).toContain('--tag-border: var(--ink);')
+    expect(tokens).toContain('--tag-size: 13px;')
+  })
+
   it('uses a 3px signal focus ring', () => {
     expect(tokens).toContain('--focus-ring: 3px solid var(--signal);')
   })

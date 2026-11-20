@@ -6,7 +6,10 @@ import '@fontsource/public-sans/latin-700'
 import '@fontsource/space-mono/latin-400'
 import '@fontsource/space-mono/latin-700'
 import { App } from './App'
+import { installStaleChunkReload } from './lib/stale-chunk-reload'
 import './styles/global.css'
+
+installStaleChunkReload()
 
 const rootElement = document.getElementById('root')
 

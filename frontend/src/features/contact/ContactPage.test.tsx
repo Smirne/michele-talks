@@ -13,8 +13,12 @@ const profile: Profile = {
   name: 'Ada Lovelace',
   photo: '/ada.jpg',
   photoAlt: 'Portrait of Ada Lovelace',
+  photoDownload: { url: '/ada-1024.jpg', format: 'JPG', width: 1024, height: 1024 },
   bioShort: 'Short.',
-  bio: [],
+  bios: {
+    en: { short: ['S.'], extended: ['Long bio.'] },
+    it: { short: ['B.'], extended: ['E.'] },
+  },
   topics: ['Engines'],
   email: 'ada@example.com',
   profiles: [
@@ -51,5 +55,14 @@ describe('Contact', () => {
     expect(screen.getByRole('link', { name: 'ada@example.com' })).toBeTruthy()
     expect(screen.queryByRole('list', { name: 'Elsewhere online' })).toBeNull()
     expect(screen.queryByText('Elsewhere online')).toBeNull()
+  })
+})
+
+describe('Contact header', () => {
+  it('shows one D with its alt text', async () => {
+    await renderWithRouter(<ContactView profile={profile} />)
+    expect(
+      screen.getAllByRole('img', { name: 'D, the WellD mascot, holding an open laptop' })
+    ).toHaveLength(1)
   })
 })

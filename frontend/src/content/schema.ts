@@ -23,12 +23,17 @@ const isoDate = z
     return !Number.isNaN(d.getTime()) && d.toISOString().startsWith(value)
   }, 'must be a real calendar date')
 
+const paragraphs = z.array(nonEmpty).min(1, 'needs at least one paragraph')
+const bioVersions = z.object({ short: paragraphs, extended: paragraphs })
+
 export const profileSchema = z.object({
   name: nonEmpty,
   photo: nonEmpty,
   photoAlt: nonEmpty,
+  /** Path relative to the content folder, like `photo`: the full-size JPEG organisers download. */
+  photoDownload: nonEmpty,
   bioShort: nonEmpty,
-  bio: z.array(nonEmpty),
+  bios: z.object({ en: bioVersions, it: bioVersions }),
   topics: z.array(nonEmpty).min(1, 'needs at least one topic'),
   email: z.email('must be a valid email address'),
   profiles: z.array(z.object({ label: nonEmpty, url: httpUrl })),
@@ -68,6 +73,8 @@ export const talkSchema = z.object({
   note: nonEmpty.optional(),
   coHosts: coHosts.optional(),
   links: z.array(z.object({ label: nonEmpty, url: httpUrl })).optional(),
+  /** Must be the url of a video of one of this talk's appearances (checked in validateContent). */
+  featuredRecording: httpUrl.optional(),
   hidden: z.boolean().default(false),
   /** false = "no longer offered": published, but not in the Talks list or the Home count. */
   offered: z.boolean().default(true),
@@ -101,11 +108,24 @@ export const appearanceSchema = z
     }
   })
 
-export type Profile = z.infer<typeof profileSchema>
+/** The profile as written in `profile.yaml`. */
+export type RawProfile = z.infer<typeof profileSchema>
 export type Talk = z.infer<typeof talkSchema>
 export type Appearance = z.infer<typeof appearanceSchema>
 
-/** Published content: hidden talks are already removed. */
+export type PhotoDownload = { url: string; format: 'JPG'; width: number; height: number }
+
+/** The profile as the app sees it: `photoDownload` is the resolved download. */
+export type Profile = Omit<RawProfile, 'photoDownload'> & { photoDownload: PhotoDownload }
+
+/** Validated content as written in the files: hidden talks removed, `photoDownload` still a path. */
+export type ValidContent = {
+  profile: RawProfile
+  talks: Talk[]
+  appearances: Appearance[]
+}
+
+/** Published content: `profile.photoDownload` is the resolved download (url, format, pixel size). */
 export type Content = {
   profile: Profile
   talks: Talk[]
@@ -126,7 +146,7 @@ export type ContentError = {
 }
 
 export type ValidationResult =
-  | { ok: true; content: Content }
+  | { ok: true; content: ValidContent }
   | { ok: false; errors: ContentError[] }
 
 export const formatContentError = (e: ContentError): string =>
@@ -229,6 +249,25 @@ export const validateContent = (raw: RawContent): ValidationResult => {
         item: a.id,
         field: 'talk',
         message: `no talk with slug "${a.talk}" in talks.yaml`,
+      })
+    }
+  }
+
+  const videosByTalk = new Map<string, Set<string>>()
+  for (const a of appearances) {
+    if (a.talk === undefined) continue
+    const urls = videosByTalk.get(a.talk) ?? new Set<string>()
+    for (const r of a.resources ?? []) if (r.type === 'video') urls.add(r.url)
+    videosByTalk.set(a.talk, urls)
+  }
+  for (const talk of talks) {
+    if (talk.featuredRecording === undefined) continue
+    if (!videosByTalk.get(talk.slug)?.has(talk.featuredRecording)) {
+      errors.push({
+        file: 'talks.yaml',
+        item: talk.slug,
+        field: 'featuredRecording',
+        message: "must be the URL of a video of one of this talk's appearances",
       })
     }
   }

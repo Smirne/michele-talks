@@ -38,8 +38,12 @@ const content: Content = {
     name: 'Ada Lovelace',
     photo: '/ada.jpg',
     photoAlt: 'Portrait of Ada',
+    photoDownload: { url: '/ada-1024.jpg', format: 'JPG', width: 1024, height: 1024 },
     bioShort: 'Ada writes about engines.',
-    bio: ['Long bio.'],
+    bios: {
+      en: { short: ['S.'], extended: ['Long bio.'] },
+      it: { short: ['B.'], extended: ['E.'] },
+    },
     topics: ['Engines'],
     email: 'ada@example.com',
     profiles: [],
@@ -74,6 +78,31 @@ describe('Home', () => {
     await renderHome()
     expect(screen.getByRole('heading', { level: 2, name: 'Ada Lovelace' })).toBeTruthy()
     expect(screen.getByText('Ada writes about engines.')).toBeTruthy()
+  })
+
+  it('shows the profile photo in the intro row and no D card there', async () => {
+    await renderHome()
+    const intro = screen.getByText('Speaker').closest('section') as HTMLElement
+    const photo = within(intro).getByRole('img', { name: 'Portrait of Ada' })
+    expect(photo.getAttribute('src')).toBe('/ada.jpg')
+    expect(intro.querySelector('[data-aspect="1/1"]')).toBeTruthy()
+    expect(within(intro).queryByRole('img', { name: /mascot/ })).toBeNull()
+  })
+
+  it('shows D speaking from a lectern in the contact row', async () => {
+    await renderHome()
+    const row = screen.getByText('Invite').closest('section') as HTMLElement
+    expect(
+      within(row).getByRole('img', { name: 'D, the WellD mascot, speaking from a lectern' })
+    ).toBeTruthy()
+  })
+
+  it('labels the talks band "Talks", with no dot and no "Now"', async () => {
+    await renderHome()
+    const band = screen.getByRole('heading', { name: 'Browse the talks' }).closest('section')
+    expect(band?.querySelector('p')?.textContent).toBe('Talks')
+    expect(screen.queryByText('Now')).toBeNull()
+    expect(band?.querySelector('[class*="dot"]')).toBeNull()
   })
 
   it('has the primary call to action to the talks page, with the talk count', async () => {
@@ -134,16 +163,6 @@ describe('Home', () => {
     await renderHome()
     const region = screen.getByRole('region', { name: 'Reserved area for the future talks graph' })
     expect(within(region).getByText('Talks graph goes here (future feature).')).toBeTruthy()
-  })
-
-  it('shows the D card with alt text and a caption linking to WellD', async () => {
-    await renderHome()
-    const img = screen.getByRole('img', { name: /D, the WellD mascot/ })
-    const figure = img.closest('figure')
-    if (!figure) throw new Error('D image is not in a figure')
-    expect(within(figure).getByRole('link', { name: 'WellD' }).getAttribute('href')).toBe(
-      'https://www.welld.ch'
-    )
   })
 
   it('counts only offered talks', async () => {

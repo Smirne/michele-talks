@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import defaultContent from 'virtual:content'
 import { TalkCard } from '@/components/content'
 import { PageHeader } from '@/components/layout'
+import { Mascot } from '@/components/mascot'
 import type { Talk } from '@/content/schema'
 import { t } from '@/i18n/t'
 import styles from './TalksPage.module.css'
@@ -11,7 +12,10 @@ export const TalksView = ({ talks: all }: { talks: readonly Talk[] }) => {
   const talks = all.filter((talk) => talk.offered)
   return (
     <>
-      <PageHeader title={t('common.nav.talks')} />
+      <PageHeader
+        title={t('common.nav.talks')}
+        mascot={<Mascot pose="technical-analysis" alt={t('common.mascot.alt.talks')} />}
+      />
       {talks.length === 0 ? (
         <p className={styles.empty}>
           {t('talks.empty.prefix')}

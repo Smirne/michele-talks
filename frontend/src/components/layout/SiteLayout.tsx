@@ -1,11 +1,19 @@
+import content from 'virtual:content'
 import { Link } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
+import { Mascot } from '@/components/mascot'
 import { t } from '@/i18n/t'
 import { MainNav } from './MainNav'
 import styles from './SiteLayout.module.css'
 
 export const WELLD_URL = 'https://www.welld.ch'
 export const MAIN_ID = 'main'
+
+/** The profiles the footer links to, in this order, matched by their label in profile.yaml. */
+const FOOTER_PROFILES = ['LinkedIn', 'GitHub', 'Sessionize'] as const
+const footerProfiles = FOOTER_PROFILES.flatMap((label) =>
+  content.profile.profiles.filter((p) => p.label === label)
+)
 
 export const SiteLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -26,10 +34,22 @@ export const SiteLayout = ({ children }: { children: ReactNode }) => {
         {children}
       </main>
       <footer className={styles.footer}>
-        <p className={styles.footerLine}>
-          <span>{t('common.footer.prefix')}</span>
-          <a href={WELLD_URL}>{t('common.footer.welld')}</a>
-        </p>
+        <div className={styles.footerLine}>
+          <Mascot pose="software-development" alt="" className={styles.footerMascot} />
+          <p className={styles.footerText}>
+            <strong>{content.profile.name}</strong>
+            <span>
+              {t('common.footer.role')} <a href={WELLD_URL}>{t('common.footer.welld')}</a>
+            </span>
+          </p>
+          <ul className={styles.footerProfiles} aria-label={t('common.footer.profiles')}>
+            {footerProfiles.map((p) => (
+              <li key={p.url}>
+                <a href={p.url}>{p.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </footer>
     </div>
   )
