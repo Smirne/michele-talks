@@ -1,7 +1,7 @@
 ---
 id: 003
 slug: organiser-feedback
-status: approved
+status: in-progress
 rigor: mvp
 created: 2026-11-20
 approved: 2026-11-20
