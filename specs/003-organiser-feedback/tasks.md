@@ -1,7 +1,7 @@
 ---
 spec: 003
 generated: 2026-11-20
-synced: 2026-11-20
+synced: 2026-11-20  # re-synced after the official-bios amendment
 ---
 
 # Tasks: Organiser feedback
@@ -51,6 +51,14 @@ implement what it says; this file adds only the contracts it leaves open.
 - Mascot artwork: copy the six poses named in design.md from the welld-brand skill library
   (`<skill base>/assets/images/`, path in design.md) into `frontend/src/assets/mascot/`,
   unmodified.
+- Contract — official bios (AC-3.1, AC-3.6 to AC-3.9, amendment 2026-11-20): `profileSchema`
+  gains `bios: { en: { short: string[]; extended: string[] }; it: { short: string[]; extended:
+  string[] } }`, each a non-empty list of non-empty paragraphs (missing/empty fails naming e.g.
+  `profile.yaml › profile › bios.it.extended`). `bio` is removed: Profile's main bio renders
+  `bios.en.extended`. `bioShort` stays and holds the Home intro summary from design.md's
+  amendment. Bio text: the owner's paste, verbatim, in the shared notes file
+  `/Users/michele.giacobazzi/Library/Application Support/Claude/side-session-notes/local_d03b01f4-ff92-4a92-bf59-068bbeb8c1e1/owner-official-bios-2026-11-20.md`.
+  Copy text = the chosen paragraphs joined with `\n\n`.
 - Deferred: topic filter (non-goal), featured slides (non-goal), SVG/@2x D artwork (design.md
   artwork need), owner-chosen featured recordings in content.
 
@@ -60,12 +68,15 @@ implement what it says; this file adds only the contracts it leaves open.
 - [x] T2: Mascot component, footer D, Not found D and page-header D on Talks, History, Contact — refs: AC-2.1, AC-2.2, AC-2.3, AC-2.4 — deps: none
   - touch: `frontend/src/components/mascot/*`, `frontend/src/assets/mascot/*`, `frontend/src/components/layout/*`, `frontend/src/i18n/common.en.ts`, `frontend/src/features/not-found/*`, `frontend/src/features/history/*`, `frontend/src/features/contact/*`, `frontend/src/features/talks/TalksPage.tsx`, `frontend/src/features/talks/TalksPage.module.css`
   - done when: component tests show the footer D with `alt=""` next to the WellD link on any page, the Not found page's D with its alt text, and one D with its alt text in the header of Talks, History and Contact; `PageHeader` accepts `size="compact"` (used by T6); no horizontal scroll at 375px (existing layout test pattern).
-- [ ] T3: Home photo, contact-row D and "Talks" label — refs: AC-1.1, AC-1.2, AC-2.3, AC-7.1 — deps: T2
+- [ ] T9: Official bios in the content model and content — refs: AC-3.7, AC-3.8, AC-3.9 — deps: T1
+  - touch: `frontend/src/content/schema.ts`, `frontend/src/content/validate.test.ts`, `frontend/src/content/__fixtures__/*`, `frontend/vite-plugins/content.test.ts`, `frontend/content/profile.yaml`, `frontend/src/features/profile/ProfilePage.tsx`, `frontend/src/features/profile/ProfilePage.test.tsx`, `frontend/src/features/home/HomePage.test.tsx`, `frontend/src/features/contact/ContactPage.test.tsx`
+  - done when: validation tests show a missing or empty `bios.<lang>.<length>` fails naming that field; the real content loads with all four bios equal to the owner's text paragraph for paragraph; Profile test shows the main bio is `bios.en.extended`; `profile.yaml` `bioShort` is the Home summary from design.md's amendment; `pnpm typecheck` and tests pass.
+- [ ] T3: Home photo, contact-row D and "Talks" label — refs: AC-1.1, AC-1.2, AC-2.3, AC-7.1, AC-3.8 — deps: T2, T9
   - touch: `frontend/src/features/home/*`, `frontend/src/components/profile-photo/*`
   - done when: Home test shows the profile photo with `profile.photoAlt` in the intro row and no D card there, a D with its alt text in the contact row, the talks band label "Talks" with no dot and no "Now"; ProfilePhoto test covers `aspect="1/1"`.
-- [ ] T4: "For organisers" band on Profile (copy bio, download photo, D) — refs: AC-3.1, AC-3.2, AC-3.3, AC-3.4, AC-3.5, AC-2.3 — deps: T1, T2
+- [ ] T4: "For organisers" band on Profile (bio choice, copy bio, download photo, D) — refs: AC-3.1, AC-3.2, AC-3.3, AC-3.4, AC-3.5, AC-3.6, AC-2.3 — deps: T1, T2, T9
   - touch: `frontend/src/features/profile/*`, `frontend/src/components/content/ButtonLink.tsx`, `frontend/src/components/content/ButtonLink.module.css`
-  - done when: Profile tests show the "For organisers" heading with the exact `bioShort`; clicking "Copy bio" with a mocked clipboard writes exactly `bioShort` and the `role="status"` region reads "Bio copied to the clipboard."; with a rejecting/absent clipboard it reads the failure text and the bio is selected; the download link has `download="michele-giacobazzi.jpg"`, an href to the fingerprinted JPEG and the text "JPG, 1024 × 1024 px"; the band's D has its alt text.
+  - done when: Profile tests show the "For organisers" heading with `bios.en.short` by default; picking Italian + Extended (radio groups "Language", "Length") shows `bios.it.extended` in a box with `lang="it"`; clicking "Copy bio" with a mocked clipboard writes exactly the shown version's paragraphs joined by a blank line and the `role="status"` region reads "Bio copied to the clipboard."; with a rejecting/absent clipboard it reads the failure text and the bio is selected; the download link has `download="michele-giacobazzi.jpg"`, an href to the fingerprinted JPEG and the text "JPG, 1024 × 1024 px"; the band's D has its alt text.
 - [x] T5: Talk card titles and topic tags on the Talks list — refs: AC-5.2, AC-5.3, AC-6.1, AC-6.3 — deps: none
   - touch: `frontend/src/components/content/TalkCard.tsx`, `frontend/src/components/content/TalkCard.module.css`, `frontend/src/components/content/TopicTags*`, `frontend/src/components/content/index.ts`, `frontend/src/components/content/strings.en.ts`, `frontend/src/components/content/content.test.tsx`, `frontend/src/styles/tokens.css`, `frontend/src/styles/styles.test.ts`
   - done when: tests show each card's topics as a list labelled "Topics" in content order, no list for a talk with no topics, and the title link rendered with its content text; CSS: card title `text-transform: none`, underline only on `:hover`/`:focus-visible`, new tokens from design.md in `tokens.css`.
@@ -79,7 +90,8 @@ implement what it says; this file adds only the contracts it leaves open.
   - touch: `specs/003-organiser-feedback/*`
   - done when: `mise run lint`, `mise run test`, `mise run build` and the e2e suite pass; QE-light PASS recorded in `qe-report.md`; `/wellforge:done 003-organiser-feedback` closes the feature.
 
-Coverage: AC-7.2 needs no task (resolved by feature 002). Overlaps resolved: T2 and T6 both use
+Coverage: T9 (added on re-sync) serves AC-3.7 to AC-3.9; T3 and T4 depend on it because it
+changes `profile.yaml` and the profile fixtures they use. AC-7.2 needs no task (resolved by feature 002). Overlaps resolved: T2 and T6 both use
 `PageHeader` (T6 depends on T2); T5 adds tokens and `TopicTags` that T6 uses (T6 depends on T5);
 T1 and T4 meet on `profile.photoDownload` (T4 depends on T1). T2, T5 and T1 touch disjoint files
 and can run in parallel.

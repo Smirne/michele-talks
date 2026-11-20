@@ -42,13 +42,17 @@ nod isn't lost when my photo takes its place on Home.
   decorative when the text next to it already says what it shows.
 
 ### US-3: Material for organisers
-As an event organizer, I want a short bio I can copy and a high-resolution photo I can download,
+As an event organizer, I want a bio I can copy, in the language and length my programme needs, and a high-resolution photo I can download,
 so that I can put the speaker in my programme without screenshots or retyping.
 **Acceptance criteria:**
 - AC-3.1: Given the Profile page, when it renders, then it has a section headed "For organisers"
-  containing the short bio from the profile content.
-- AC-3.2: Given that section, when the visitor activates "Copy bio", then the short bio's exact
-  text is on the clipboard and a confirmation is announced to screen readers and shown visibly.
+  showing one of the owner's official bios, English short by default.
+- AC-3.6: Given that section, when the visitor picks a language (English, Italian) and a length
+  (short, extended), then the bio shown is that official version, exactly as in the content; the
+  current choice is exposed to assistive technology.
+- AC-3.2: Given that section, when the visitor activates "Copy bio", then the exact text of the
+  bio shown (paragraphs separated by a blank line) is on the clipboard and a confirmation is
+  announced to screen readers and shown visibly.
 - AC-3.3: Given the clipboard is unavailable, when "Copy bio" is activated, then the visitor is
   told copying failed and the bio text stays selectable on the page.
 - AC-3.4: Given that section, when the visitor activates "Download photo", then the browser
@@ -56,6 +60,17 @@ so that I can put the speaker in my programme without screenshots or retyping.
   `michele-giacobazzi.jpg`), not a page.
 - AC-3.5: Given the download link, when it renders, then it states the file's format and pixel
   size (e.g. "JPG, 1024 × 1024 px").
+
+### US-3b: Official bio text across the site
+As the site owner, I want the site to use my official bio, so that every page says the same thing
+about me.
+**Acceptance criteria:**
+- AC-3.7: Given the Profile page, when it renders, then its main bio is the official extended
+  English bio, paragraph for paragraph.
+- AC-3.8: Given Home, when it renders, then the intro summary is a single paragraph built from
+  sentences of the official bio (wording in the content), not the earlier export text.
+- AC-3.9: Given the content, when it is validated, then each of the four official bios (EN/IT ×
+  short/extended) is present with at least one paragraph, else the build fails naming the field.
 
 ### US-4: Invite with a talk, see it delivered
 As an event organizer, I want a call to action on each talk page, so that I can invite the
@@ -112,6 +127,13 @@ confuse me.
 - AC-7.2 (resolved by feature 002, no work here): the "Talk" format shows on every card only
   because every offered talk is a talk; Lego4Scrum, a workshop, arrives with 002.
 
+## Amendments
+- 2026-11-20 (owner, after approval, on supplying the official bios): the "For organisers" block
+  offers the four official bios (English and Italian, short and extended) instead of only the
+  short English one (AC-3.1, AC-3.2 reworded, AC-3.6 added); Profile uses the extended English
+  bio and Home a one-paragraph summary built from the official text (US-3b). Bio text: owner's
+  paste of 2026-11-20, verbatim.
+
 ## Non-goals
 - A topic filter on Talks: tags only now; a filter needs a cleaned-up topic vocabulary first
   (owner, 2026-11-20). Planned for a later feature.
@@ -121,6 +143,7 @@ confuse me.
 - A contact form or prefilled email body beyond the subject: the invitation opens the visitor's
   own mail client.
 - A press kit page, multiple photo sizes, or a downloadable bio file.
+- Italian interface text: the Italian bios are content; the toggle labels stay English.
 - Changes to the History page beyond the D placement.
 
 ## Constraints
@@ -136,6 +159,10 @@ Recorded as the owner stated them (2026-11-20):
   `pics/lisbon-fixed.png` (1024 × 1024, white background), at the root of the main checkout,
   outside the repo's tracked files: "I'm afraid they're the best I have." It is the source of
   the downloadable photo.
+- Bios (owner, 2026-11-20): "short and long bios in ita and eng. For download and for the page.
+Adapt to a middle ground if too long. Site default is all english, but the organizer might need
+the bio in IT." Clarified the same day: "download" means copy ("Copy is enough", no bio file);
+the extended English bio fits Profile as is, so no middle version is written.
 - Feature 003 builds on feature 002's talk schema (co-hosts, no longer offered, formats).
 
 ## Open questions

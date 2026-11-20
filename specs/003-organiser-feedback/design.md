@@ -292,3 +292,35 @@ Photo download file: convert the owner's best file `/Users/michele.giacobazzi/De
 - **Spec 001 AC-2.3 risk:** the taller Home photo may push the email CTA below 800px at 1280 × 800 (mitigation in the Home section).
 - **AC-2.4 wording:** "decorative when the text next to it says what it shows" is true only for the footer; the design therefore gives alt text everywhere else rather than stretching the exception.
 - **Spec open question** about D artwork is settled here: the skill's library supplies all seven poses, no generation needed.
+
+## Amendment 2026-11-20: official bios (AC-3.1, AC-3.2, AC-3.6 to AC-3.9)
+
+Supersedes the "For organisers" items 1 to 3 above where they differ. Everything else in the band
+(status line, download link, D, 375px stacking) is unchanged.
+
+- **Choice controls**, above the bio box, side by side at 1280px and stacked at 375px: two
+  `<fieldset>`s with visible `<legend>`s, each a pair of native radio inputs styled as a
+  segmented control (2px ink border, selected = ink fill with mint text, unselected = white fill
+  with ink text; 44px minimum height; the existing 3px signal focus ring on the focused radio).
+  - Legend "Language": "English" (default), "Italian".
+  - Legend "Length": "Short" (default), "Extended".
+  Native radios give arrow-key movement and announce the checked state (AC-3.6); no ARIA
+  re-implementation.
+- **Bio box**: renders the chosen version's paragraphs as `<p>`s inside the bordered box (white
+  fill, 2px ink border, max 68ch). The box carries `lang="it"` when Italian is chosen. Extended
+  bios are about three times longer than short ones; the box grows, no inner scroll.
+- **Copy**: "Copy bio" copies the version shown, paragraphs joined with one blank line (`\n\n`),
+  no trailing newline. Changing either choice clears the status line.
+- **Intro line** stays: "Use this bio and photo in your programme."
+- **Profile main bio**: the extended English bio (three paragraphs), same layout as today.
+- **Home intro summary**: one paragraph composed from the official bio's own sentences (content,
+  not a UI string): "A Java developer at heart, Michele Giacobazzi is CTO and co-founder of WellD.
+  He works on cloud-native systems on Kubernetes, with a particular eye on JVM and container
+  optimisation, and is bringing AI agents into his teams, always with quality and craftsmanship
+  in mind."
+
+New strings (`profile.organisers.*`): `language` "Language", `english` "English", `italian`
+"Italian", `length` "Length", `short` "Short", `extended` "Extended".
+
+AC map additions: AC-3.6 → the two fieldsets; AC-3.7 → Profile main bio; AC-3.8 → Home intro
+paragraph; AC-3.9 → content validation (no UI).
