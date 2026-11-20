@@ -160,3 +160,76 @@ describe('validateContent', () => {
     expect(result.content.talks[0]?.hidden).toBe(false)
   })
 })
+
+describe('validateContent: 002 talk fields', () => {
+  const talkErrors = (over: Record<string, unknown>) =>
+    errorsOf(raw({ talks: [{ ...talk, ...over }] }))
+
+  it.each([
+    ['a level pair', { level: ['beginner', 'intermediate'] }],
+    ['a duration range', { durationMinutes: { min: 360, max: 480 } }],
+    ['the quickie format', { format: 'quickie' }],
+    ['a note', { note: 'Adapts to the event.' }],
+    ['co-hosts', { coHosts: ['Matteo Codogno'] }],
+    ['related links', { links: [{ label: 'Training', url: 'https://example.org/t' }] }],
+    ['offered: false', { offered: false }],
+  ])('accepts %s', (_name, over) => {
+    expect(validateContent(raw({ talks: [{ ...talk, ...over }] })).ok).toBe(true)
+  })
+
+  it('defaults offered to true', () => {
+    const result = validateContent(raw())
+    if (!result.ok) throw new Error('expected ok')
+    expect(result.content.talks[0]?.offered).toBe(true)
+  })
+
+  it.each([
+    [['intermediate', 'beginner']],
+    [['beginner', 'beginner']],
+  ])('rejects the level pair %j', (level) => {
+    expect(talkErrors({ level })).toContainEqual(
+      expect.objectContaining({ file: 'talks.yaml', item: 'first-talk', field: 'level' })
+    )
+  })
+
+  it.each([
+    [{ min: 480, max: 360 }],
+    [{ min: 60, max: 60 }],
+  ])('rejects the duration range %j', (durationMinutes) => {
+    expect(talkErrors({ durationMinutes })).toContainEqual(
+      expect.objectContaining({ file: 'talks.yaml', item: 'first-talk', field: 'durationMinutes' })
+    )
+  })
+
+  it('rejects an unknown format', () => {
+    expect(talkErrors({ format: 'webinar' })).toContainEqual(
+      expect.objectContaining({ item: 'first-talk', field: 'format' })
+    )
+  })
+
+  it('rejects an empty co-host name on a talk and on an appearance', () => {
+    expect(talkErrors({ coHosts: [' '] })).toContainEqual(
+      expect.objectContaining({ file: 'talks.yaml', item: 'first-talk', field: 'coHosts.0' })
+    )
+    expect(errorsOf(raw({ appearances: [{ ...appearance, coHosts: [''] }] }))).toContainEqual(
+      expect.objectContaining({ file: 'appearances.yaml', item: 'meetup-2026', field: 'coHosts.0' })
+    )
+  })
+
+  it('rejects an empty co-host list', () => {
+    expect(talkErrors({ coHosts: [] })).toContainEqual(expect.objectContaining({ field: 'coHosts' }))
+  })
+
+  it('rejects a related link with a malformed URL', () => {
+    expect(talkErrors({ links: [{ label: 'Bad', url: 'not a url' }] })).toContainEqual(
+      expect.objectContaining({ item: 'first-talk', field: 'links.0.url' })
+    )
+  })
+
+  it('keeps an offered: false talk published, and an appearance may link to it', () => {
+    const result = validateContent(raw({ talks: [{ ...talk, offered: false }] }))
+    if (!result.ok) throw new Error('expected ok')
+    expect(result.content.talks.map((t) => t.slug)).toEqual(['first-talk'])
+    expect(result.content.appearances.map((a) => a.talk)).toEqual(['first-talk'])
+  })
+})

@@ -67,7 +67,7 @@ synced: 2026-11-20
 
 ## Tasks
 
-- [ ] T1: [frontend] Extend the content schema and validation — refs: AC-5.1, AC-2.3, AC-2.4, AC-3.4, AC-4.1 — deps: none
+- [x] T1: [frontend] Extend the content schema and validation — refs: AC-5.1, AC-2.3, AC-2.4, AC-3.4, AC-4.1 — deps: none
   - touch: `frontend/src/content/**`, `frontend/vite-plugins/*`
   - done when: unit tests show `validateContent` accepts each new shape (level pair, duration
     range, `quickie`, `note`, talk and appearance `coHosts`, `links`, `offered: false`) and
