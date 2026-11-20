@@ -65,3 +65,24 @@ Blocked: SAST-high (no scanner configured locally; needs the CI SAST job or a lo
 Tests added: `frontend/e2e/organiser-feedback.e2e.ts` (10 tests; 3 fail on real defects, 7 pass). Screenshots (scratchpad): home/profile/talks/talk at 1280 and 375, band-it-ext at both widths, under /private/tmp/claude-501/.../scratchpad/.
 
 owasp-reviewer: not needed (static site, no input handling beyond clipboard and a mailto link).
+
+## Round 1 re-check (2026-11-20, at 7e1e03d)
+
+Fixes: Home photo column 180px at wide screens (defect 1); the download link has no aria-label and
+takes its name from its visible text; the aside's recording/slides aria-labels start with the
+visible text ("Recording (IT), <event>, in Italian") (defects 2 and 3). Minor visual items (defect
+4) left as they are: none breaks an AC.
+
+| Check | Actual | Result |
+|---|---|---|
+| mise run lint / test / build | 0 warnings; frontend 225/225, backend green; builds ok | PASS |
+| e2e (Playwright, fresh production build) | 47 passed, 0 failed (incl. axe on all pages, 001 AC-2.3, AC-5.1, AC-5.3, AC-4.7, organiser band) | PASS |
+| Visual (1280x800) | Home: photo, Talks band, both contact CTAs within 800px; talk page: 3-line title, aside right with invite at top; organiser band renders toggles and bio box | PASS |
+| Critical-CVE audit | unchanged: 3 critical in dev-only vitest 2.x/tinypool, pre-existing on main, `--prod` clean | FAIL (pre-existing, out of 003 scope) |
+| SAST-high | no local scanner | BLOCKED (CI SAST job) |
+
+## Verdict after round 1: PASS for every 003 AC
+
+The feature's ACs and the regressions found are green. Two floor rows remain that 003 did not
+cause and cannot fix within its scope: the dev-dependency audit (needs a vitest upgrade, its own
+change) and SAST (runs in CI). `/wellforge:done` should wait for the owner's call on those.
