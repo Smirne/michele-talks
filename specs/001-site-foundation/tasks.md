@@ -121,7 +121,7 @@ further task is needed for AC-1.1/AC-1.2.
   - `PageHeader` takes an optional `documentTitle` (defaults to the h1 text). Home's h1 is the Programme Board headline "On the programme" (design.md, sketch 03) with document title "Michele Talks"; Profile keeps the speaker's name as h1 with document title "Profile | Michele Talks".
   - done when: tests assert Home h1 text "On the programme" and `document.title === "Michele Talks"`, Profile h1 is the speaker's name and `document.title === "Profile | Michele Talks"`; every other route's title stays `"<Page> | Michele Talks"`; focus-to-h1 tests still pass.
 
-- [ ] T10: Owner review and close — refs: AC-1.5 — deps: T9, T11
+- [x] T10: Owner review and close — refs: AC-1.5 — deps: T9, T11
   - touch: `specs/001-site-foundation/*`
   - done when: the owner has reviewed the running site against design.md "Chosen direction" and their confirmation is recorded in design.md (or the iteration requested is turned into tasks); `mise run build`, `mise run test`, `mise run lint`, `mise run frontend:e2e` all pass and CI is green on the PR; QE-light verdict PASS; spec status → done via `/wellforge:done`.
 
