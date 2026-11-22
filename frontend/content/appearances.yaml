@@ -57,6 +57,11 @@
   country: Belgium
   online: false
   language: en
+  cards:
+    - {
+        src: media/cards/devoxx-belgium-2026-1.webp,
+        alt: 'Michele Giacobazzi with the other Robot Games finalists on the Devoxx Belgium 2026 stage',
+      }
   talk: agents-built-the-graphics
   sessionTitle: Devoxx After Dark
   note: 4-minute live demo of Devoxx After Dark, winner of the Robot Games.

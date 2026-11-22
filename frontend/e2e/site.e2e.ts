@@ -77,7 +77,12 @@ test.describe('talk content update (002)', () => {
     await ready(page, '/on-stage')
     // The oldest rows load on demand (005 AC-4.2); the button loads every batch.
     const more = page.getByRole('button', { name: 'Show more past appearances' })
-    while (await more.isVisible()) await more.click()
+    // Scrolling the button into view can itself load the last batch and remove it, so retry
+    // until it is gone rather than awaiting a click on an element that may detach.
+    await expect(async () => {
+      if (await more.isVisible()) await more.click({ timeout: 1_000 })
+      await expect(more).toBeHidden({ timeout: 500 })
+    }).toPass({ timeout: 15_000 })
     await expect(page.getByText('Voxxed Days Ticino 2015', { exact: true })).toBeVisible()
     await expect(page.getByText('Voxxed Days Ticino 2025 workshop day')).toBeVisible()
     await page.getByRole('link', { name: 'Repetition is Bad, Repetition is Bad' }).click()

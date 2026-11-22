@@ -31,10 +31,10 @@ export const contentStrings = {
   },
   card: {
     alt: 'Social card for {event}',
-    dialog: 'Social cards for {event}',
+    dialog: 'Pictures from {event}',
     close: 'Close',
-    previous: 'Previous card',
-    next: 'Next card',
+    previous: 'Previous picture',
+    next: 'Next picture',
     position: '{n} of {total}',
   },
   resource: {

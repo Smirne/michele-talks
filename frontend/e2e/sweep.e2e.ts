@@ -50,7 +50,10 @@ for (const [vpName, viewport] of VIEWPORTS) {
     }) => {
       await ready(page, '/on-stage')
       const more = page.getByRole('button', { name: 'Show more past appearances' })
-      while (await more.isVisible()) await more.click()
+      await expect(async () => {
+        if (await more.isVisible()) await more.click({ timeout: 1_000 })
+        await expect(more).toBeHidden({ timeout: 500 })
+      }).toPass({ timeout: 15_000 })
       expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0)
       expect(await contrast(page)).toEqual([])
     })

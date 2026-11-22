@@ -57,9 +57,10 @@ describe('loadContent', () => {
         ['cloud-day-2026', 2],
         ['coffeetech', 1],
         ['crafted-software', 1],
+        ['devoxx-belgium-2026', 1],
       ])
     )
-    expect(withCards).toHaveLength(10)
+    expect(withCards).toHaveLength(11)
   })
 
   it('fails when a content file is missing', () => {

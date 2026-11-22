@@ -340,7 +340,7 @@ describe('CardViewer on AppearanceRow', () => {
   it('has no previous/next with one card and steps through two, wrapping (AC-7.3)', async () => {
     await renderWithRouter(inList(<AppearanceRow appearance={one} />))
     fireEvent.click(screen.getByRole('button', { name: 'Social card for JUG Milano' }))
-    expect(screen.queryByRole('button', { name: 'Next card' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Next picture' })).toBeNull()
     cleanup()
 
     await renderWithRouter(inList(<AppearanceRow appearance={two} />))
@@ -348,12 +348,12 @@ describe('CardViewer on AppearanceRow', () => {
     const dialog = document.querySelector('dialog') as HTMLDialogElement
     const shown = () => dialog.querySelector('img')?.getAttribute('src')
     expect(shown()).toBe('/a.webp')
-    fireEvent.click(within(dialog).getByRole('button', { name: 'Next card' }))
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Next picture' }))
     expect(shown()).toBe('/b.webp')
     expect(within(dialog).getByText('2 of 2')).toBeTruthy()
-    fireEvent.click(within(dialog).getByRole('button', { name: 'Next card' }))
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Next picture' }))
     expect(shown()).toBe('/a.webp')
-    fireEvent.click(within(dialog).getByRole('button', { name: 'Previous card' }))
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Previous picture' }))
     expect(shown()).toBe('/b.webp')
   })
 
