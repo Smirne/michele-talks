@@ -60,6 +60,33 @@ describe('the real content in frontend/content', () => {
     expect(content.talks.every((t) => !t.hidden)).toBe(true)
   })
 
+  it('lists the Coffeetech and Crafted Software meetups (AC-8.1, AC-8.2)', () => {
+    const { appearances } = loadContent(path.resolve(import.meta.dirname, '../content'))
+    const coffeetech = appearances.find((a) => a.id === 'coffeetech')
+    expect(coffeetech).toMatchObject({
+      event: 'Coffeetech',
+      date: '2025-11-14',
+      city: 'Genova',
+      country: 'Italy',
+      language: 'it',
+      sessionTitle:
+        'Filiere energetiche rinnovabili: il progetto SPARklE per le Comunità di Energia Aggregate',
+      coHosts: ['Roberto Catanzariti'],
+      note: 'A domain talk on renewable energy communities and flexibility, with little technical content.',
+    })
+    expect(coffeetech?.talk).toBeUndefined()
+    expect(appearances.find((a) => a.id === 'crafted-software')).toMatchObject({
+      event: 'Crafted Software meetup — TCP Night: Lightning talks',
+      date: '2025-11-27',
+      city: 'Milan',
+      country: 'Italy',
+      language: 'it',
+      talk: 'from-kubernetes-to-kilowatts',
+      sessionTitle: "SPARklE – Gestione intelligente dell'energia",
+      note: 'A very early, lightning-talk version of this talk.',
+    })
+  })
+
   it('exposes the photo download with its pixel size read from the JPEG', () => {
     const content = loadContent(path.resolve(import.meta.dirname, '../content'))
     expect(content.profile.photoDownload).toMatchObject({

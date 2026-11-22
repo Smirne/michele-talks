@@ -160,3 +160,25 @@
   coHosts: [Matteo Codogno]
   note: Full-day workshop.
   eventUrl: 'https://sessionize.com/s/matteocodogno/lego4scrum/141346'
+
+- id: coffeetech
+  event: Coffeetech
+  date: 2025-11-14
+  city: Genova
+  country: Italy
+  online: false
+  language: it
+  sessionTitle: 'Filiere energetiche rinnovabili: il progetto SPARklE per le Comunità di Energia Aggregate'
+  coHosts: [Roberto Catanzariti]
+  note: A domain talk on renewable energy communities and flexibility, with little technical content.
+
+- id: crafted-software
+  event: 'Crafted Software meetup — TCP Night: Lightning talks'
+  date: 2025-11-27
+  city: Milan
+  country: Italy
+  online: false
+  language: it
+  talk: from-kubernetes-to-kilowatts
+  sessionTitle: 'SPARklE – Gestione intelligente dell''energia'
+  note: A very early, lightning-talk version of this talk.

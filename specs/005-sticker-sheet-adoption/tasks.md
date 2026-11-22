@@ -85,7 +85,7 @@ merge or cherry-pick that branch — its stylesheet is an override layer the spe
 - [ ] T6: On stage progressive loading and easter egg — refs: US-4, US-6, AC-4.1, AC-4.2, AC-4.3, AC-4.4, AC-4.5, AC-6.1, AC-6.2 — deps: T3
   - touch: `frontend/src/features/history/HistoryPage.tsx`, `frontend/src/features/history/HistoryPage.module.css`, `frontend/src/features/history/strings.en.ts`, `frontend/src/features/history/history.test.tsx`
   - done when: unit tests cover first 5, "Show more" loading the next 5 with the live-region text, focus on the first new row, no button and the easter-egg link (URL, new tab, rel) once all are shown; an e2e test scrolls to the end and sees all past rows plus the link; axe passes on the page.
-- [ ] T7: Add the Coffeetech and Crafted Software meetups — refs: US-8, AC-8.1, AC-8.2 — deps: none
+- [x] T7: Add the Coffeetech and Crafted Software meetups — refs: US-8, AC-8.1, AC-8.2 — deps: none
   - touch: `frontend/content/appearances.yaml`
   - done when: content validation passes; a unit/e2e check finds both appearances with the date, city, language, session title, note and co-host/talk link the ACs state, and Coffeetech has no talk link.
 - [ ] T8: Social cards in content — refs: US-7, AC-7.5 — deps: T7
