@@ -112,9 +112,10 @@ export const loadContent = (dir: string): Content => {
         ? a
         : {
             ...a,
-            cards: cards.map(({ src, alt }) => ({
+            cards: cards.map(({ src, alt, credit }) => ({
               url: path.join(dir, src),
               ...(alt === undefined ? {} : { alt }),
+              ...(credit === undefined ? {} : { credit }),
             })),
           }
     ),

@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react'
+import { CreditLine } from '@/components/credit'
+import type { Credit } from '@/content/schema'
 import { t } from '@/i18n/t'
 import styles from './CardViewer.module.css'
 
-type ViewerCard = { url: string; alt: string }
+type ViewerCard = { url: string; alt: string; credit?: Credit | undefined }
 
 type Props = {
   /** At least one card; the first is the thumbnail. `alt` is already resolved. */
@@ -54,6 +56,11 @@ export const CardViewer = ({ cards, label }: Props) => {
         }}
       >
         {open && <img src={current.url} alt={current.alt} className={styles.full} />}
+        {open && current.credit !== undefined && (
+          <p className={styles.credit}>
+            <CreditLine credit={current.credit} />
+          </p>
+        )}
         <div className={styles.controls}>
           {cards.length > 1 && (
             <>

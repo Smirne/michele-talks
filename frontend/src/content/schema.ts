@@ -46,6 +46,15 @@ const positiveInt = z.number().int().positive()
 
 const coHosts = z.array(nonEmpty).min(1, 'needs at least one name')
 
+/** Who took a photo, and under which licence when it is not the owner's own. */
+export const creditSchema = z.object({
+  by: nonEmpty,
+  url: httpUrl.optional(),
+  licence: nonEmpty.optional(),
+  licenceUrl: httpUrl.optional(),
+})
+export type Credit = z.infer<typeof creditSchema>
+
 export const talkSchema = z.object({
   slug: kebab,
   title: nonEmpty,
@@ -95,7 +104,10 @@ export const appearanceSchema = z
     coHosts: coHosts.optional(),
     eventUrl: httpUrl.optional(),
     /** Social cards of the event; `src` is relative to the content folder, like `profile.photo`. */
-    cards: z.array(z.object({ src: nonEmpty, alt: nonEmpty.optional() })).min(1).optional(),
+    cards: z
+      .array(z.object({ src: nonEmpty, alt: nonEmpty.optional(), credit: creditSchema.optional() }))
+      .min(1)
+      .optional(),
     resources: z
       .array(z.object({ type: z.enum(['slides', 'video'], 'unknown type'), url: httpUrl, language }))
       .optional(),
@@ -117,7 +129,7 @@ export type Talk = z.infer<typeof talkSchema>
 export type RawAppearance = z.infer<typeof appearanceSchema>
 
 /** A social card as the app sees it: `url` is the fingerprinted asset. */
-export type Card = { url: string; alt?: string | undefined }
+export type Card = { url: string; alt?: string | undefined; credit?: Credit | undefined }
 
 /** An appearance as the app sees it: `cards` carry resolved urls. */
 export type Appearance = Omit<RawAppearance, 'cards'> & { cards?: Card[] }

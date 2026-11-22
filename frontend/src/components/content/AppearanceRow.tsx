@@ -79,6 +79,7 @@ export const AppearanceRow = ({ appearance: a, talkTitle }: Props) => {
             cards={a.cards.map((c) => ({
               url: c.url,
               alt: c.alt ?? t('content.card.alt', { event: a.event }),
+              credit: c.credit,
             }))}
             label={t('content.card.dialog', { event: a.event })}
           />

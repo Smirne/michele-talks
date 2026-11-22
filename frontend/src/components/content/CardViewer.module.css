@@ -71,3 +71,15 @@
 .control:hover {
   background: var(--mint);
 }
+
+.credit {
+  margin: var(--space-1) 0 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.credit a {
+  color: var(--ink);
+}

@@ -11,9 +11,34 @@ describe('StagePhoto', () => {
     expect(container.querySelector('figcaption')).toBeNull()
   })
 
-  it('shows a visible credit when given', () => {
-    render(<StagePhoto src="/a.webp" alt="Ada on stage" credit="Photo: Grace" />)
-    expect(screen.getByText('Photo: Grace')).toBeTruthy()
+  it('shows a visible credit when given, with author and licence links', () => {
+    const { container } = render(
+      <StagePhoto
+        src="/a.webp"
+        alt="Ada on stage"
+        credit={{
+          by: 'Grace',
+          url: 'https://example.com/photo',
+          licence: 'CC BY-NC-ND 4.0',
+          licenceUrl: 'https://creativecommons.org/licenses/by-nc-nd/4.0/',
+        }}
+      />
+    )
+    expect(container.querySelector('figcaption')?.textContent).toBe(
+      'Photo: Grace · CC BY-NC-ND 4.0'
+    )
+    expect(screen.getByRole('link', { name: 'Grace' }).getAttribute('href')).toBe(
+      'https://example.com/photo'
+    )
+    expect(screen.getByRole('link', { name: 'CC BY-NC-ND 4.0' })).toBeTruthy()
+  })
+
+  it('shows a plain credit without links when no URL is known', () => {
+    const { container } = render(
+      <StagePhoto src="/a.webp" alt="Ada on stage" credit={{ by: 'Grace' }} />
+    )
+    expect(container.querySelector('figcaption')?.textContent).toBe('Photo: Grace')
+    expect(screen.queryByRole('link')).toBeNull()
   })
 })
 

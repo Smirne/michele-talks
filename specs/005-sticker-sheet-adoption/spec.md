@@ -165,3 +165,7 @@ None. Resolved by the owner on 2026-11-22:
   (0501-NF202411, cropped on him), and the Cloud Day photo is cropped on him (left speaker). Talks uses the
   Devoxx Belgium 2026 group photo instead of DevFest; the same photo shows on the Devoxx row,
   where an appearance without a social card may show a photo through `cards`.
+- 2026-11-23 credits (AC-5.6): the Devoxx photos are CC BY-NC-ND 4.0 by Devoxx Belgium (BeJUG,
+  Flickr) — credited with links to the photo and the licence, and shown whole and only resized
+  (no crop, as the licence forbids derivatives). Cloud Day: Luigi Di Stefano. Codemotion: pending,
+  the owner is asking the organisers.

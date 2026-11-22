@@ -20,6 +20,10 @@ export const commonStrings = {
       notFound: 'D, the WellD mascot, searching with a magnifying glass',
     },
   },
+  credit: {
+    photo: 'Photo:',
+    separator: ' · ',
+  },
   stage: {
     alt: {
       talks:

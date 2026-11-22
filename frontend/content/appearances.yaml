@@ -61,6 +61,13 @@
     - {
         src: media/cards/devoxx-belgium-2026-1.webp,
         alt: 'Michele Giacobazzi with the other Robot Games finalists on the Devoxx Belgium 2026 stage',
+        credit:
+          {
+            by: Devoxx Belgium (BeJUG),
+            url: 'https://www.flickr.com/photos/bejug/55580685219/',
+            licence: CC BY-NC-ND 4.0,
+            licenceUrl: 'https://creativecommons.org/licenses/by-nc-nd/4.0/',
+          },
       }
   talk: agents-built-the-graphics
   sessionTitle: Devoxx After Dark
