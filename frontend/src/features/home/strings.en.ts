@@ -19,7 +19,7 @@ export const homeStrings = {
   next: {
     upcoming: 'Next',
     recent: 'Recently',
-    all: 'Full history',
+    all: 'All appearances',
   },
   graph: {
     label: 'Later',

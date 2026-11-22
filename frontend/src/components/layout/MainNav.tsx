@@ -22,7 +22,7 @@ export const MainNav = () => {
           </Link>
         </li>
         <li>
-          <Link to="/history" className={styles.link}>
+          <Link to="/on-stage" className={styles.link}>
             {t('common.nav.history')}
           </Link>
         </li>

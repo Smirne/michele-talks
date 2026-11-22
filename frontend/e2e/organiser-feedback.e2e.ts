@@ -109,7 +109,7 @@ test('Home at 1280x800: Talks and email CTAs end within 800px (001 AC-2.3)', asy
 test('every page has a footer D and one D in the footer, all images have alt (AC-2.1, AC-2.4)', async ({
   page,
 }) => {
-  for (const path of ['/', '/profile', '/talks', '/history', '/contact', '/no-such-page']) {
+  for (const path of ['/', '/profile', '/talks', '/on-stage', '/contact', '/no-such-page']) {
     await ready(page, path)
     // The footer D is decorative (alt=""): the WellD link next to it says what it is.
     await expect(page.locator('footer img')).toHaveCount(1)
