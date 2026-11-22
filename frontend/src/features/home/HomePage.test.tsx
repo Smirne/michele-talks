@@ -174,4 +174,21 @@ describe('Home', () => {
     })
     expect(screen.getByText(/1 talks/)).toBeTruthy()
   })
+
+  it('orders the content intro, upcoming, invite, browse link, graph', async () => {
+    await renderHome()
+    const at = (el: HTMLElement) => el.closest('section') as HTMLElement
+    const sections = [
+      at(screen.getByRole('heading', { name: 'Ada Lovelace' })),
+      nextRegion(),
+      at(screen.getByRole('heading', { name: 'Invite me to speak' })),
+      at(screen.getByRole('heading', { name: 'Browse the talks' })),
+      screen.getByRole('region', { name: 'Reserved area for the future talks graph' }),
+    ]
+    sections.forEach((el, i) => {
+      const next = sections[i + 1]
+      if (next)
+        expect(el.compareDocumentPosition(next) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    })
+  })
 })

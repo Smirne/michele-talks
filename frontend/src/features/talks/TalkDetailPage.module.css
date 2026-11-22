@@ -27,7 +27,7 @@
   grid-template-areas: 'head' 'aside' 'body';
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 861px) {
   .page {
     grid-template-columns: minmax(0, 1fr) 340px;
     grid-template-rows: auto 1fr;
@@ -37,7 +37,6 @@
 
   .aside {
     max-width: none;
-    align-self: start;
     margin-top: var(--space-2);
   }
 }

@@ -1,11 +1,14 @@
-/* Home: a short sticker collage. The structure is the Programme Board's (T4 restructures it);
-   the labels column is not needed here, so each slot is a single-column sticker. */
+/* Home: a sticker collage. Left column: intro, upcoming, browse link, graph; right column:
+   the sticky invite. Below 861px one column: intro, upcoming, invite, browse link, graph. */
 .board {
   display: grid;
   grid-template-columns: 7fr 5fr;
   grid-template-areas:
-    'intro talks'
-    'next invite';
+    'intro invite'
+    'next invite'
+    'talks invite'
+    'graph invite';
+  grid-template-rows: auto auto auto 1fr;
   align-items: start;
   gap: var(--space-3);
 }
@@ -91,6 +94,19 @@
   box-shadow: 5px 5px 0 var(--white);
 }
 
+/* The invite stays in view beside the left column while the page scrolls (desktop only). */
+@media (min-width: 861px) {
+  .invite {
+    position: sticky;
+    top: var(--space-3);
+  }
+}
+
+.graph {
+  grid-area: graph;
+  min-width: 0;
+}
+
 .invite .heading {
   color: var(--mint);
 }
@@ -156,7 +172,8 @@
 @media (max-width: 860px) {
   .board {
     grid-template-columns: 1fr;
-    grid-template-areas: 'intro' 'talks' 'invite' 'next';
+    grid-template-areas: 'intro' 'next' 'invite' 'talks' 'graph';
+    grid-template-rows: none;
   }
 
   .intro {

@@ -96,11 +96,11 @@ test.describe('Talks list at 1280px (AC-5.3)', () => {
   })
 })
 
-test('Home at 1280x800: Talks and email CTAs end within 800px (001 AC-2.3)', async ({ page }) => {
+// 005 AC-2.1 moved the Talks link below the upcoming list; the invite (email) stays in the fold.
+test('Home at 1280x800: the email CTA ends within 800px (001 AC-2.3)', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 })
   await ready(page, '/')
   const main = page.getByRole('main')
-  expect(await bottom(main.getByRole('link', { name: /talks/i }).first())).toBeLessThanOrEqual(800)
   expect(
     await bottom(main.getByRole('link', { name: /contact|email|mailto/i }).first())
   ).toBeLessThanOrEqual(800)

@@ -6,6 +6,15 @@
   box-shadow: var(--shadow-hard);
 }
 
+/* Stays in view beside the talk while the page scrolls (desktop only). Its grid cell in
+   TalkDetailPage stretches over both rows so there is room to travel. */
+@media (min-width: 861px) {
+  .aside {
+    position: sticky;
+    top: var(--space-3);
+  }
+}
+
 .hint {
   margin: var(--space-1) 0 0;
   color: var(--muted);

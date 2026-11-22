@@ -76,7 +76,7 @@ merge or cherry-pick that branch — its stylesheet is an override layer the spe
 - [x] T3: Sticker styles in the feature pages — refs: US-1, AC-1.1, AC-1.2, AC-1.4 — deps: T2
   - touch: `frontend/src/features/**/*.module.css`
   - done when: Profile, Talks, talk page, On stage and Not found match the spike at 375px and 1280px with no Programme Board border lines (screenshots in the PR); lint and unit tests pass.
-- [ ] T4: Home layout and sticky invite — refs: US-2, AC-2.1, AC-2.2, AC-2.3, AC-2.4 — deps: T3
+- [x] T4: Home layout and sticky invite — refs: US-2, AC-2.1, AC-2.2, AC-2.3, AC-2.4 — deps: T3
   - touch: `frontend/src/features/home/HomePage.tsx`, `frontend/src/features/home/HomePage.module.css`, `frontend/src/features/home/strings.en.ts`, `frontend/src/features/home/HomePage.test.tsx`, `frontend/src/features/talks/TalkAside.module.css`
   - done when: unit test checks the left-column order (intro → upcoming → browse link) and invite placement; an e2e test scrolls Home and a talk page to the bottom at 1280px and asserts the invite is in the viewport, and at 375px asserts it is not fixed.
 - [ ] T5: Contacts in one row — refs: US-3, AC-3.1, AC-3.2 — deps: T3
