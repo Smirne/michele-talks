@@ -13,28 +13,21 @@ export const ContactView = ({ profile }: { profile: Profile }) => (
     />
     <div className={styles.board}>
       <p className={styles.intro}>{t('contact.intro')}</p>
-      <section className={styles.row} aria-labelledby="contact-email">
-        <h2 id="contact-email" className={styles.heading}>
-          {t('contact.email')}
+      <section className={styles.row} aria-labelledby="contact-reach">
+        <h2 id="contact-reach" className={styles.heading}>
+          {t('contact.reach')}
         </h2>
-        <p className={styles.email}>
-          <a href={`mailto:${profile.email}`}>{profile.email}</a>
-        </p>
+        <ul className={styles.contacts} aria-labelledby="contact-reach">
+          <li className={styles.email}>
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          </li>
+          {profile.profiles.map((p) => (
+            <li key={p.url} className={styles.profile}>
+              <a href={p.url}>{p.label}</a>
+            </li>
+          ))}
+        </ul>
       </section>
-      {profile.profiles.length > 0 && (
-        <section className={styles.row} aria-labelledby="contact-profiles">
-          <h2 id="contact-profiles" className={styles.heading}>
-            {t('contact.profiles')}
-          </h2>
-          <ul className={styles.profiles} aria-labelledby="contact-profiles">
-            {profile.profiles.map((p) => (
-              <li key={p.url}>
-                <a href={p.url}>{p.label}</a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
     </div>
   </>
 )

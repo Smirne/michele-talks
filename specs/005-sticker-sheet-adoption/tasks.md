@@ -79,7 +79,7 @@ merge or cherry-pick that branch — its stylesheet is an override layer the spe
 - [x] T4: Home layout and sticky invite — refs: US-2, AC-2.1, AC-2.2, AC-2.3, AC-2.4 — deps: T3
   - touch: `frontend/src/features/home/HomePage.tsx`, `frontend/src/features/home/HomePage.module.css`, `frontend/src/features/home/strings.en.ts`, `frontend/src/features/home/HomePage.test.tsx`, `frontend/src/features/talks/TalkAside.module.css`
   - done when: unit test checks the left-column order (intro → upcoming → browse link) and invite placement; an e2e test scrolls Home and a talk page to the bottom at 1280px and asserts the invite is in the viewport, and at 375px asserts it is not fixed.
-- [ ] T5: Contacts in one row — refs: US-3, AC-3.1, AC-3.2 — deps: T3
+- [x] T5: Contacts in one row — refs: US-3, AC-3.1, AC-3.2 — deps: T3
   - touch: `frontend/src/features/contact/ContactPage.tsx`, `frontend/src/features/contact/ContactPage.module.css`, `frontend/src/features/contact/ContactPage.test.tsx`
   - done when: an e2e test at 1280px asserts email and every profile link share one row (same top offset ±4px), and at 375px asserts no horizontal scroll and unchanged order.
 - [ ] T6: On stage progressive loading and easter egg — refs: US-4, US-6, AC-4.1, AC-4.2, AC-4.3, AC-4.4, AC-4.5, AC-6.1, AC-6.2 — deps: T3

@@ -40,11 +40,12 @@ describe('Contact', () => {
     expect(link.textContent).toBe('ada@example.com')
   })
 
-  it('shows one text link per profile, labelled with the platform name', async () => {
+  it('lists the email first, then one text link per profile, in one list', async () => {
     await renderWithRouter(<ContactView profile={profile} />)
-    const list = screen.getByRole('list', { name: 'Elsewhere online' })
+    const list = screen.getByRole('list', { name: 'Reach me' })
     const links = within(list).getAllByRole('link')
     expect(links.map((l) => [l.textContent, l.getAttribute('href')])).toEqual([
+      ['ada@example.com', 'mailto:ada@example.com'],
       ['LinkedIn', 'https://www.linkedin.com/in/ada/'],
       ['GitHub', 'https://github.com/ada'],
     ])
@@ -52,9 +53,8 @@ describe('Contact', () => {
 
   it('shows only the email when there are no profile links', async () => {
     await renderWithRouter(<ContactView profile={{ ...profile, profiles: [] }} />)
-    expect(screen.getByRole('link', { name: 'ada@example.com' })).toBeTruthy()
-    expect(screen.queryByRole('list', { name: 'Elsewhere online' })).toBeNull()
-    expect(screen.queryByText('Elsewhere online')).toBeNull()
+    const list = screen.getByRole('list', { name: 'Reach me' })
+    expect(within(list).getAllByRole('link')).toHaveLength(1)
   })
 })
 
