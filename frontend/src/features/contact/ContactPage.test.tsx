@@ -40,27 +40,35 @@ describe('Contact', () => {
     expect(link.textContent).toBe('ada@example.com')
   })
 
-  it('lists the email first, then one text link per profile, in one list', async () => {
+  it('shows the email in its own box, separate from the profile links', async () => {
     await renderWithRouter(<ContactView profile={profile} />)
-    const list = screen.getByRole('list', { name: 'Reach me' })
-    const links = within(list).getAllByRole('link')
-    expect(links.map((l) => [l.textContent, l.getAttribute('href')])).toEqual([
-      ['ada@example.com', 'mailto:ada@example.com'],
+    const emailBox = screen.getByRole('region', { name: 'Email' })
+    expect(
+      within(emailBox)
+        .getAllByRole('link')
+        .map((l) => l.textContent)
+    ).toEqual(['ada@example.com'])
+    const list = screen.getByRole('list', { name: 'Elsewhere online' })
+    expect(
+      within(list)
+        .getAllByRole('link')
+        .map((l) => [l.textContent, l.getAttribute('href')])
+    ).toEqual([
       ['LinkedIn', 'https://www.linkedin.com/in/ada/'],
       ['GitHub', 'https://github.com/ada'],
     ])
   })
 
-  it('shows only the email when there are no profile links', async () => {
+  it('shows an empty profiles list when there are no profile links', async () => {
     await renderWithRouter(<ContactView profile={{ ...profile, profiles: [] }} />)
-    const list = screen.getByRole('list', { name: 'Reach me' })
-    expect(within(list).getAllByRole('link')).toHaveLength(1)
+    const list = screen.getByRole('list', { name: 'Elsewhere online' })
+    expect(within(list).queryAllByRole('link')).toHaveLength(0)
   })
 })
 
 describe('Contact header', () => {
-  it('shows one stage photo with its alt text', async () => {
+  it('shows no stage photo until the owner picks one', async () => {
     await renderWithRouter(<ContactView profile={profile} />)
-    expect(screen.getAllByRole('img', { name: /Codemotion 2026 working table/ })).toHaveLength(1)
+    expect(screen.queryAllByRole('img')).toHaveLength(0)
   })
 })

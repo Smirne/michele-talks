@@ -26,8 +26,6 @@ export const commonStrings = {
         'The speaker at DevFest Milano 2026, microphone in hand, beside a screen showing the talk agenda',
       history:
         'Cloud Day 2026: two speakers on stage in front of a large screen with the conference title and the talk title',
-      contact:
-        'A speaker at a Codemotion 2026 working table, wearing a conference lanyard and talking, a laptop covered in stickers beside him',
     },
   },
   notFound: {

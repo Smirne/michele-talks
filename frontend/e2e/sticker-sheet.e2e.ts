@@ -88,26 +88,31 @@ test.describe('invite at 375px (AC-2.3, AC-2.4)', () => {
 })
 
 test.describe('Contact (AC-3.1, AC-3.2)', () => {
-  test('at 1280px the email and every profile link share one row', async ({ page }) => {
+  test('at 1280px the email is one box and the profile links share one row in another', async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1280, height: 800 })
     await ready(page, '/contact')
-    const items = page.getByRole('list', { name: 'Reach me' }).getByRole('listitem')
-    const count = await items.count()
-    expect(count).toBeGreaterThan(1)
+    await expect(page.getByRole('region', { name: 'Email' }).getByRole('link')).toHaveAttribute(
+      'href',
+      /^mailto:/
+    )
+    const items = page.getByRole('list', { name: 'Elsewhere online' }).getByRole('listitem')
+    expect(await items.count()).toBeGreaterThan(1)
     const tops = await items.evaluateAll((els) => els.map((el) => el.getBoundingClientRect().top))
     for (const top of tops) expect(Math.abs(top - (tops[0] ?? 0))).toBeLessThanOrEqual(4)
   })
 
-  test('at 375px nothing scrolls sideways and the order is unchanged', async ({ page }) => {
+  test('at 375px nothing scrolls sideways', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 800 })
     await ready(page, '/contact')
     expect(await noHorizontalScroll(page)).toBe(true)
     const hrefs = await page
-      .getByRole('list', { name: 'Reach me' })
+      .getByRole('list', { name: 'Elsewhere online' })
       .getByRole('link')
       .evaluateAll((els) => els.map((el) => el.getAttribute('href') ?? ''))
-    expect(hrefs[0]).toMatch(/^mailto:/)
-    expect(hrefs.slice(1).every((h) => h.startsWith('http'))).toBe(true)
+    expect(hrefs.length).toBeGreaterThan(0)
+    expect(hrefs.every((h) => h.startsWith('http'))).toBe(true)
   })
 })
 

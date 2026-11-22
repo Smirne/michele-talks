@@ -1,7 +1,7 @@
 ---
 spec: 005
 generated: 2026-11-22
-synced: 2026-11-22
+synced: 2026-11-23  # re-synced after the owner's Contact amendment (US-3, AC-5.2)
 ---
 
 # Tasks: Sticker Sheet look, designer feedback and stage material

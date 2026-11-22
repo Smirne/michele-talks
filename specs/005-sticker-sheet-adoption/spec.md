@@ -54,13 +54,14 @@ invitation always in reach, so that I can invite without hunting for the button.
 - AC-2.4: Given a talk page at 1280px width, when the visitor scrolls, then its invitation
   block stays visible the same way; at 375px it does not stay fixed.
 
-### US-3: Contacts in one row
-As an event organiser, I want all the speaker's contacts together, so that I can pick a channel
-at a glance.
+### US-3: Contacts in two boxes
+As an event organiser, I want the email set apart from the speaker's profiles, so that I can
+pick a channel at a glance.
 **Acceptance criteria:**
-- AC-3.1: Given Contact at 1280px width, when it renders, then the email address and every
-  profile link appear in a single horizontal row.
-- AC-3.2: Given Contact at 375px width, when it renders, then the same items wrap onto as many
+- AC-3.1: Given Contact at 1280px width, when it renders, then the email address is in one box
+  headed "Email" and every profile link is in a second box headed "Elsewhere online", the
+  profile links in a single horizontal row.
+- AC-3.2: Given Contact at 375px width, when it renders, then the profile links wrap onto as many
   lines as needed, without horizontal scrolling, in the same order.
 
 ### US-4: Past appearances load as you scroll
@@ -86,7 +87,8 @@ single D left as an easter egg, so that the site is about me speaking and still 
 - AC-5.1: Given any page, when it renders, then the footer shows the white WellD logo, linking to
   the WellD website, with alternative text "WellD", instead of the D image.
 - AC-5.2: Given Talks, On stage and Contact, when each renders, then it shows one stage photo of
-  the speaker where it previously showed D, with alternative text describing it.
+  the speaker where it previously showed D, with alternative text describing it. (Contact shows
+  none until the owner picks a photo of himself — see Amendments.)
 - AC-5.3: Given Not found, when it renders, then D (the magnifying-glass pose) is its image.
 - AC-5.4: Given any page other than Not found, when it renders, then no D image appears.
 - AC-5.5: Given any photo shown, when its file is checked, then it is no larger than 300 KB.
@@ -156,3 +158,9 @@ None. Resolved by the owner on 2026-11-22:
 - Past appearances load in batches of 5 (AC-4.1, AC-4.2).
 - Crafted Software links to "From Kubernetes to Kilowatts" (a very early version of it);
   Coffeetech has no talk link: it was a longer, domain-side session, like AEIT 2026 without DANTE.
+
+## Amendments
+- 2026-11-23 (owner, on the built PR): Contact goes back to two boxes — email, then profiles
+  (US-3 rewritten). WeAreDevelopers and AI4Dev are removed from the profile links. The Contact
+  photo (Codemotion working table) is not the owner and is removed; a replacement waits for the
+  owner to name a photo of himself.
