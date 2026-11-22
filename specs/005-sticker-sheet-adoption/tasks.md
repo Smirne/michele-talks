@@ -91,7 +91,7 @@ merge or cherry-pick that branch — its stylesheet is an override layer the spe
 - [x] T8: Social cards in content — refs: US-7, AC-7.5 — deps: T7
   - touch: `frontend/src/content/schema.ts`, `frontend/src/content/validate.test.ts`, `frontend/src/content/__fixtures__/**`, `frontend/vite-plugins/content.ts`, `frontend/src/vite-env.d.ts`, `frontend/src/components/content/types.ts`, `frontend/content/appearances.yaml`, `frontend/content/media/cards/*`
   - done when: a fixture with a missing card file fails validation with the contract's error; every card listed in AC-7.5 is converted (WebP ≤ 150 KB, ≤ 800px) and attached to its appearance; `pnpm build` succeeds.
-- [ ] T9: Card thumbnails and full-size viewer — refs: US-7, AC-7.1, AC-7.2, AC-7.3, AC-7.4 — deps: T2, T8
+- [x] T9: Card thumbnails and full-size viewer — refs: US-7, AC-7.1, AC-7.2, AC-7.3, AC-7.4 — deps: T2, T8
   - touch: `frontend/src/components/content/AppearanceRow.tsx`, `frontend/src/components/content/AppearanceRow.module.css`, `frontend/src/components/content/CardViewer.*`, `frontend/src/components/content/index.ts`, `frontend/src/components/content/strings.en.ts`, `frontend/src/components/content/*.test.tsx`
   - done when: unit tests cover thumbnail with alt, no thumbnail without cards, dialog open/close by button and Escape with focus return, and previous/next with 2 cards; axe passes with the dialog open.
 - [ ] T10: WellD logo and stage photos instead of D — refs: US-5, AC-5.1, AC-5.2, AC-5.3, AC-5.4, AC-5.5 — deps: T4, T5, T6

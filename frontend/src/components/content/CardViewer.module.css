@@ -1,0 +1,73 @@
+.thumb {
+  display: block;
+  margin-top: var(--space-1);
+  padding: 0;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: var(--white);
+  box-shadow: 3px 3px 0 var(--ink);
+  line-height: 0;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.thumbImage {
+  display: block;
+  height: 64px;
+  width: auto;
+}
+
+.dialog {
+  max-width: 94vw;
+  max-height: 94vh;
+  padding: var(--space-2);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow-hard);
+  color: var(--ink);
+}
+
+.dialog::backdrop {
+  background: rgb(22 17 15 / 70%);
+}
+
+.full {
+  display: block;
+  max-width: 90vw;
+  max-height: calc(90vh - 80px);
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1) var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.position {
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.control {
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  background: var(--white);
+  box-shadow: 4px 4px 0 var(--ink);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.control:hover {
+  background: var(--mint);
+}
