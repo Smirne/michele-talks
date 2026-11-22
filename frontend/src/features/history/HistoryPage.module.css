@@ -20,3 +20,28 @@
   font-family: var(--font-mono);
   font-size: 18px;
 }
+
+.sentinel {
+  height: 1px;
+}
+
+.status {
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.status:empty {
+  display: none;
+}
+
+.rows > li:focus {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* The last line of the page: small, but in normal link colour (AC-6.2). */
+.easterEgg {
+  margin: var(--space-4) 0 0;
+  font-size: 14px;
+}

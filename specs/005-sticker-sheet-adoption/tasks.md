@@ -82,7 +82,7 @@ merge or cherry-pick that branch — its stylesheet is an override layer the spe
 - [x] T5: Contacts in one row — refs: US-3, AC-3.1, AC-3.2 — deps: T3
   - touch: `frontend/src/features/contact/ContactPage.tsx`, `frontend/src/features/contact/ContactPage.module.css`, `frontend/src/features/contact/ContactPage.test.tsx`
   - done when: an e2e test at 1280px asserts email and every profile link share one row (same top offset ±4px), and at 375px asserts no horizontal scroll and unchanged order.
-- [ ] T6: On stage progressive loading and easter egg — refs: US-4, US-6, AC-4.1, AC-4.2, AC-4.3, AC-4.4, AC-4.5, AC-6.1, AC-6.2 — deps: T3
+- [x] T6: On stage progressive loading and easter egg — refs: US-4, US-6, AC-4.1, AC-4.2, AC-4.3, AC-4.4, AC-4.5, AC-6.1, AC-6.2 — deps: T3
   - touch: `frontend/src/features/history/HistoryPage.tsx`, `frontend/src/features/history/HistoryPage.module.css`, `frontend/src/features/history/strings.en.ts`, `frontend/src/features/history/history.test.tsx`
   - done when: unit tests cover first 5, "Show more" loading the next 5 with the live-region text, focus on the first new row, no button and the easter-egg link (URL, new tab, rel) once all are shown; an e2e test scrolls to the end and sees all past rows plus the link; axe passes on the page.
 - [x] T7: Add the Coffeetech and Crafted Software meetups — refs: US-8, AC-8.1, AC-8.2 — deps: none
