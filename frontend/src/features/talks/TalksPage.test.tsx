@@ -11,6 +11,6 @@ afterEach(cleanup)
 describe('Talks page header', () => {
   it('shows one stage photo with its alt text, also when there are no talks', async () => {
     await renderWithRouter(<TalksView talks={[]} />)
-    expect(screen.getAllByRole('img', { name: /DevFest Milano 2026/ })).toHaveLength(1)
+    expect(screen.getAllByRole('img', { name: /Devoxx Belgium 2026 stage/ })).toHaveLength(1)
   })
 })

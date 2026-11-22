@@ -162,4 +162,6 @@ None. Resolved by the owner on 2026-11-22:
 - 2026-11-23 (owner, on the built PR): Contact goes back to two boxes — email, then profiles
   (US-3 rewritten). WeAreDevelopers and AI4Dev are removed from the profile links. The first Contact
   photo did not show the owner; it is replaced by the Codemotion working-table shot he picked
-  (0501-NF202411, cropped on him), and the Cloud Day photo is cropped on him (left speaker).
+  (0501-NF202411, cropped on him), and the Cloud Day photo is cropped on him (left speaker). Talks uses the
+  Devoxx Belgium 2026 group photo instead of DevFest; the same photo shows on the Devoxx row,
+  where an appearance without a social card may show a photo through `cards`.

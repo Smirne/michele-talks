@@ -23,7 +23,7 @@ export const commonStrings = {
   stage: {
     alt: {
       talks:
-        'Michele Giacobazzi on stage at DevFest Milano 2026, microphone in hand, beside a screen showing the talk agenda',
+        'Michele Giacobazzi with the other Robot Games finalists on the Devoxx Belgium 2026 stage',
       history:
         'Michele Giacobazzi on stage at Cloud Day 2026, in front of a screen showing his name and the talk title',
       contact:
