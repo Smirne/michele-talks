@@ -10,20 +10,21 @@ beforeAll(() => {
 afterEach(cleanup)
 
 describe('SiteLayout footer', () => {
-  it('shows a decorative D next to the WellD link', async () => {
+  it('shows the WellD logo inside the WellD link, and no D', async () => {
     await renderWithRouter(<SiteLayout>content</SiteLayout>)
     const footer = screen.getByRole('contentinfo')
-    const img = footer.querySelector('img')
-    expect(img?.getAttribute('alt')).toBe('')
-    expect(within(footer).getByRole('link', { name: 'WellD' })).toBeTruthy()
+    const link = within(footer).getByRole('link', { name: 'WellD' })
+    const logo = within(link).getByRole('img', { name: 'WellD' })
+    expect(logo.getAttribute('src')).toMatch(/welld-logo-white/)
+    expect(footer.querySelectorAll('img')).toHaveLength(1)
   })
 })
 
 describe('PageHeader', () => {
-  it('renders the mascot slot beside the h1', () => {
-    render(<PageHeader title="Talks" mascot={<img src="/d.png" alt="D, with a bubble" />} />)
+  it('renders the image slot beside the h1', () => {
+    render(<PageHeader title="Talks" image={<img src="/d.png" alt="On stage" />} />)
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Talks')
-    expect(screen.getByRole('img', { name: 'D, with a bubble' })).toBeTruthy()
+    expect(screen.getByRole('img', { name: 'On stage' })).toBeTruthy()
   })
 
   it('accepts a compact size', () => {
@@ -31,7 +32,7 @@ describe('PageHeader', () => {
     expect(screen.getByRole('heading', { level: 1 }).className).toMatch(/compact/)
   })
 
-  it('has no mascot by default', () => {
+  it('has no image by default', () => {
     render(<PageHeader title="Talks" />)
     expect(screen.queryByRole('img')).toBeNull()
   })

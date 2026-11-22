@@ -10,6 +10,11 @@
   width: 360px;
   max-width: 100%;
   height: auto;
+  border: 5px solid var(--white);
+  outline: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: var(--shadow-hard);
+  transform: rotate(2.5deg);
 }
 
 @media (max-width: 767px) {

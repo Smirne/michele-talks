@@ -42,6 +42,27 @@ describe('loadContent', () => {
     )
   })
 
+  it('fails naming the appearance when a card file does not exist (AC-7.5)', () => {
+    expect(() => loadContent(fixture('missing-card'))).toThrow(
+      /appearances\.yaml › shown-2026 › cards: no file at media\/cards\/nope\.webp \(relative to the content folder\)/
+    )
+  })
+
+  it('resolves cards of the real content to files under media/cards', () => {
+    const { appearances } = loadContent(path.resolve(import.meta.dirname, '../content'))
+    const withCards = appearances.filter((a) => a.cards !== undefined)
+    expect(withCards.map((a) => [a.id, a.cards?.length])).toEqual(
+      expect.arrayContaining([
+        ['devfest-milano-2026', 2],
+        ['cloud-day-2026', 2],
+        ['coffeetech', 1],
+        ['crafted-software', 1],
+        ['devoxx-belgium-2026', 1],
+      ])
+    )
+    expect(withCards).toHaveLength(11)
+  })
+
   it('fails when a content file is missing', () => {
     expect(() => loadContent(fixture('does-not-exist'))).toThrow(/profile\.yaml/)
   })
@@ -58,6 +79,33 @@ describe('the real content in frontend/content', () => {
     expect(content.talks.length).toBeGreaterThan(0)
     expect(content.appearances.length).toBeGreaterThan(0)
     expect(content.talks.every((t) => !t.hidden)).toBe(true)
+  })
+
+  it('lists the Coffeetech and Crafted Software meetups (AC-8.1, AC-8.2)', () => {
+    const { appearances } = loadContent(path.resolve(import.meta.dirname, '../content'))
+    const coffeetech = appearances.find((a) => a.id === 'coffeetech')
+    expect(coffeetech).toMatchObject({
+      event: 'Coffeetech',
+      date: '2025-11-14',
+      city: 'Genova',
+      country: 'Italy',
+      language: 'it',
+      sessionTitle:
+        'Filiere energetiche rinnovabili: il progetto SPARklE per le Comunità di Energia Aggregate',
+      coHosts: ['Roberto Catanzariti'],
+      note: 'A domain talk on renewable energy communities and flexibility, with little technical content.',
+    })
+    expect(coffeetech?.talk).toBeUndefined()
+    expect(appearances.find((a) => a.id === 'crafted-software')).toMatchObject({
+      event: 'Crafted Software meetup — TCP Night: Lightning talks',
+      date: '2025-11-27',
+      city: 'Milan',
+      country: 'Italy',
+      language: 'it',
+      talk: 'from-kubernetes-to-kilowatts',
+      sessionTitle: "SPARklE – Gestione intelligente dell'energia",
+      note: 'A very early, lightning-talk version of this talk.',
+    })
   })
 
   it('exposes the photo download with its pixel size read from the JPEG', () => {

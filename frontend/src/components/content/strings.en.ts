@@ -29,6 +29,14 @@ export const contentStrings = {
     presentedAs: 'Presented as',
     eventPage: 'Event page',
   },
+  card: {
+    alt: 'Social card for {event}',
+    dialog: 'Pictures from {event}',
+    close: 'Close',
+    previous: 'Previous picture',
+    next: 'Next picture',
+    position: '{n} of {total}',
+  },
   resource: {
     slides: 'Slides',
     video: 'Video',

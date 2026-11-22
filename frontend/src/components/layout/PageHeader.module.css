@@ -9,35 +9,26 @@
 .title {
   margin: 0;
   min-width: 0;
-  font-size: clamp(48px, 12vw, 112px);
-  letter-spacing: -0.01em;
+  font-size: clamp(40px, 6vw, 76px);
 }
 
-.header:not(:has(.mascot)) {
+.header:not(:has(.image)) {
   display: block;
 }
 
 /* The talk page: sentence case, sized to fit a long title (token from tokens.css). */
 .compact {
   font-size: var(--title-size-page, clamp(28px, 3.6vw, 48px));
-  font-weight: 800;
   line-height: 1.1;
-  letter-spacing: 0;
-  text-transform: none;
 }
 
-.mascot {
+.image {
   flex: none;
-}
-
-.mascot img {
-  display: block;
   width: 128px;
-  height: auto;
 }
 
 @media (min-width: 640px) {
-  .mascot img {
+  .image {
     width: 240px;
   }
 }

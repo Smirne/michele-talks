@@ -18,11 +18,20 @@ export const commonStrings = {
   mascot: {
     alt: {
       notFound: 'D, the WellD mascot, searching with a magnifying glass',
-      talks: 'D, the WellD mascot, with a code speech bubble',
-      history: 'D, the WellD mascot, holding a pie chart',
-      contact: 'D, the WellD mascot, holding an open laptop',
-      homeContact: 'D, the WellD mascot, speaking from a lectern',
-      organisers: 'D, the WellD mascot, with a documents icon',
+    },
+  },
+  credit: {
+    photo: 'Photo:',
+    separator: ' · ',
+  },
+  stage: {
+    alt: {
+      talks:
+        'Michele Giacobazzi with the other Robot Games finalists on the Devoxx Belgium 2026 stage',
+      history:
+        'Michele Giacobazzi on stage at Cloud Day 2026, in front of a screen showing his name and the talk title',
+      contact:
+        'Michele Giacobazzi facilitating a working table at the Codemotion Tech Lead Summit 2026',
     },
   },
   notFound: {

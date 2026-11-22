@@ -1,0 +1,33 @@
+{
+  "schema": "wellforge-run/v3",
+  "run_id": "2026-11-22T22-18-36Z-implement-005-sticker-sheet-adoption",
+  "command": "implement",
+  "feature": "005-sticker-sheet-adoption",
+  "rigor": "mvp",
+  "rigor_recorded": null,
+  "terse": false,
+  "control_run_id": null,
+  "plugin_version": "2.61.0",
+  "started": "2026-11-22T22:18:36Z",
+  "agents": [
+    {"agent": "wellforge:frontend-dev", "tasks": ["T1", "T2", "T3"], "outcome": "completed"},
+    {"agent": "wellforge:frontend-dev", "tasks": ["T7", "T8", "T9"], "outcome": "completed"},
+    {"agent": "wellforge:frontend-dev", "tasks": ["T4", "T5", "T6"], "outcome": "completed"},
+    {"agent": "wellforge:frontend-dev", "tasks": ["T10", "T11"], "outcome": "completed"},
+    {"agent": "wellforge:owasp-reviewer", "scope": ["frontend/src/styles/tokens.css"], "outcome": "PASS"},
+    {"agent": "wellforge:quality-engineer", "tasks": ["T1-T11"], "outcome": "PASS"}
+  ],
+  "worktree": {"mode": "main-tree-sequential", "reason": "chosen: tasks grouped into four sequential dispatches"},
+  "collision_events": [],
+  "env_faults": [],
+  "drift_events": [
+    {"what": "AC-7.5 lists 2 cards for Green Software Italia; content has 3 (owner-supplied CNCF card)", "resolved": false, "route": "product-owner: amend AC-7.5"},
+    {"what": "earlier e2e assertions (Home CTA in fold, 2015 row visible) edited as superseded by AC-2.1/AC-4.2", "resolved": true, "route": "recorded in decisions.md"}
+  ],
+  "verdicts": {"qe": "PASS", "security": "PASS"},
+  "security": {"dispatched": true, "matched_rules": ["path_contains:token"], "notes": []},
+  "fix_rounds": {"used": 0, "extensions": []},
+  "result": "completed",
+  "tokens": null,
+  "cost": null
+}

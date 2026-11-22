@@ -9,6 +9,8 @@
   country: Italy
   online: false
   language: it
+  cards:
+    - { src: media/cards/jug-milano-2026-1.webp }
   talk: from-kubernetes-to-kilowatts
   sessionTitle: 'Scaling smart energy: building a cloud-native platform for renewable communities'
   resources:
@@ -55,6 +57,18 @@
   country: Belgium
   online: false
   language: en
+  cards:
+    - {
+        src: media/cards/devoxx-belgium-2026-1.webp,
+        alt: 'Michele Giacobazzi with the other Robot Games finalists on the Devoxx Belgium 2026 stage',
+        credit:
+          {
+            by: Devoxx Belgium (BeJUG),
+            url: 'https://www.flickr.com/photos/bejug/55580685219/',
+            licence: CC BY-NC-ND 4.0,
+            licenceUrl: 'https://creativecommons.org/licenses/by-nc-nd/4.0/',
+          },
+      }
   talk: agents-built-the-graphics
   sessionTitle: Devoxx After Dark
   note: 4-minute live demo of Devoxx After Dark, winner of the Robot Games.
@@ -69,6 +83,9 @@
   country: Italy
   online: false
   language: en
+  cards:
+    - { src: media/cards/devfest-milano-2026-1.webp }
+    - { src: media/cards/devfest-milano-2026-2.webp }
   talk: before-delegating-to-agents
   eventUrl: 'https://2026.devfestmilano.it/it/agenda/'
   resources:
@@ -85,6 +102,9 @@
   country: Italy
   online: false
   language: it
+  cards:
+    - { src: media/cards/containerday-2026-1.webp }
+    - { src: media/cards/containerday-2026-2.webp }
   talk: from-kubernetes-to-kilowatts
   sessionTitle: 'Da Kubernetes al Kilowatt: GitOps e PostgreSQL RLS per le Comunità Energetiche Rinnovabili'
   eventUrl: 'https://www.containerday.it/talk/da-kubernetes-al-kilowatt-gitops-e-postgresql-rls-per-le-comunita-energetiche-rinnovabili/'
@@ -98,6 +118,10 @@
   country: Italy
   online: false
   language: it
+  cards:
+    - { src: media/cards/green-software-italia-sustainability-month-2026-1.webp }
+    - { src: media/cards/green-software-italia-sustainability-month-2026-2.webp }
+    - { src: media/cards/green-software-italia-sustainability-month-2026-3.webp }
   talk: from-kubernetes-to-kilowatts
   sessionTitle: "SPARklE – Gestione intelligente dell'energia"
 
@@ -108,6 +132,8 @@
   country: Italy
   online: false
   language: it
+  cards:
+    - { src: media/cards/codemotion-tech-lead-summit-2026-1.webp }
   note: Facilitator of a working table.
   eventUrl: 'https://conferences.codemotion.com/milan/tech-lead-summit/'
 
@@ -118,6 +144,9 @@
   country: Italy
   online: false
   language: it
+  cards:
+    - { src: media/cards/cloud-day-2026-1.webp }
+    - { src: media/cards/cloud-day-2026-2.webp }
   talk: from-kubernetes-to-kilowatts
   note: Recorded; the video will be published on Improove Play.
   eventUrl: 'https://sessionize.com/cloud-day-2026/'
@@ -131,6 +160,8 @@
   country: Italy
   online: false
   language: it
+  cards:
+    - { src: media/cards/better-software-2026-1.webp }
   talk: clean-code-for-clean-energy
 
 - id: voxxed-days-ticino-2015
@@ -156,7 +187,35 @@
   country: Switzerland
   online: false
   language: it
+  cards:
+    - { src: media/cards/voxxed-days-ticino-2025-workshop-day-1.webp }
   talk: lego4scrum
   coHosts: [Matteo Codogno]
   note: Full-day workshop.
   eventUrl: 'https://sessionize.com/s/matteocodogno/lego4scrum/141346'
+
+- id: coffeetech
+  event: Coffeetech
+  date: 2025-11-14
+  city: Genova
+  country: Italy
+  online: false
+  language: it
+  cards:
+    - { src: media/cards/coffeetech-1.webp }
+  sessionTitle: 'Filiere energetiche rinnovabili: il progetto SPARklE per le Comunità di Energia Aggregate'
+  coHosts: [Roberto Catanzariti]
+  note: A domain talk on renewable energy communities and flexibility, with little technical content.
+
+- id: crafted-software
+  event: 'Crafted Software meetup — TCP Night: Lightning talks'
+  date: 2025-11-27
+  city: Milan
+  country: Italy
+  online: false
+  language: it
+  cards:
+    - { src: media/cards/crafted-software-1.webp }
+  talk: from-kubernetes-to-kilowatts
+  sessionTitle: 'SPARklE – Gestione intelligente dell''energia'
+  note: A very early, lightning-talk version of this talk.

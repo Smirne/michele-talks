@@ -1,7 +1,7 @@
-/* Programme Board rule above the first row, like the Home board. */
+/* The list is a stack of sticker cards (TalkCard). */
 .list {
-  margin-top: calc(var(--space-2) * -1);
-  border-top: 4px solid var(--ink);
+  margin: 0;
+  padding: 0;
 }
 
 .empty {

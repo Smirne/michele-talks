@@ -40,29 +40,35 @@ describe('Contact', () => {
     expect(link.textContent).toBe('ada@example.com')
   })
 
-  it('shows one text link per profile, labelled with the platform name', async () => {
+  it('shows the email in its own box, separate from the profile links', async () => {
     await renderWithRouter(<ContactView profile={profile} />)
+    const emailBox = screen.getByRole('region', { name: 'Email' })
+    expect(
+      within(emailBox)
+        .getAllByRole('link')
+        .map((l) => l.textContent)
+    ).toEqual(['ada@example.com'])
     const list = screen.getByRole('list', { name: 'Elsewhere online' })
-    const links = within(list).getAllByRole('link')
-    expect(links.map((l) => [l.textContent, l.getAttribute('href')])).toEqual([
+    expect(
+      within(list)
+        .getAllByRole('link')
+        .map((l) => [l.textContent, l.getAttribute('href')])
+    ).toEqual([
       ['LinkedIn', 'https://www.linkedin.com/in/ada/'],
       ['GitHub', 'https://github.com/ada'],
     ])
   })
 
-  it('shows only the email when there are no profile links', async () => {
+  it('shows an empty profiles list when there are no profile links', async () => {
     await renderWithRouter(<ContactView profile={{ ...profile, profiles: [] }} />)
-    expect(screen.getByRole('link', { name: 'ada@example.com' })).toBeTruthy()
-    expect(screen.queryByRole('list', { name: 'Elsewhere online' })).toBeNull()
-    expect(screen.queryByText('Elsewhere online')).toBeNull()
+    const list = screen.getByRole('list', { name: 'Elsewhere online' })
+    expect(within(list).queryAllByRole('link')).toHaveLength(0)
   })
 })
 
 describe('Contact header', () => {
-  it('shows one D with its alt text', async () => {
+  it('shows one stage photo with its alt text', async () => {
     await renderWithRouter(<ContactView profile={profile} />)
-    expect(
-      screen.getAllByRole('img', { name: 'D, the WellD mascot, holding an open laptop' })
-    ).toHaveLength(1)
+    expect(screen.getAllByRole('img', { name: /Codemotion Tech Lead Summit 2026/ })).toHaveLength(1)
   })
 })

@@ -75,6 +75,14 @@ test.describe('talk content update (002)', () => {
     page,
   }) => {
     await ready(page, '/on-stage')
+    // The oldest rows load on demand (005 AC-4.2); the button loads every batch.
+    const more = page.getByRole('button', { name: 'Show more past appearances' })
+    // Scrolling the button into view can itself load the last batch and remove it, so retry
+    // until it is gone rather than awaiting a click on an element that may detach.
+    await expect(async () => {
+      if (await more.isVisible()) await more.click({ timeout: 1_000 })
+      await expect(more).toBeHidden({ timeout: 500 })
+    }).toPass({ timeout: 15_000 })
     await expect(page.getByText('Voxxed Days Ticino 2015', { exact: true })).toBeVisible()
     await expect(page.getByText('Voxxed Days Ticino 2025 workshop day')).toBeVisible()
     await page.getByRole('link', { name: 'Repetition is Bad, Repetition is Bad' }).click()
@@ -113,17 +121,18 @@ test.describe('reflow at 375x812', () => {
 
 test.describe('above the fold at 1280x800', () => {
   test.use({ viewport: { width: 1280, height: 800 } })
-  test('Home: Talks CTA and Contact path end within the fold', async ({ page }) => {
+  // 005 AC-2.1: the Talks link now follows the upcoming list in the left column, so only the
+  // contact path (the sticky invite) is held to the fold.
+  test('Home: Contact path ends within the fold', async ({ page }) => {
     await ready(page, '/')
-    const main = page.getByRole('main')
-    const cta = main.getByRole('link', { name: /talks/i }).first()
-    const contact = main.getByRole('link', { name: /contact/i }).first()
-    for (const el of [cta, contact]) {
-      await expect(el).toBeVisible()
-      const box = await el.boundingBox()
-      expect(box).not.toBeNull()
-      expect((box?.y ?? 0) + (box?.height ?? 0)).toBeLessThanOrEqual(800)
-    }
+    const contact = page
+      .getByRole('main')
+      .getByRole('link', { name: /contact/i })
+      .first()
+    await expect(contact).toBeVisible()
+    const box = await contact.boundingBox()
+    expect(box).not.toBeNull()
+    expect((box?.y ?? 0) + (box?.height ?? 0)).toBeLessThanOrEqual(800)
   })
 })
 

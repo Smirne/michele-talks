@@ -9,7 +9,8 @@
 
 .tag {
   padding: 2px var(--space-1);
-  border: 1px solid var(--tag-border);
+  border: 2px solid var(--tag-border);
+  border-radius: 999px;
   background: var(--tag-bg);
   color: var(--tag-ink);
   font-family: var(--font-mono);

@@ -109,11 +109,11 @@ describe('app shell', () => {
     expect(within(footer).getByText('Michele Giacobazzi')).toBeDefined()
     expect(footer.textContent).toContain('CTO and co-founder @')
     const profiles = within(footer).getByRole('list', { name: 'Profiles' })
-    expect(within(profiles).getAllByRole('link').map((l) => l.textContent)).toEqual([
-      'LinkedIn',
-      'GitHub',
-      'Sessionize',
-    ])
+    expect(
+      within(profiles)
+        .getAllByRole('link')
+        .map((l) => l.textContent)
+    ).toEqual(['LinkedIn', 'GitHub', 'Sessionize'])
   })
 
   it('does not steal focus on the first load', async () => {

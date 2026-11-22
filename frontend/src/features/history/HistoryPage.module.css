@@ -1,9 +1,4 @@
-/* Same row grid as the Programme Board (AppearanceRow); groups are headed like Home's "Next". */
-.board {
-  margin-top: calc(var(--space-2) * -1);
-  border-top: 4px solid var(--ink);
-}
-
+/* Rows are stickers (AppearanceRow); groups are headed like Home's "Next". */
 .group {
   padding-top: var(--space-2);
 }
@@ -13,17 +8,40 @@
   font-family: var(--font-mono);
   font-size: 22px;
   font-weight: 700;
-  text-transform: none;
 }
 
 .rows {
   margin: 0;
   padding: 0;
   list-style: none;
-  border-top: 2px solid var(--ink);
 }
 
 .none {
   font-family: var(--font-mono);
   font-size: 18px;
+}
+
+.sentinel {
+  height: 1px;
+}
+
+.status {
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.status:empty {
+  display: none;
+}
+
+.rows > li:focus {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* The last line of the page: small, but in normal link colour (AC-6.2). */
+.easterEgg {
+  margin: var(--space-4) 0 0;
+  font-size: 14px;
 }

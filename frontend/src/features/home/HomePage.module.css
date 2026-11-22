@@ -1,32 +1,39 @@
-/* Programme Board rows (sketches/03-programme-board.html). */
+/* Home: a sticker collage. Left column: intro, upcoming, browse link, graph; right column:
+   the sticky invite. Below 861px one column: intro, upcoming, invite, browse link, graph. */
 .board {
-  --home-figure-width: 160px;
-  margin-top: calc(var(--space-2) * -1);
-  border-top: 4px solid var(--ink);
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  grid-template-areas:
+    'intro invite'
+    'next invite'
+    'talks invite'
+    'graph invite';
+  grid-template-rows: auto auto auto 1fr;
+  align-items: start;
+  gap: var(--space-3);
 }
 
 .slot {
   display: grid;
-  /* The third column holds the photo (intro) and D (contact) at one shared width. */
-  grid-template-columns: 130px 1fr var(--home-figure-width);
-  gap: 0 var(--space-3);
-  align-items: center;
-  padding: var(--space-2) 0;
-  border-bottom: 2px solid var(--ink);
+  grid-template-columns: 1fr;
+  gap: var(--space-1);
+  align-content: start;
+  min-width: 0;
+  padding: var(--space-3);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow-hard);
 }
 
+/* The timetable labels ("Speaker", "Talks", "Invite") duplicate the headings. */
 .label {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1;
-  text-transform: none;
+  display: none;
 }
 
 .heading {
   margin: 0 0 var(--space-1);
-  font-size: clamp(26px, 3vw, 38px);
+  font-size: clamp(22px, 2.4vw, 32px);
 }
 
 .text {
@@ -47,58 +54,78 @@
   gap: var(--space-1) var(--space-2);
 }
 
-/* The talks row bleeds past the page margins (the signature), set off from the rows around
-   it by a gap and a full-width ink rule above and below. */
-.featured {
-  margin: 12px calc(var(--space-3) * -1);
-  padding: 12px var(--space-3);
-  background: var(--signal);
-  color: var(--white);
-  border-top: 4px solid var(--ink);
-  border-bottom: 4px solid var(--ink);
-}
-
-/* The row before the band closes with the band's own rule, not a second one. */
 .intro {
-  border-bottom: 0;
-}
-
-.featured .label {
-  text-transform: uppercase;
-}
-
-.featured .heading,
-.featured .text {
-  color: var(--white);
-}
-
-.featured a {
-  border-color: var(--white);
-  background: var(--white);
-  color: var(--ink);
-}
-
-.featured a:hover {
-  background: var(--mint);
+  grid-area: intro;
+  grid-template-columns: 1fr 180px;
+  align-items: start;
 }
 
 .photo {
   justify-self: end;
   width: 100%;
-  max-width: var(--home-figure-width);
+  max-width: 180px;
 }
 
-.contactMascot {
-  justify-self: end;
-  width: 100%;
-  max-width: var(--home-figure-width);
-  height: auto;
-  aspect-ratio: 360 / 200;
-  border: 2px solid var(--ink);
+/* Browse the talks: the pink sticker, tilted (the page's main call to action). */
+.featured {
+  grid-area: talks;
+  background: var(--pink);
+  color: var(--ink);
+  transform: rotate(1.5deg);
+}
+
+.featured a {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--mint);
+  box-shadow: 4px 4px 0 var(--white);
+}
+
+.featured a:hover {
+  background: var(--white);
+  color: var(--ink);
+}
+
+/* Invite me: the ink sticker, D at its corner. */
+.invite {
+  grid-area: invite;
+  background: var(--ink);
+  color: var(--mint);
+  box-shadow: 5px 5px 0 var(--white);
+}
+
+/* The invite stays in view beside the left column while the page scrolls (desktop only). */
+@media (min-width: 861px) {
+  .invite {
+    position: sticky;
+    top: var(--space-3);
+  }
+}
+
+.graph {
+  grid-area: graph;
+  min-width: 0;
+}
+
+.invite .heading {
+  color: var(--mint);
+}
+
+.invite .text {
+  color: var(--white);
+}
+
+.invite :focus-visible {
+  outline-color: var(--white);
 }
 
 .next {
-  padding: var(--space-2) 0 0;
+  grid-area: next;
+  padding: var(--space-3);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow-hard);
 }
 
 .nextHeading {
@@ -106,24 +133,37 @@
   font-family: var(--font-mono);
   font-size: 22px;
   font-weight: 700;
-  text-transform: none;
 }
 
+/* Rows inside a sticker go flat: a rule between them, no sticker in a sticker. */
 .rows {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.rows > li {
+  margin: 0;
+  padding: var(--space-2) 0;
+  border: 0;
   border-top: 2px solid var(--ink);
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .more {
-  padding: var(--space-2) 0;
+  padding: var(--space-2) 0 0;
 }
 
-@media (max-width: 820px) {
-  .slot {
+@media (max-width: 860px) {
+  .board {
     grid-template-columns: 1fr;
-    gap: 6px;
+    grid-template-areas: 'intro' 'next' 'invite' 'talks' 'graph';
+    grid-template-rows: none;
+  }
+
+  .intro {
+    grid-template-columns: 1fr;
   }
 
   .photo {
@@ -132,16 +172,7 @@
     max-width: 240px;
   }
 
-  .contactMascot {
-    justify-self: start;
-    max-width: 240px;
-    margin-top: var(--space-1);
-  }
-}
-
-@media (max-width: 480px) {
   .featured {
-    margin: var(--space-2) calc(var(--space-2) * -1);
-    padding: var(--space-2);
+    transform: rotate(0.8deg);
   }
 }

@@ -1,7 +1,7 @@
 import content from 'virtual:content'
 import { Link } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
-import { Mascot } from '@/components/mascot'
+import welldLogo from '@/assets/welld/welld-logo-white.svg'
 import { t } from '@/i18n/t'
 import { MainNav } from './MainNav'
 import styles from './SiteLayout.module.css'
@@ -35,11 +35,13 @@ export const SiteLayout = ({ children }: { children: ReactNode }) => {
       </main>
       <footer className={styles.footer}>
         <div className={styles.footerLine}>
-          <Mascot pose="software-development" alt="" className={styles.footerMascot} />
           <p className={styles.footerText}>
             <strong>{content.profile.name}</strong>
             <span>
-              {t('common.footer.role')} <a href={WELLD_URL}>{t('common.footer.welld')}</a>
+              {t('common.footer.role')}{' '}
+              <a href={WELLD_URL}>
+                <img src={welldLogo} alt={t('common.footer.welld')} className={styles.welldLogo} />
+              </a>
             </span>
           </p>
           <ul className={styles.footerProfiles} aria-label={t('common.footer.profiles')}>

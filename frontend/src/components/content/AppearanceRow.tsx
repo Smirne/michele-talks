@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { t } from '@/i18n/t'
+import { CardViewer } from './CardViewer'
 import { formatCoHosts, formatDate } from './format'
 import { LanguageBadge } from './LanguageBadge'
 import { ResourceLink } from './ResourceLink'
@@ -73,6 +74,16 @@ export const AppearanceRow = ({ appearance: a, talkTitle }: Props) => {
       </div>
       <div className={styles.where} lang="en">
         <LanguageBadge language={a.language} /> <span>{placeOf(a)}</span>
+        {a.cards !== undefined && a.cards.length > 0 && (
+          <CardViewer
+            cards={a.cards.map((c) => ({
+              url: c.url,
+              alt: c.alt ?? t('content.card.alt', { event: a.event }),
+              credit: c.credit,
+            }))}
+            label={t('content.card.dialog', { event: a.event })}
+          />
+        )}
       </div>
     </li>
   )

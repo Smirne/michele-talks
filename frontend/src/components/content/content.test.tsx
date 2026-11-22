@@ -1,4 +1,5 @@
-import { cleanup, render, screen, within } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import { axe } from 'vitest-axe'
 import { readFileSync } from 'node:fs'
 import { afterEach, beforeAll, describe, expect, it } from 'vitest'
 import type { Appearance, Talk } from '@/content/schema'
@@ -274,10 +275,91 @@ describe('TalkCard topics and title (003)', () => {
   it('styles the title in sentence case and underlines it only on hover or focus', () => {
     const css = readFileSync('src/components/content/TalkCard.module.css', 'utf8')
     const title = /\.title\s*\{([^}]*)\}/.exec(css)?.[1] ?? ''
-    expect(title).toMatch(/text-transform:\s*none/)
-    expect(title).toContain('var(--title-size-card)')
+    expect(title).not.toMatch(/text-transform:\s*uppercase/)
+    expect(title).toMatch(/font-size:\s*clamp\(20px, 1\.9vw, 26px\)/)
     const link = /\.link\s*\{([^}]*)\}/.exec(css)?.[1] ?? ''
     expect(link).toMatch(/text-decoration:\s*none/)
     expect(css).toMatch(/\.link:hover,\s*\.link:focus-visible\s*\{[^}]*text-decoration:\s*underline/)
+  })
+})
+
+describe('CardViewer on AppearanceRow', () => {
+  beforeAll(() => {
+    // jsdom has no <dialog> modal support: model open/close and the close event.
+    HTMLDialogElement.prototype.showModal = function showModal() {
+      this.setAttribute('open', '')
+    }
+    HTMLDialogElement.prototype.close = function close() {
+      this.removeAttribute('open')
+      this.dispatchEvent(new Event('close'))
+    }
+  })
+
+  const one = { ...appearance, cards: [{ url: '/a.webp' }] }
+  const two = { ...appearance, cards: [{ url: '/a.webp', alt: 'First card' }, { url: '/b.webp' }] }
+
+  it('shows the first card as a thumbnail button named by the default alt (AC-7.1)', async () => {
+    await renderWithRouter(inList(<AppearanceRow appearance={one} />))
+    const button = screen.getByRole('button', { name: 'Social card for JUG Milano' })
+    expect(button.querySelector('img')?.getAttribute('src')).toBe('/a.webp')
+  })
+
+  it('uses the card alt when the content gives one', async () => {
+    await renderWithRouter(inList(<AppearanceRow appearance={two} />))
+    expect(screen.getByRole('button', { name: 'First card' })).toBeTruthy()
+  })
+
+  it('shows no thumbnail, button or dialog without cards (AC-7.4)', async () => {
+    await renderWithRouter(inList(<AppearanceRow appearance={appearance} />))
+    expect(screen.queryByRole('button')).toBeNull()
+    expect(document.querySelector('dialog')).toBeNull()
+    expect(document.querySelector('img')).toBeNull()
+  })
+
+  it('opens the dialog from the thumbnail and closes it with the button, returning focus (AC-7.2)', async () => {
+    await renderWithRouter(inList(<AppearanceRow appearance={one} />))
+    const thumb = screen.getByRole('button', { name: 'Social card for JUG Milano' })
+    fireEvent.click(thumb)
+    const dialog = document.querySelector('dialog') as HTMLDialogElement
+    expect(dialog.hasAttribute('open')).toBe(true)
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Close' }))
+    expect(dialog.hasAttribute('open')).toBe(false)
+    expect(document.activeElement).toBe(thumb)
+  })
+
+  it('closes on Escape and returns focus to the thumbnail (AC-7.2)', async () => {
+    await renderWithRouter(inList(<AppearanceRow appearance={one} />))
+    const thumb = screen.getByRole('button', { name: 'Social card for JUG Milano' })
+    fireEvent.click(thumb)
+    const dialog = document.querySelector('dialog') as HTMLDialogElement
+    fireEvent.keyDown(dialog, { key: 'Escape' })
+    expect(dialog.hasAttribute('open')).toBe(false)
+    expect(document.activeElement).toBe(thumb)
+  })
+
+  it('has no previous/next with one card and steps through two, wrapping (AC-7.3)', async () => {
+    await renderWithRouter(inList(<AppearanceRow appearance={one} />))
+    fireEvent.click(screen.getByRole('button', { name: 'Social card for JUG Milano' }))
+    expect(screen.queryByRole('button', { name: 'Next picture' })).toBeNull()
+    cleanup()
+
+    await renderWithRouter(inList(<AppearanceRow appearance={two} />))
+    fireEvent.click(screen.getByRole('button', { name: 'First card' }))
+    const dialog = document.querySelector('dialog') as HTMLDialogElement
+    const shown = () => dialog.querySelector('img')?.getAttribute('src')
+    expect(shown()).toBe('/a.webp')
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Next picture' }))
+    expect(shown()).toBe('/b.webp')
+    expect(within(dialog).getByText('2 of 2')).toBeTruthy()
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Next picture' }))
+    expect(shown()).toBe('/a.webp')
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Previous picture' }))
+    expect(shown()).toBe('/b.webp')
+  })
+
+  it('passes axe with the dialog open', async () => {
+    const { container } = await renderWithRouter(inList(<AppearanceRow appearance={two} />))
+    fireEvent.click(screen.getByRole('button', { name: 'First card' }))
+    expect((await axe(container)).violations).toEqual([])
   })
 })

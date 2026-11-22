@@ -2,7 +2,6 @@ import defaultContent from 'virtual:content'
 import { AppearanceRow, ButtonLink, LanguageBadge } from '@/components/content'
 import { GraphPlaceholder } from '@/components/graph-placeholder'
 import { PageHeader } from '@/components/layout'
-import { Mascot } from '@/components/mascot'
 import { ProfilePhoto } from '@/components/profile-photo'
 import type { Content } from '@/content/schema'
 import { t } from '@/i18n/t'
@@ -18,8 +17,8 @@ type Props = {
 }
 
 /**
- * Home as a programme board: intro, the NOW row (Talks call to action), the contact row,
- * then the "Next" teaser and the reserved graph area. The photo sits in the intro row, D in the contact row.
+ * Home as a sticker collage. DOM order is the mobile order: intro, upcoming, invite, browse the
+ * talks, graph. At 861px and up the invite takes the right column and stays in view (sticky).
  */
 export const HomeView = ({ now = new Date(), content = defaultContent }: Props) => {
   const { profile, talks, appearances } = content
@@ -53,36 +52,6 @@ export const HomeView = ({ now = new Date(), content = defaultContent }: Props) 
           </div>
         </section>
 
-        <section className={[styles.slot, styles.featured].join(' ')}>
-          <p className={styles.label}>{t('home.talks.label')}</p>
-          <div>
-            <h2 className={styles.heading}>{t('home.talks.title')}</h2>
-            <p className={styles.text}>
-              {t('home.talks.body', { count: talks.filter((talk) => talk.offered).length })}
-            </p>
-            <ButtonLink to="/talks">{t('home.talks.cta')}</ButtonLink>
-          </div>
-        </section>
-
-        <section className={styles.slot}>
-          <p className={styles.label}>{t('home.contact.label')}</p>
-          <div>
-            <h2 className={styles.heading}>{t('home.contact.title')}</h2>
-            <p className={styles.text}>{t('home.contact.body')}</p>
-            <div className={styles.actions}>
-              <ButtonLink to="/contact">{t('home.contact.cta')}</ButtonLink>
-              <ButtonLink variant="secondary" href={`mailto:${profile.email}`}>
-                {profile.email}
-              </ButtonLink>
-            </div>
-          </div>
-          <Mascot
-            pose="problem-identification"
-            alt={t('common.mascot.alt.homeContact')}
-            className={styles.contactMascot}
-          />
-        </section>
-
         {teaser.length > 0 && (
           <section className={styles.next} aria-labelledby="home-next">
             <h2 id="home-next" className={styles.nextHeading}>
@@ -106,8 +75,35 @@ export const HomeView = ({ now = new Date(), content = defaultContent }: Props) 
             </div>
           </section>
         )}
+
+        <section className={[styles.slot, styles.invite].join(' ')}>
+          <p className={styles.label}>{t('home.contact.label')}</p>
+          <div>
+            <h2 className={styles.heading}>{t('home.contact.title')}</h2>
+            <p className={styles.text}>{t('home.contact.body')}</p>
+            <div className={styles.actions}>
+              <ButtonLink to="/contact">{t('home.contact.cta')}</ButtonLink>
+              <ButtonLink variant="secondary" href={`mailto:${profile.email}`}>
+                {profile.email}
+              </ButtonLink>
+            </div>
+          </div>
+        </section>
+
+        <section className={[styles.slot, styles.featured].join(' ')}>
+          <p className={styles.label}>{t('home.talks.label')}</p>
+          <div>
+            <h2 className={styles.heading}>{t('home.talks.title')}</h2>
+            <p className={styles.text}>
+              {t('home.talks.body', { count: talks.filter((talk) => talk.offered).length })}
+            </p>
+            <ButtonLink to="/talks">{t('home.talks.cta')}</ButtonLink>
+          </div>
+        </section>
+        <div className={styles.graph}>
+          <GraphPlaceholder />
+        </div>
       </div>
-      <GraphPlaceholder />
     </>
   )
 }

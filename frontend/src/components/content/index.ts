@@ -1,6 +1,7 @@
 export { AppearanceRow } from './AppearanceRow'
 export { ButtonLink } from './ButtonLink'
 export { buttonClassName } from './button-class'
+export { CardViewer } from './CardViewer'
 export { formatCoHosts, formatDate, formatDuration, formatLevel } from './format'
 export { LanguageBadge } from './LanguageBadge'
 export { ResourceLink } from './ResourceLink'

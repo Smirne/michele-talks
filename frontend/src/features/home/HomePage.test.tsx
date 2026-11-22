@@ -80,7 +80,7 @@ describe('Home', () => {
     expect(screen.getByText('Ada writes about engines.')).toBeTruthy()
   })
 
-  it('shows the profile photo in the intro row and no D card there', async () => {
+  it('shows the profile photo in the intro row and no mascot there', async () => {
     await renderHome()
     const intro = screen.getByText('Speaker').closest('section') as HTMLElement
     const photo = within(intro).getByRole('img', { name: 'Portrait of Ada' })
@@ -89,12 +89,10 @@ describe('Home', () => {
     expect(within(intro).queryByRole('img', { name: /mascot/ })).toBeNull()
   })
 
-  it('shows D speaking from a lectern in the contact row', async () => {
+  it('shows no D in the contact row', async () => {
     await renderHome()
     const row = screen.getByText('Invite').closest('section') as HTMLElement
-    expect(
-      within(row).getByRole('img', { name: 'D, the WellD mascot, speaking from a lectern' })
-    ).toBeTruthy()
+    expect(within(row).queryByRole('img')).toBeNull()
   })
 
   it('labels the talks band "Talks", with no dot and no "Now"', async () => {
@@ -173,5 +171,22 @@ describe('Home', () => {
       },
     })
     expect(screen.getByText(/1 talks/)).toBeTruthy()
+  })
+
+  it('orders the content intro, upcoming, invite, browse link, graph', async () => {
+    await renderHome()
+    const at = (el: HTMLElement) => el.closest('section') as HTMLElement
+    const sections = [
+      at(screen.getByRole('heading', { name: 'Ada Lovelace' })),
+      nextRegion(),
+      at(screen.getByRole('heading', { name: 'Invite me to speak' })),
+      at(screen.getByRole('heading', { name: 'Browse the talks' })),
+      screen.getByRole('region', { name: 'Reserved area for the future talks graph' }),
+    ]
+    sections.forEach((el, i) => {
+      const next = sections[i + 1]
+      if (next)
+        expect(el.compareDocumentPosition(next) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    })
   })
 })

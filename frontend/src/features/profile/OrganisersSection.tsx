@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import { ButtonLink } from '@/components/content'
-import { Mascot } from '@/components/mascot'
 import type { Profile } from '@/content/schema'
 import { t } from '@/i18n/t'
 import { CopyButton } from './CopyButton'
@@ -144,11 +143,6 @@ export const OrganisersSection = ({ profile }: { profile: Profile }) => {
           {status}
         </p>
       </div>
-      <Mascot
-        pose="software-development-3"
-        alt={t('common.mascot.alt.organisers')}
-        className={styles.mascot}
-      />
     </section>
   )
 }

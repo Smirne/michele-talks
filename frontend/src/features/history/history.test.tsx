@@ -1,4 +1,4 @@
-import { cleanup, screen, within } from '@testing-library/react'
+import { cleanup, fireEvent, screen, within } from '@testing-library/react'
 import { afterEach, beforeAll, describe, expect, it } from 'vitest'
 import { renderWithRouter } from '@/components/content/test-utils'
 import type { Appearance, Talk } from '@/content/schema'
@@ -160,11 +160,52 @@ describe('HistoryView', () => {
   })
 })
 
+describe('progressive loading of past appearances', () => {
+  const many = Array.from({ length: 12 }, (_, i) =>
+    appearance(`p${String(i + 1).padStart(2, '0')}`, `2026-01-${String(i + 1).padStart(2, '0')}`)
+  )
+  const eggLink = () => screen.queryByRole('link', { name: /Before 2015/ })
+  const more = () => screen.queryByRole('button', { name: 'Show more past appearances' })
+
+  it('shows the 5 most recent past appearances first, with the button and no easter egg', async () => {
+    await render(many)
+    expect(dates()).toEqual(['2026-01-12', '2026-01-11', '2026-01-10', '2026-01-09', '2026-01-08'])
+    expect(more()).toBeTruthy()
+    expect(eggLink()).toBeNull()
+  })
+
+  it('loads the next 5 on "Show more", announces the count and focuses the first new row', async () => {
+    await render(many)
+    fireEvent.click(more() as HTMLElement)
+    expect(dates()).toHaveLength(10)
+    expect(screen.getByRole('status').textContent).toBe('Showing 10 of 12 past appearances')
+    expect(document.activeElement).toBe(screen.getByText('Event p07').closest('li'))
+  })
+
+  it('removes the button and shows the easter-egg link once all are shown', async () => {
+    await render(many)
+    fireEvent.click(more() as HTMLElement)
+    fireEvent.click(more() as HTMLElement)
+    expect(dates()).toHaveLength(12)
+    expect(screen.getByRole('status').textContent).toBe('Showing 12 of 12 past appearances')
+    expect(more()).toBeNull()
+    const link = eggLink() as HTMLElement
+    expect(link.getAttribute('href')).toBe('http://batteri.altervista.org')
+    expect(link.getAttribute('target')).toBe('_blank')
+    expect(link.getAttribute('rel')).toBe('noopener noreferrer')
+    expect(link.textContent).toBe('Before 2015: my previous on-stage experience')
+  })
+
+  it('shows no button and the easter egg when there are 5 or fewer past appearances', async () => {
+    await render(many.slice(0, 3))
+    expect(more()).toBeNull()
+    expect(eggLink()).toBeTruthy()
+  })
+})
+
 describe('History header', () => {
-  it('shows one D with its alt text', async () => {
+  it('shows one stage photo with its alt text', async () => {
     await renderWithRouter(<HistoryView appearances={[]} talks={talks} now={NOW} />)
-    expect(
-      screen.getAllByRole('img', { name: 'D, the WellD mascot, holding a pie chart' })
-    ).toHaveLength(1)
+    expect(screen.getAllByRole('img', { name: /Cloud Day 2026/ })).toHaveLength(1)
   })
 })
