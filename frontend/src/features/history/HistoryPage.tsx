@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import defaultContent from 'virtual:content'
 import { AppearanceRow, buttonClassName } from '@/components/content'
 import { PageHeader } from '@/components/layout'
-import { Mascot } from '@/components/mascot'
+import { STAGE_PHOTOS, StagePhoto } from '@/components/stage-photo'
 import type { Appearance, Talk } from '@/content/schema'
 import { t } from '@/i18n/t'
 import { splitAppearances } from '@/lib/schedule'
@@ -77,7 +77,7 @@ export const HistoryView = ({ appearances, talks, now = new Date() }: Props) => 
     <>
       <PageHeader
         title={t('common.nav.history')}
-        mascot={<Mascot pose="ui" alt={t('common.mascot.alt.history')} />}
+        image={<StagePhoto {...STAGE_PHOTOS.history} alt={t('common.stage.alt.history')} />}
       />
       {groups.length === 0 ? (
         <p className={styles.none}>{t('history.none')}</p>

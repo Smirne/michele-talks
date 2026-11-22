@@ -179,11 +179,9 @@ describe('Profile', () => {
       expect(link.hasAttribute('aria-label')).toBe(false)
     })
 
-    it('shows D with its alt text in the band', async () => {
+    it('shows no mascot in the band', async () => {
       await renderWithRouter(<ProfileView profile={profile} />)
-      expect(
-        within(band()).getByRole('img', { name: 'D, the WellD mascot, with a documents icon' })
-      ).toBeTruthy()
+      expect(within(band()).queryByRole('img', { name: /mascot/ })).toBeNull()
     })
   })
 })

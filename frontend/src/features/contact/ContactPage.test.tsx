@@ -59,10 +59,8 @@ describe('Contact', () => {
 })
 
 describe('Contact header', () => {
-  it('shows one D with its alt text', async () => {
+  it('shows one stage photo with its alt text', async () => {
     await renderWithRouter(<ContactView profile={profile} />)
-    expect(
-      screen.getAllByRole('img', { name: 'D, the WellD mascot, holding an open laptop' })
-    ).toHaveLength(1)
+    expect(screen.getAllByRole('img', { name: /Codemotion 2026 working table/ })).toHaveLength(1)
   })
 })

@@ -14,7 +14,7 @@ describe('Mascot', () => {
   })
 
   it('is decorative with an empty alt', () => {
-    const { container } = render(<Mascot pose="software-development" alt="" />)
+    const { container } = render(<Mascot pose="ux-strategy" alt="" />)
     expect(container.querySelector('img')?.getAttribute('alt')).toBe('')
     expect(screen.queryByRole('img')).toBeNull()
   })

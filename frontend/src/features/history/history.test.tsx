@@ -204,10 +204,8 @@ describe('progressive loading of past appearances', () => {
 })
 
 describe('History header', () => {
-  it('shows one D with its alt text', async () => {
+  it('shows one stage photo with its alt text', async () => {
     await renderWithRouter(<HistoryView appearances={[]} talks={talks} now={NOW} />)
-    expect(
-      screen.getAllByRole('img', { name: 'D, the WellD mascot, holding a pie chart' })
-    ).toHaveLength(1)
+    expect(screen.getAllByRole('img', { name: /Cloud Day 2026/ })).toHaveLength(1)
   })
 })

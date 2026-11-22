@@ -119,20 +119,6 @@
   outline-color: var(--white);
 }
 
-.contactMascot {
-  justify-self: start;
-  width: 100%;
-  max-width: 160px;
-  height: auto;
-  aspect-ratio: 360 / 200;
-  margin-top: var(--space-1);
-  border: 5px solid var(--white);
-  outline: 3px solid var(--ink);
-  border-radius: 14px;
-  box-shadow: 5px 5px 0 var(--ink);
-  transform: rotate(2.5deg);
-}
-
 .next {
   grid-area: next;
   padding: var(--space-3);

@@ -1,6 +1,6 @@
 .band {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 220px;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-6);
   align-items: start;
   margin-top: var(--space-6);
@@ -141,19 +141,6 @@
   border-left: 4px solid var(--signal);
 }
 
-.mascot {
-  justify-self: end;
-  width: 100%;
-  max-width: 220px;
-  height: auto;
-  aspect-ratio: 360 / 200;
-  border: 5px solid var(--white);
-  outline: 3px solid var(--ink);
-  border-radius: 14px;
-  box-shadow: var(--shadow-hard);
-  transform: rotate(2.5deg);
-}
-
 @media (max-width: 820px) {
   .band {
     grid-template-columns: 1fr;
@@ -163,10 +150,5 @@
   .actions > * {
     width: 100%;
     justify-content: center;
-  }
-
-  .mascot {
-    justify-self: start;
-    max-width: 240px;
   }
 }

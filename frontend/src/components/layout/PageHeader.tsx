@@ -8,8 +8,8 @@ type Props = {
   title: string
   /** The full document title, when it differs from the headline (default "<title> | <site>"). */
   documentTitle?: string
-  /** D (or another image) shown beside the title. */
-  mascot?: ReactNode
+  /** An image (a stage photo) shown beside the title. */
+  image?: ReactNode
   /** `compact` is the talk page's sentence-case title; `default` the big page heading. */
   size?: 'default' | 'compact'
 }
@@ -19,7 +19,7 @@ type Props = {
  * every page renders: set the document title, and move focus to the h1 after a navigation
  * (not on the first load, where the browser's own focus handling applies).
  */
-export const PageHeader = ({ title, documentTitle, mascot, size = 'default' }: Props) => {
+export const PageHeader = ({ title, documentTitle, image, size = 'default' }: Props) => {
   const ref = useRef<HTMLHeadingElement>(null)
   const tracker = useContext(NavigationTrackerContext)
 
@@ -48,7 +48,7 @@ export const PageHeader = ({ title, documentTitle, mascot, size = 'default' }: P
       >
         {title}
       </h1>
-      {mascot !== undefined && <div className={styles.mascot}>{mascot}</div>}
+      {image !== undefined && <div className={styles.image}>{image}</div>}
     </div>
   )
 }

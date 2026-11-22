@@ -1,6 +1,6 @@
 import defaultContent from 'virtual:content'
 import { PageHeader } from '@/components/layout'
-import { Mascot } from '@/components/mascot'
+import { STAGE_PHOTOS, StagePhoto } from '@/components/stage-photo'
 import type { Profile } from '@/content/schema'
 import { t } from '@/i18n/t'
 import styles from './ContactPage.module.css'
@@ -9,7 +9,7 @@ export const ContactView = ({ profile }: { profile: Profile }) => (
   <>
     <PageHeader
       title={t('common.nav.contact')}
-      mascot={<Mascot pose="software-development-1" alt={t('common.mascot.alt.contact')} />}
+      image={<StagePhoto {...STAGE_PHOTOS.contact} alt={t('common.stage.alt.contact')} />}
     />
     <div className={styles.board}>
       <p className={styles.intro}>{t('contact.intro')}</p>

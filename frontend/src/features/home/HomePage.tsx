@@ -2,7 +2,6 @@ import defaultContent from 'virtual:content'
 import { AppearanceRow, ButtonLink, LanguageBadge } from '@/components/content'
 import { GraphPlaceholder } from '@/components/graph-placeholder'
 import { PageHeader } from '@/components/layout'
-import { Mascot } from '@/components/mascot'
 import { ProfilePhoto } from '@/components/profile-photo'
 import type { Content } from '@/content/schema'
 import { t } from '@/i18n/t'
@@ -89,11 +88,6 @@ export const HomeView = ({ now = new Date(), content = defaultContent }: Props) 
               </ButtonLink>
             </div>
           </div>
-          <Mascot
-            pose="problem-identification"
-            alt={t('common.mascot.alt.homeContact')}
-            className={styles.contactMascot}
-          />
         </section>
 
         <section className={[styles.slot, styles.featured].join(' ')}>

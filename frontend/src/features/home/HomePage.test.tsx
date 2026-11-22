@@ -80,7 +80,7 @@ describe('Home', () => {
     expect(screen.getByText('Ada writes about engines.')).toBeTruthy()
   })
 
-  it('shows the profile photo in the intro row and no D card there', async () => {
+  it('shows the profile photo in the intro row and no mascot there', async () => {
     await renderHome()
     const intro = screen.getByText('Speaker').closest('section') as HTMLElement
     const photo = within(intro).getByRole('img', { name: 'Portrait of Ada' })
@@ -89,12 +89,10 @@ describe('Home', () => {
     expect(within(intro).queryByRole('img', { name: /mascot/ })).toBeNull()
   })
 
-  it('shows D speaking from a lectern in the contact row', async () => {
+  it('shows no D in the contact row', async () => {
     await renderHome()
     const row = screen.getByText('Invite').closest('section') as HTMLElement
-    expect(
-      within(row).getByRole('img', { name: 'D, the WellD mascot, speaking from a lectern' })
-    ).toBeTruthy()
+    expect(within(row).queryByRole('img')).toBeNull()
   })
 
   it('labels the talks band "Talks", with no dot and no "Now"', async () => {

@@ -9,10 +9,8 @@ beforeAll(() => {
 afterEach(cleanup)
 
 describe('Talks page header', () => {
-  it('shows one D with its alt text, also when there are no talks', async () => {
+  it('shows one stage photo with its alt text, also when there are no talks', async () => {
     await renderWithRouter(<TalksView talks={[]} />)
-    expect(
-      screen.getAllByRole('img', { name: 'D, the WellD mascot, with a code speech bubble' })
-    ).toHaveLength(1)
+    expect(screen.getAllByRole('img', { name: /DevFest Milano 2026/ })).toHaveLength(1)
   })
 })

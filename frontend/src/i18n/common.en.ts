@@ -18,11 +18,16 @@ export const commonStrings = {
   mascot: {
     alt: {
       notFound: 'D, the WellD mascot, searching with a magnifying glass',
-      talks: 'D, the WellD mascot, with a code speech bubble',
-      history: 'D, the WellD mascot, holding a pie chart',
-      contact: 'D, the WellD mascot, holding an open laptop',
-      homeContact: 'D, the WellD mascot, speaking from a lectern',
-      organisers: 'D, the WellD mascot, with a documents icon',
+    },
+  },
+  stage: {
+    alt: {
+      talks:
+        'The speaker at DevFest Milano 2026, microphone in hand, beside a screen showing the talk agenda',
+      history:
+        'Cloud Day 2026: two speakers on stage in front of a large screen with the conference title and the talk title',
+      contact:
+        'A speaker at a Codemotion 2026 working table, wearing a conference lanyard and talking, a laptop covered in stickers beside him',
     },
   },
   notFound: {
