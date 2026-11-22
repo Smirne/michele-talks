@@ -4,8 +4,11 @@
   gap: var(--space-6);
   align-items: start;
   margin-top: var(--space-6);
-  padding-top: var(--space-3);
-  border-top: 4px solid var(--ink);
+  padding: var(--space-3);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow-hard);
 }
 
 .main {
@@ -91,7 +94,8 @@
   max-width: 68ch;
   padding: var(--space-2);
   border: 2px solid var(--ink);
-  background: var(--white);
+  border-radius: 12px;
+  background: var(--mint);
 }
 
 .bio p {
@@ -143,6 +147,11 @@
   max-width: 220px;
   height: auto;
   aspect-ratio: 360 / 200;
+  border: 5px solid var(--white);
+  outline: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: var(--shadow-hard);
+  transform: rotate(2.5deg);
 }
 
 @media (max-width: 820px) {
