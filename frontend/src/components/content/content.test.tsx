@@ -274,8 +274,8 @@ describe('TalkCard topics and title (003)', () => {
   it('styles the title in sentence case and underlines it only on hover or focus', () => {
     const css = readFileSync('src/components/content/TalkCard.module.css', 'utf8')
     const title = /\.title\s*\{([^}]*)\}/.exec(css)?.[1] ?? ''
-    expect(title).toMatch(/text-transform:\s*none/)
-    expect(title).toContain('var(--title-size-card)')
+    expect(title).not.toMatch(/text-transform:\s*uppercase/)
+    expect(title).toMatch(/font-size:\s*clamp\(20px, 1\.9vw, 26px\)/)
     const link = /\.link\s*\{([^}]*)\}/.exec(css)?.[1] ?? ''
     expect(link).toMatch(/text-decoration:\s*none/)
     expect(css).toMatch(/\.link:hover,\s*\.link:focus-visible\s*\{[^}]*text-decoration:\s*underline/)

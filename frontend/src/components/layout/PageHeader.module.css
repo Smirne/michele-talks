@@ -9,8 +9,7 @@
 .title {
   margin: 0;
   min-width: 0;
-  font-size: clamp(48px, 12vw, 112px);
-  letter-spacing: -0.01em;
+  font-size: clamp(40px, 6vw, 76px);
 }
 
 .header:not(:has(.mascot)) {
@@ -20,10 +19,7 @@
 /* The talk page: sentence case, sized to fit a long title (token from tokens.css). */
 .compact {
   font-size: var(--title-size-page, clamp(28px, 3.6vw, 48px));
-  font-weight: 800;
   line-height: 1.1;
-  letter-spacing: 0;
-  text-transform: none;
 }
 
 .mascot {
@@ -34,6 +30,11 @@
   display: block;
   width: 128px;
   height: auto;
+  border: 5px solid var(--white);
+  outline: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: var(--shadow-hard);
+  transform: rotate(2.5deg);
 }
 
 @media (min-width: 640px) {

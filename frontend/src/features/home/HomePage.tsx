@@ -64,7 +64,7 @@ export const HomeView = ({ now = new Date(), content = defaultContent }: Props) 
           </div>
         </section>
 
-        <section className={styles.slot}>
+        <section className={[styles.slot, styles.invite].join(' ')}>
           <p className={styles.label}>{t('home.contact.label')}</p>
           <div>
             <h2 className={styles.heading}>{t('home.contact.title')}</h2>

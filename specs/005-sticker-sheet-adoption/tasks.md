@@ -70,7 +70,7 @@ merge or cherry-pick that branch — its stylesheet is an override layer the spe
 - [x] T1: Sticker Sheet tokens and fonts — refs: US-1, AC-1.1, AC-1.3 — deps: none
   - touch: `frontend/src/styles/tokens.css`, `frontend/src/styles/global.css`, `frontend/src/main.tsx`, `frontend/src/styles/styles.test.ts`, `frontend/package.json`, `frontend/pnpm-lock.yaml`
   - done when: `styles.test.ts` asserts the Sticker Sheet palette and fonts and passes; `pnpm build` succeeds with no Big Shoulders / Public Sans package left.
-- [ ] T2: Sticker styles in the shared components — refs: US-1, AC-1.1, AC-1.2, AC-1.4 — deps: T1
+- [x] T2: Sticker styles in the shared components — refs: US-1, AC-1.1, AC-1.2, AC-1.4 — deps: T1
   - touch: `frontend/src/components/**/*.module.css`, `frontend/src/components/content/button-class.ts`
   - done when: cards, rows, buttons, nav, header, footer and tags look as in the spike at 375px and 1280px (screenshots in the PR); grep finds no `!important` or `[class*=` in `frontend/src`; lint and unit tests pass.
 - [ ] T3: Sticker styles in the feature pages — refs: US-1, AC-1.1, AC-1.2, AC-1.4 — deps: T2

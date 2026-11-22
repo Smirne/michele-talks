@@ -1,14 +1,16 @@
 .card {
-  padding: var(--space-3) 0;
-  border-bottom: 2px solid var(--ink);
+  margin-bottom: var(--space-3);
+  padding: var(--space-3);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow-hard);
 }
 
 .title {
   margin: 0 0 var(--space-1);
-  font-size: var(--title-size-card);
-  font-weight: 800;
-  line-height: 1.1;
-  text-transform: none;
+  font-size: clamp(20px, 1.9vw, 26px);
+  line-height: 1.15;
 }
 
 .link {
