@@ -23,3 +23,14 @@ It is drift: amend the spec/plan and re-sync tasks — do not quietly edit the c
 - default: explicit `keydown` Escape handler besides the native cancel — why: testable in jsdom; focus return via the `close` event — where: `CardViewer.tsx`
 - default: the dialog image renders only while open — where: `CardViewer.tsx`
 - scope: new strings under `content.card.*` — where: `frontend/src/components/content/strings.en.ts`
+
+## T4–T6 · frontend-dev · 2026-11-22
+- scope: edited `TalkDetailPage.module.css` (outside T4 touch): the aside's cell spans both rows and the two-column layout starts at 861px instead of 1280px — why: the aside needs room to stick, sticky from 861px per the contract — where: `frontend/src/features/talks/TalkDetailPage.module.css`
+- scope: edited `contact/strings.en.ts` (outside T5 touch): `contact.reach` ("Reach me") replaces `contact.email` and `contact.profiles` — where: `frontend/src/features/contact/strings.en.ts`
+- reinterpretation: earlier e2e assertions (Home "Talks" CTA within the 800px fold from 001/003; the 2015 row visible on On stage) edited to match 005 — why: AC-2.1 and AC-4.2 supersede them — where: `frontend/e2e/organiser-feedback.e2e.ts`, `frontend/e2e/site.e2e.ts`
+- default: Contact email and profile links are one list, email first in the display font — where: `ContactPage.tsx`
+- default: Contact items top-aligned and shrunk (email 20px, links 16px, gap 12px) to fit 8 links in one row at 1280px — where: `ContactPage.module.css`
+- default: Home graph placeholder sits inside the board grid, left column, so the invite sticks to the end of the page — where: `HomePage.tsx`, `HomePage.module.css`
+- default: easter egg shows whenever there is ≥1 past appearance and all are shown — where: `HistoryPage.tsx`
+- default: live region text only when past rows exceed 5 — where: `HistoryPage.tsx`
+- default: after "Show more" the first new row `li` gets `tabIndex=-1` and focus, with a focus outline — why: `AppearanceRow` takes no ref — where: `HistoryPage.tsx`, `HistoryPage.module.css`
