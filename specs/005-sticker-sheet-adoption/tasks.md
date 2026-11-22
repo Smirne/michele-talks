@@ -67,7 +67,7 @@ merge or cherry-pick that branch — its stylesheet is an override layer the spe
 - Deferred: per-page link-preview images (non-goal); credit text for each photo until the owner
   gives it (AC-5.6 is a release review, recorded by T12).
 
-- [ ] T1: Sticker Sheet tokens and fonts — refs: US-1, AC-1.1, AC-1.3 — deps: none
+- [x] T1: Sticker Sheet tokens and fonts — refs: US-1, AC-1.1, AC-1.3 — deps: none
   - touch: `frontend/src/styles/tokens.css`, `frontend/src/styles/global.css`, `frontend/src/main.tsx`, `frontend/src/styles/styles.test.ts`, `frontend/package.json`, `frontend/pnpm-lock.yaml`
   - done when: `styles.test.ts` asserts the Sticker Sheet palette and fonts and passes; `pnpm build` succeeds with no Big Shoulders / Public Sans package left.
 - [ ] T2: Sticker styles in the shared components — refs: US-1, AC-1.1, AC-1.2, AC-1.4 — deps: T1

@@ -6,21 +6,22 @@ const read = (name: string) => readFileSync(new URL(name, import.meta.url), 'utf
 describe('tokens.css', () => {
   const tokens = read('./tokens.css')
 
-  it('defines the Programme Board palette', () => {
+  it('defines the Sticker Sheet palette', () => {
     for (const [name, hex] of [
-      ['mint', '#e3f1e7'],
-      ['ink', '#10281f'],
-      ['signal', '#b43a08'],
-      ['muted', '#3f5a4c'],
+      ['mint', '#ffd93b'],
+      ['ink', '#16110f'],
+      ['signal', '#0b7a72'],
+      ['muted', '#4a3f00'],
       ['white', '#ffffff'],
+      ['pink', '#ff5c93'],
     ]) {
       expect(tokens).toContain(`--${name ?? ''}: ${hex ?? ''};`)
     }
   })
 
   it('defines the three font families and the 8px spacing scale', () => {
-    expect(tokens).toMatch(/--font-display:\s*'Big Shoulders Display'/)
-    expect(tokens).toMatch(/--font-body:\s*'Public Sans'/)
+    expect(tokens).toMatch(/--font-display:\s*'Dela Gothic One'/)
+    expect(tokens).toMatch(/--font-body:\s*'Figtree'/)
     expect(tokens).toMatch(/--font-mono:\s*'Space Mono'/)
     expect(tokens).toContain('--space-1: 8px;')
     expect(tokens).toContain('--space-2: 16px;')
@@ -35,8 +36,10 @@ describe('tokens.css', () => {
     expect(tokens).toContain('--tag-size: 13px;')
   })
 
-  it('uses a 3px signal focus ring', () => {
-    expect(tokens).toContain('--focus-ring: 3px solid var(--signal);')
+  it('uses a 4px ink focus ring and the sticker edge tokens', () => {
+    expect(tokens).toContain('--focus-ring: 4px solid var(--ink);')
+    expect(tokens).toContain('--radius: 18px;')
+    expect(tokens).toContain('--shadow-hard: 5px 5px 0 var(--ink);')
   })
 })
 
@@ -51,9 +54,10 @@ describe('global.css', () => {
 
   it('self-hosts fonts via @fontsource, with no CDN', () => {
     const main = read('../main.tsx')
-    for (const face of ['big-shoulders-display', 'public-sans', 'space-mono']) {
+    for (const face of ['dela-gothic-one', 'figtree', 'space-mono']) {
       expect(main).toContain(`@fontsource/${face}`)
     }
+    expect(main).not.toMatch(/big-shoulders|public-sans/)
     expect(read('./global.css')).not.toMatch(/https?:\/\//)
   })
 })
