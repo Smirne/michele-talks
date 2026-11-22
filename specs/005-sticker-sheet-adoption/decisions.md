@@ -34,3 +34,14 @@ It is drift: amend the spec/plan and re-sync tasks — do not quietly edit the c
 - default: easter egg shows whenever there is ≥1 past appearance and all are shown — where: `HistoryPage.tsx`
 - default: live region text only when past rows exceed 5 — where: `HistoryPage.tsx`
 - default: after "Show more" the first new row `li` gets `tabIndex=-1` and focus, with a focus outline — why: `AppearanceRow` takes no ref — where: `HistoryPage.tsx`, `HistoryPage.module.css`
+
+## T10–T11 · frontend-dev · 2026-11-22
+- default: stage photos named `<page>-<event>-2026.webp`, Pillow quality 82 — where: `frontend/src/assets/stage/`
+- default: header image slot crops every photo to 3:2 (`object-position` 35% from top), sticker border and 2.5deg tilt, 128px wide on mobile / 240px from 640px — why: the portrait Contact photo would make the header tall — where: `StagePhoto.module.css`, `PageHeader.module.css`
+- default: `photos.ts` map holds per-page `src`, so a credit has one place to go — where: `src/components/stage-photo/photos.ts`
+- default: neutral alt texts, no name for the person in the Contact and Cloud Day photos, "the speaker" for DevFest — why: could not confirm who is pictured — where: `src/i18n/common.en.ts`
+- scope: also removed D from the Home invite and the Profile organisers band (now one column) — why: AC-5.4 "no D elsewhere" — where: `HomePage.tsx`, `OrganisersSection.tsx` and their CSS/tests
+- scope: `Mascot` reduced to the `ux-strategy` pose; unused PNGs and `common.mascot.alt.*` strings removed — where: `src/components/mascot/Mascot.tsx`, `src/i18n/common.en.ts`
+- default: footer logo 18px high, inline after "CTO and co-founder @" inside the WellD link, replacing the word — where: `SiteLayout.tsx`, `SiteLayout.module.css`
+- scope: T11 sweep in a new `e2e/sweep.e2e.ts` — where: `frontend/e2e/sweep.e2e.ts`
+- assumption: a pass of axe `color-contrast` is the AC-1.3 criterion; no Sticker Sheet CSS needed a fix — where: `frontend/e2e/sweep.e2e.ts`
