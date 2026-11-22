@@ -23,7 +23,7 @@ describe('stage photo files', () => {
     const path = await import('node:path')
     const dir = path.join(process.cwd(), 'src/assets/stage')
     const files = readdirSync(dir)
-    expect(files.length).toBeGreaterThanOrEqual(1)
+    expect(files.length).toBeGreaterThanOrEqual(3)
     for (const f of files) {
       expect(f).toMatch(/\.webp$/)
       expect(statSync(path.join(dir, f)).size).toBeLessThanOrEqual(300 * 1024)

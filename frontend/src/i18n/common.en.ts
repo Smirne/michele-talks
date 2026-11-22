@@ -23,9 +23,11 @@ export const commonStrings = {
   stage: {
     alt: {
       talks:
-        'The speaker at DevFest Milano 2026, microphone in hand, beside a screen showing the talk agenda',
+        'Michele Giacobazzi on stage at DevFest Milano 2026, microphone in hand, beside a screen showing the talk agenda',
       history:
-        'Cloud Day 2026: two speakers on stage in front of a large screen with the conference title and the talk title',
+        'Michele Giacobazzi on stage at Cloud Day 2026, in front of a screen showing his name and the talk title',
+      contact:
+        'Michele Giacobazzi facilitating a working table at the Codemotion Tech Lead Summit 2026',
     },
   },
   notFound: {

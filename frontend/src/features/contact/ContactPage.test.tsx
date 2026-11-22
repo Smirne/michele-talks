@@ -67,8 +67,8 @@ describe('Contact', () => {
 })
 
 describe('Contact header', () => {
-  it('shows no stage photo until the owner picks one', async () => {
+  it('shows one stage photo with its alt text', async () => {
     await renderWithRouter(<ContactView profile={profile} />)
-    expect(screen.queryAllByRole('img')).toHaveLength(0)
+    expect(screen.getAllByRole('img', { name: /Codemotion Tech Lead Summit 2026/ })).toHaveLength(1)
   })
 })

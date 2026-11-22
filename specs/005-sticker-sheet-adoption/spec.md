@@ -87,8 +87,7 @@ single D left as an easter egg, so that the site is about me speaking and still 
 - AC-5.1: Given any page, when it renders, then the footer shows the white WellD logo, linking to
   the WellD website, with alternative text "WellD", instead of the D image.
 - AC-5.2: Given Talks, On stage and Contact, when each renders, then it shows one stage photo of
-  the speaker where it previously showed D, with alternative text describing it. (Contact shows
-  none until the owner picks a photo of himself — see Amendments.)
+  the speaker where it previously showed D, with alternative text describing it.
 - AC-5.3: Given Not found, when it renders, then D (the magnifying-glass pose) is its image.
 - AC-5.4: Given any page other than Not found, when it renders, then no D image appears.
 - AC-5.5: Given any photo shown, when its file is checked, then it is no larger than 300 KB.
@@ -161,6 +160,6 @@ None. Resolved by the owner on 2026-11-22:
 
 ## Amendments
 - 2026-11-23 (owner, on the built PR): Contact goes back to two boxes — email, then profiles
-  (US-3 rewritten). WeAreDevelopers and AI4Dev are removed from the profile links. The Contact
-  photo (Codemotion working table) is not the owner and is removed; a replacement waits for the
-  owner to name a photo of himself.
+  (US-3 rewritten). WeAreDevelopers and AI4Dev are removed from the profile links. The first Contact
+  photo did not show the owner; it is replaced by the Codemotion working-table shot he picked
+  (0501-NF202411, cropped on him), and the Cloud Day photo is cropped on him (left speaker).
