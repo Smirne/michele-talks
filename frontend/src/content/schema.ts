@@ -94,6 +94,8 @@ export const appearanceSchema = z
     note: nonEmpty.optional(),
     coHosts: coHosts.optional(),
     eventUrl: httpUrl.optional(),
+    /** Social cards of the event; `src` is relative to the content folder, like `profile.photo`. */
+    cards: z.array(z.object({ src: nonEmpty, alt: nonEmpty.optional() })).min(1).optional(),
     resources: z
       .array(z.object({ type: z.enum(['slides', 'video'], 'unknown type'), url: httpUrl, language }))
       .optional(),
@@ -111,7 +113,14 @@ export const appearanceSchema = z
 /** The profile as written in `profile.yaml`. */
 export type RawProfile = z.infer<typeof profileSchema>
 export type Talk = z.infer<typeof talkSchema>
-export type Appearance = z.infer<typeof appearanceSchema>
+/** An appearance as written in `appearances.yaml`: card `src` is still a path. */
+export type RawAppearance = z.infer<typeof appearanceSchema>
+
+/** A social card as the app sees it: `url` is the fingerprinted asset. */
+export type Card = { url: string; alt?: string | undefined }
+
+/** An appearance as the app sees it: `cards` carry resolved urls. */
+export type Appearance = Omit<RawAppearance, 'cards'> & { cards?: Card[] }
 
 export type PhotoDownload = { url: string; format: 'JPG'; width: number; height: number }
 
@@ -122,7 +131,7 @@ export type Profile = Omit<RawProfile, 'photoDownload'> & { photoDownload: Photo
 export type ValidContent = {
   profile: RawProfile
   talks: Talk[]
-  appearances: Appearance[]
+  appearances: RawAppearance[]
 }
 
 /** Published content: `profile.photoDownload` is the resolved download (url, format, pixel size). */

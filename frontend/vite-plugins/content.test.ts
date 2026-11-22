@@ -42,6 +42,26 @@ describe('loadContent', () => {
     )
   })
 
+  it('fails naming the appearance when a card file does not exist (AC-7.5)', () => {
+    expect(() => loadContent(fixture('missing-card'))).toThrow(
+      /appearances\.yaml › shown-2026 › cards: no file at media\/cards\/nope\.webp \(relative to the content folder\)/
+    )
+  })
+
+  it('resolves cards of the real content to files under media/cards', () => {
+    const { appearances } = loadContent(path.resolve(import.meta.dirname, '../content'))
+    const withCards = appearances.filter((a) => a.cards !== undefined)
+    expect(withCards.map((a) => [a.id, a.cards?.length])).toEqual(
+      expect.arrayContaining([
+        ['devfest-milano-2026', 2],
+        ['cloud-day-2026', 2],
+        ['coffeetech', 1],
+        ['crafted-software', 1],
+      ])
+    )
+    expect(withCards).toHaveLength(10)
+  })
+
   it('fails when a content file is missing', () => {
     expect(() => loadContent(fixture('does-not-exist'))).toThrow(/profile\.yaml/)
   })

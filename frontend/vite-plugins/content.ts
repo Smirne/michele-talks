@@ -93,8 +93,31 @@ export const loadContent = (dir: string): Content => {
   const size = readJpegSize(readFileSync(downloadPath))
   if (size === undefined) throw photoDownloadError(`${downloadRel} is not a JPEG image`)
 
+  const missingCard = result.content.appearances.flatMap((a) =>
+    (a.cards ?? [])
+      .filter((card) => !existsSync(path.join(dir, card.src)))
+      .map((card): ContentError => ({
+        file: 'appearances.yaml',
+        item: a.id,
+        field: 'cards',
+        message: `no file at ${card.src} (relative to the content folder)`,
+      }))
+  )
+  if (missingCard.length > 0) throw new ContentValidationError(missingCard)
+
   return {
     ...result.content,
+    appearances: result.content.appearances.map(({ cards, ...a }) =>
+      cards === undefined
+        ? a
+        : {
+            ...a,
+            cards: cards.map(({ src, alt }) => ({
+              url: path.join(dir, src),
+              ...(alt === undefined ? {} : { alt }),
+            })),
+          }
+    ),
     profile: {
       ...result.content.profile,
       photoDownload: { url: downloadPath, format: 'JPG', ...size },
@@ -117,13 +140,22 @@ export const contentPlugin = (options: { dir: string }): Plugin => {
       for (const f of FILES) this.addWatchFile(path.join(dir, f))
       const content = loadContent(dir)
       const photo = path.join(dir, content.profile.photo)
-      // The photos are imported so Vite fingerprints and emits it.
+      // The photos and cards are imported so Vite fingerprints and emits them.
+      const cardUrls = content.appearances.flatMap((a) => (a.cards ?? []).map((c) => c.url))
+      const cardImports = cardUrls.map(
+        (u, i) => `import card${String(i)} from ${JSON.stringify(u)}`
+      )
+      const cardMap = cardUrls.map((u, i) => `  ${JSON.stringify(u)}: card${String(i)},`)
       return [
         `import photo from ${JSON.stringify(photo)}`,
         `import photoDownloadUrl from ${JSON.stringify(content.profile.photoDownload.url)}`,
+        ...cardImports,
         `const content = ${JSON.stringify(content)}`,
+        `const cardUrls = {\n${cardMap.join('\n')}\n}`,
         'const { photoDownload } = content.profile',
-        'export default { ...content, profile: { ...content.profile, photo,',
+        'const appearances = content.appearances.map((a) => a.cards === undefined ? a :',
+        '  { ...a, cards: a.cards.map((c) => ({ ...c, url: cardUrls[c.url] })) })',
+        'export default { ...content, appearances, profile: { ...content.profile, photo,',
         '  photoDownload: { ...photoDownload, url: photoDownloadUrl } } }',
       ].join('\n')
     },

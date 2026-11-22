@@ -88,7 +88,7 @@ merge or cherry-pick that branch — its stylesheet is an override layer the spe
 - [x] T7: Add the Coffeetech and Crafted Software meetups — refs: US-8, AC-8.1, AC-8.2 — deps: none
   - touch: `frontend/content/appearances.yaml`
   - done when: content validation passes; a unit/e2e check finds both appearances with the date, city, language, session title, note and co-host/talk link the ACs state, and Coffeetech has no talk link.
-- [ ] T8: Social cards in content — refs: US-7, AC-7.5 — deps: T7
+- [x] T8: Social cards in content — refs: US-7, AC-7.5 — deps: T7
   - touch: `frontend/src/content/schema.ts`, `frontend/src/content/validate.test.ts`, `frontend/src/content/__fixtures__/**`, `frontend/vite-plugins/content.ts`, `frontend/src/vite-env.d.ts`, `frontend/src/components/content/types.ts`, `frontend/content/appearances.yaml`, `frontend/content/media/cards/*`
   - done when: a fixture with a missing card file fails validation with the contract's error; every card listed in AC-7.5 is converted (WebP ≤ 150 KB, ≤ 800px) and attached to its appearance; `pnpm build` succeeds.
 - [ ] T9: Card thumbnails and full-size viewer — refs: US-7, AC-7.1, AC-7.2, AC-7.3, AC-7.4 — deps: T2, T8
